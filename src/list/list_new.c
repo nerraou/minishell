@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   list_new.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 15:28:29 by nerraou           #+#    #+#             */
-/*   Updated: 2022/05/27 15:28:32 by nerraou          ###   ########.fr       */
+/*   Created: 2022/05/27 15:36:16 by nerraou           #+#    #+#             */
+/*   Updated: 2022/05/27 15:36:17 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-#define MINISHELL_H
+#include "list.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
+t_list *list_new(void)
+{
+	t_list *new_list;
 
-void test();
-
-#endif
+	new_list = (t_list *)malloc(sizeof(t_list));
+	if (!new_list)
+		return (NULL);
+	new_list->head = NULL;
+	new_list->tail = NULL;
+	new_list->size = 0;
+	return (new_list);
+}

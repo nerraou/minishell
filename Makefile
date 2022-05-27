@@ -3,6 +3,11 @@ CFLAGS = -Wall -Wextra -Werror
 HEADERS = ./includes/minishell.h
 
 SRC =  src/test.c\
+		src/list/add_back.c\
+		src/list/add_front.c\
+		src/list/elem_new.c\
+		src/list/list_del.c\
+		src/list/list_new.c\
 		src/main.c
 
 
@@ -16,7 +21,7 @@ all: $(NAME)
 	gcc $(CFLAGS) $(INCLUDES_PATH) -o $@ -c $<
 
 $(NAME): $(OBJ)
-	gcc -o $(NAME) $^ $(INCLUDES_PATH) 
+	gcc -o $(NAME) $^ $(INCLUDES_PATH) -lreadline -lncurses
 
 clean:
 	rm -f $(OBJ)

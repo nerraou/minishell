@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   add_back.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 15:28:29 by nerraou           #+#    #+#             */
-/*   Updated: 2022/05/27 15:28:32 by nerraou          ###   ########.fr       */
+/*   Created: 2022/05/27 15:39:45 by nerraou           #+#    #+#             */
+/*   Updated: 2022/05/27 15:39:57 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-#define MINISHELL_H
+#include "list.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
+void add_back(t_list *list, void *content)
+{
+	t_element *elm;
 
-void test();
-
-#endif
+	elm = elem_new(content);
+	if (!elm)
+		return;
+	if (!list->head)
+		list->head = elm;
+	if (!list->tail)
+		list->tail = elm;
+	else
+	{
+		list->tail->next = elm;
+		list->tail = elm;
+	}
+	list->size++;
+}
