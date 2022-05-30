@@ -2,14 +2,12 @@ NAME = minishell
 CFLAGS = -Wall -Wextra -Werror 
 HEADERS = ./includes/minishell.h
 
-SRC =  src/test.c\
-		src/list/add_back.c\
+SRC = src/list/add_back.c\
 		src/list/add_front.c\
 		src/list/elem_new.c\
 		src/list/list_del.c\
 		src/list/list_new.c\
 		src/main.c
-
 
 OBJ =  $(SRC:.c=.o)
 
