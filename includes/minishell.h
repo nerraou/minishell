@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:28:29 by nerraou           #+#    #+#             */
-/*   Updated: 2022/05/30 18:12:36 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/05/31 11:52:10 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <readline/readline.h>
+#include "libft.h"
+#include "list.h"
+#include "lexer.h"
 
 typedef struct s_token
 {
