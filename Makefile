@@ -7,6 +7,14 @@ SRC = src/list/add_back.c\
 		src/list/elem_new.c\
 		src/list/list_del.c\
 		src/list/list_new.c\
+		src/list/list_new.c\
+		src/libft/ft_substr.c\
+		src/libft/ft_strncpy.c\
+		src/libft/ft_strlen.c\
+		src/libft/ft_isspace.c\
+		src/lexer/set_d_string.c\
+		src/lexer/set_s_string.c\
+		src/lexer/ft_skip_spaces.c\
 		src/main.c
 
 OBJ =  $(SRC:.c=.o)
