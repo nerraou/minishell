@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:28:29 by nerraou           #+#    #+#             */
-/*   Updated: 2022/05/31 11:52:10 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/01 14:11:24 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@
 #define T_WORD 0
 #define T_D_STRING 1
 #define T_S_SRRING 2
-#define T_SEMICOLON 3
-#define T_LESS 4
-#define T_GREAT 5
-#define T_DLESS 6
-#define T_DGREAT 7
-#define T_PIPE 8
+#define T_LESS 3
+#define T_GREAT 4
+#define T_DLESS 5
+#define T_DGREAT 6
+#define T_PIPE 7
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <readline/readline.h>
 #include "libft.h"
 #include "list.h"

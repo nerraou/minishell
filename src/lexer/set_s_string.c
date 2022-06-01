@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:10:12 by nerraou           #+#    #+#             */
-/*   Updated: 2022/05/31 14:13:31 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/01 14:28:40 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ int set_s_string(const char *str, t_list *list)
 	token = (t_token *)malloc(sizeof(t_token));
 	if (!token)
 		return -1;
-	token->value = ft_substr(str, 0, t_len);
+	token->value = ft_substr(str, 1, t_len - 2);
 	if (!token->value)
 		return -1;
-	token->type = T_D_STRING;
+	token->type = T_S_SRRING;
 	add_back(list, token);
 	return t_len;
 }

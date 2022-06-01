@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   set_dgreat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/31 09:38:51 by nerraou           #+#    #+#             */
-/*   Updated: 2022/05/31 10:50:33 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/01 15:57:07 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/01 16:01:18 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int ft_strcmp(const char *s1, const char *s2)
+int set_dgreat(const char *str, t_list *list)
 {
-	unsigned const char *str1;
-	unsigned const char *str2;
-	size_t i;
-	int diff;
+	t_token *token;
 
-	str1 = (unsigned char *)s1;
-	str2 = (unsigned char *)s2;
-	i = 0;
-	diff = 0;
-	while (str1[i] || str2[i])
+	if (ft_strncmp(str, ">>", 2) == 0)
 	{
-		diff = str1[i] - str2[i];
-		if (diff != 0)
-			break;
-		i++;
+		token = (t_token *)malloc(sizeof(t_token));
+		if (!token)
+			return -1;
+		token->value = ft_strdup(">>");
+		token->type = T_DGREAT;
+		add_back(list, token);
+		return 2;
 	}
-	return (diff);
+	return -1;
 }

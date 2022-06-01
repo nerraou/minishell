@@ -12,8 +12,16 @@ SRC = src/list/add_back.c\
 		src/libft/ft_strncpy.c\
 		src/libft/ft_strlen.c\
 		src/libft/ft_isspace.c\
+		src/libft/ft_strdup.c\
+		src/libft/ft_strncmp.c\
 		src/lexer/set_d_string.c\
 		src/lexer/set_s_string.c\
+		src/lexer/set_less.c\
+		src/lexer/set_great.c\
+		src/lexer/set_dless.c\
+		src/lexer/set_dgreat.c\
+		src/lexer/set_pipe.c\
+		src/lexer/set_word.c\
 		src/lexer/ft_skip_spaces.c\
 		src/main.c
 
