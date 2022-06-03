@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:55:20 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/01 15:06:41 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/03 17:37:47 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@ int set_less(const char *str, t_list *list)
 
 	if (str[0] == '<')
 	{
-		token = (t_token *)malloc(sizeof(t_token));
+		token = ft_new_token(ft_strdup("<"), T_LESS);
 		if (!token)
 			return -1;
-		token->value = ft_strdup("<");
-		token->type = T_LESS;
 		add_back(list, token);
 		return 1;
 	}

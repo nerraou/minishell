@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:28:25 by nerraou           #+#    #+#             */
-/*   Updated: 2022/05/27 15:29:50 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/03 17:42:17 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <fcntl.h>
+
+#include "libft.h"
 
 typedef struct s_element
 {
 	void *content;
 	struct s_element *next;
+	struct s_element *prev;
 } t_element;
 
 typedef struct s_list

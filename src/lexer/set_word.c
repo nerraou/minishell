@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:59:09 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/01 17:37:26 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/03 17:39:01 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int word_len(const char *str)
 	int i;
 
 	i = 0;
-	while (str[i] && !ft_isspace(str[i]))
+	while (str[i] && !ft_isspace(str[i]) && str[i] != '\n')
 	{
 		i++;
 	}
@@ -32,11 +32,9 @@ int set_word(const char *str, t_list *list)
 	t_len = word_len(str);
 	if (t_len == 0)
 		return -1;
-	token = (t_token *)malloc(sizeof(t_token));
+	token = ft_new_token(ft_substr(str, 0, t_len), T_WORD);
 	if (!token)
 		return -1;
-	token->value = ft_substr(str, 0, t_len);
-	token->type = T_WORD;
 	add_back(list, token);
 	return t_len;
 }

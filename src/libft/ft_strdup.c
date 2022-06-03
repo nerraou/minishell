@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:26:21 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/01 14:26:40 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/03 16:45:13 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char *ft_strdup(const char *s)
 	char *dst;
 
 	len = ft_strlen(s);
-	dst = (char *)malloc(sizeof(char) * (len + 1));
+	dst = (char *)ft_malloc(sizeof(char) * (len + 1));
 	if (!dst)
 		return (NULL);
 	ft_strcpy(dst, s);

@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:28:29 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/01 14:11:24 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/03 17:52:37 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 #define T_DLESS 5
 #define T_DGREAT 6
 #define T_PIPE 7
+#define T_NEWLINE 8
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -36,11 +37,5 @@
 #include "libft.h"
 #include "list.h"
 #include "lexer.h"
-
-typedef struct s_token
-{
-	char *value;
-	int type;
-} t_token;
 
 #endif

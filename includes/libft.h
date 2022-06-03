@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:37:41 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/01 15:36:02 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/03 17:54:11 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include "list.h"
 
 char *ft_substr(char const *s, unsigned int start, size_t len);
 char *ft_strncpy(char *dest, const char *src, size_t n);
@@ -24,7 +25,8 @@ int ft_indexof(const char *str, int c);
 int ft_atoi(const char *str);
 int ft_isspace(int c);
 char *ft_strdup(const char *s);
-
+void *ft_memset(void *s, int c, size_t n);
+void *ft_malloc(size_t size);
 size_t ft_strlen(const char *s);
 
 #endif
