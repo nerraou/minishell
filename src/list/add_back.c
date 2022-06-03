@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:39:45 by nerraou           #+#    #+#             */
-/*   Updated: 2022/05/27 15:39:57 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/03 14:11:22 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void add_back(t_list *list, void *content)
 	else
 	{
 		list->tail->next = elm;
+		elm->prev = list->tail;
 		list->tail = elm;
 	}
 	list->size++;

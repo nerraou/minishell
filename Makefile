@@ -14,6 +14,10 @@ SRC = src/list/add_back.c\
 		src/libft/ft_isspace.c\
 		src/libft/ft_strdup.c\
 		src/libft/ft_strncmp.c\
+		src/libft/ft_malloc.c\
+		src/libft/ft_memset.c\
+		src/lexer/lexer.c\
+		src/lexer/set_newline.c\
 		src/lexer/set_d_string.c\
 		src/lexer/set_s_string.c\
 		src/lexer/set_less.c\
@@ -23,6 +27,7 @@ SRC = src/list/add_back.c\
 		src/lexer/set_pipe.c\
 		src/lexer/set_word.c\
 		src/lexer/ft_skip_spaces.c\
+		src/lexer/ft_new_token.c\
 		src/main.c
 
 OBJ =  $(SRC:.c=.o)

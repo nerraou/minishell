@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_pipe.c                                         :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/01 15:25:23 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/03 17:35:40 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/03 17:12:45 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/03 17:13:30 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int set_pipe(const char *str, t_list *list)
+void *ft_memset(void *s, int c, size_t n)
 {
-	t_token *token;
+	size_t i;
+	unsigned char *str;
 
-	if (str[0] == '|')
+	str = s;
+	i = 0;
+	while (n > i)
 	{
-		token = ft_new_token(ft_strdup("|"), T_PIPE);
-		if (!token)
-			return -1;
-		add_back(list, token);
-		return 1;
+		*str = (unsigned char)c;
+		str++;
+		i++;
 	}
-	return -1;
+	return (s);
 }

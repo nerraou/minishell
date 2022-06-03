@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_pipe.c                                         :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/01 15:25:23 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/03 17:35:40 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/03 15:12:50 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/03 16:37:57 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int set_pipe(const char *str, t_list *list)
+void *ft_malloc(size_t size)
 {
-	t_token *token;
+	void *arr;
 
-	if (str[0] == '|')
-	{
-		token = ft_new_token(ft_strdup("|"), T_PIPE);
-		if (!token)
-			return -1;
-		add_back(list, token);
-		return 1;
-	}
-	return -1;
+	arr = malloc(size);
+	if (!arr)
+		return (NULL);
+	ft_memset(arr, 0, size);
+	return (arr);
 }
