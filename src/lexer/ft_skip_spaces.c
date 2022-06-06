@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_skip_spaces.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:34:21 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/01 10:46:26 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/06 11:50:11 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 int ft_skip_spaces(const char *str)
 {

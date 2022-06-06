@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   set_dless.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:55:53 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/03 17:36:28 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/06 11:50:20 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 int set_dless(const char *str, t_list *list)
 {

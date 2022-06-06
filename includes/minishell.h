@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:28:29 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/03 17:52:37 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/06 15:09:00 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,20 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
+#include <fcntl.h>
+#include <termios.h>
 #include <readline/readline.h>
+#include <readline/history.h>
 #include "libft.h"
 #include "list.h"
 #include "lexer.h"
+#include "get_next_line.h"
+
+void	update_shlvl(char **envp);
+char	*get_env_value(char	*env, char **envp, int *i);
+void	history(char *cmd, char **envp);
+
 
 #endif

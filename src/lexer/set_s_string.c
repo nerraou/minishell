@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   set_s_string.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:10:12 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/03 17:33:10 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/06 11:50:33 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 static int is_string(const char *str, int *t_len)
 {

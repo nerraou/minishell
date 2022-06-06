@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   set_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:25:23 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/03 17:35:40 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/06 11:50:31 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 int set_pipe(const char *str, t_list *list)
 {

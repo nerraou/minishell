@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   set_word.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:59:09 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/03 17:39:01 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/06 11:50:35 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 static int word_len(const char *str)
 {

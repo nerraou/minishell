@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_front.c                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 15:37:15 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/06 11:49:14 by obelkhad         ###   ########.fr       */
+/*   Created: 2021/11/05 16:03:10 by obelkhad          #+#    #+#             */
+/*   Updated: 2022/06/06 12:11:31 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void add_front(t_list *list, void *content)
+void	*ft_memcpy(void	*dst, const void	*src, size_t	n)
 {
-	t_element *elm;
+	size_t	i;
 
-	elm = elem_new(content);
-	if (!elm)
-		return;
-	if (!list->tail)
-		list->tail = elm;
-	elm->next = list->head;
-	if (list->head != NULL)
-		list->head->prev = elm;
-	list->head = elm;
-	list->size++;
+	i = 0;
+	if (dst == NULL && src == NULL)
+		return (0);
+	while (i < n)
+	{
+		((char *)dst)[i] = ((char *)src)[i];
+		i++;
+	}
+	return (dst);
 }

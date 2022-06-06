@@ -1,9 +1,36 @@
 #include "minishell.h"
-#include "list.h"
-#include <string.h>
 
-int main()
+void	prompt(char *_prompt, char **envp)
 {
+	char	*cmd;
+	while (1)
+	{
+		struct termios tp;
+		if (tcgetattr(STDIN_FILENO, &tp))
+			perror("tcgetattr");
+
+		tp.c_lflag &= ~ECHO;
+		if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &tp))
+			perror("tcsetattr");
+		cmd = readline(_prompt);
+		if (cmd)
+			history(cmd, envp);
+	}
+}
+
+
+int main(int argc, char **argv, char **envp)
+{
+	(void)argc;
+	(void)argv;
+	update_shlvl(envp);
+	history(NULL, envp);
+	prompt("$minishll ", envp);
+
+
+
+
+
 
 	// char *str = strdup("cat -e <<EOF\nA\nB\nEOF");
 	char *str = strdup("cat -e <<EOF |");

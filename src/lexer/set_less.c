@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   set_less.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 11:55:20 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/03 17:37:47 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/06 11:50:27 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 int set_less(const char *str, t_list *list)
 {
