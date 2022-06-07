@@ -6,11 +6,11 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 14:46:37 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/06 15:12:19 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:41:17 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 void	retrieve_old_cmds(char *file)
 {

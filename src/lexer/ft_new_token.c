@@ -6,11 +6,11 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 17:15:47 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/06 11:50:08 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:41:17 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 t_token *ft_new_token(char *value, int type)
 {
