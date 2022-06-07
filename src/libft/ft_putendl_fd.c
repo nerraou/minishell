@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_and.c                                          :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 10:27:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/10 09:17:11 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/11 16:26:03 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/11 16:37:30 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "libft.h"
 
-int set_and(const char *str, t_list *list)
+void ft_putendl_fd(char *s, int fd)
 {
-	t_token *token;
-
-	if (str[0] == '&' && str[1] == '&')
-	{
-		token = ft_new_token(ft_strdup("&&"), T_AND);
-		if (!token)
-			return -1;
-		add_back(list, token);
-		return 2;
-	}
-	return -1;
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
 }

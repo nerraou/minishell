@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   set_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:25:23 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/09 10:28:17 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/10 09:20:40 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "lexer.h"
 
 int set_pipe(const char *str, t_list *list)
 {

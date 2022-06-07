@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_and.c                                          :+:      :+:    :+:   */
+/*   expect.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 10:27:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/10 09:17:11 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/07 14:53:44 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/11 15:42:48 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "parser.h"
 
-int set_and(const char *str, t_list *list)
+int expect(t_element *cur_elem, t_element *next_elem)
 {
-	t_token *token;
-
-	if (str[0] == '&' && str[1] == '&')
+	if (is_separator(cur_elem) && separator_expect(next_elem))
+		return FT_FAILURE;
+	else if (is_redirection(cur_elem))
 	{
-		token = ft_new_token(ft_strdup("&&"), T_AND);
-		if (!token)
-			return -1;
-		add_back(list, token);
-		return 2;
+		if (symbol_expect(next_elem) == 1)
+			return FT_SUCCESS;
+		return FT_FAILURE;
 	}
-	return -1;
+	else if (is_dless(cur_elem))
+	{
+		if (dless_expect(next_elem))
+			return FT_SUCCESS;
+		return FT_FAILURE;
+	}
+	return FT_SUCCESS;
 }

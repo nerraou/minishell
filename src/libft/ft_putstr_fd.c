@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_and.c                                          :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 10:27:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/10 09:17:11 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/11 16:23:49 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/11 16:36:23 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "libft.h"
 
-int set_and(const char *str, t_list *list)
+void ft_putstr_fd(char *s, int fd)
 {
-	t_token *token;
+	int i;
 
-	if (str[0] == '&' && str[1] == '&')
+	i = 0;
+	while (s[i])
 	{
-		token = ft_new_token(ft_strdup("&&"), T_AND);
-		if (!token)
-			return -1;
-		add_back(list, token);
-		return 2;
+		ft_putchar_fd(s[i], fd);
+		i++;
 	}
-	return -1;
 }

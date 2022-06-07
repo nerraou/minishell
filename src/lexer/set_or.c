@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   set_or.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 10:27:33 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/09 10:34:14 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/10 09:17:18 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "lexer.h"
 
 int set_or(const char *str, t_list *list)
 {

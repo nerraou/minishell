@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_and.c                                          :+:      :+:    :+:   */
+/*   is_dless.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 10:27:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/10 09:17:11 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/07 18:51:51 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/10 09:16:15 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "parser.h"
 
-int set_and(const char *str, t_list *list)
+int is_dless(t_element *cur_elem)
 {
 	t_token *token;
 
-	if (str[0] == '&' && str[1] == '&')
-	{
-		token = ft_new_token(ft_strdup("&&"), T_AND);
-		if (!token)
-			return -1;
-		add_back(list, token);
-		return 2;
-	}
-	return -1;
+	token = (t_token *)cur_elem->content;
+	if (token->type == T_DLESS)
+		return (1);
+	return (0);
 }

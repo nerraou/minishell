@@ -20,6 +20,9 @@ SRC =\
 	src/libft/ft_isalnum.c\
 	src/libft/ft_isalpha.c\
 	src/libft/ft_isdigit.c\
+	src/libft/ft_putchar_fd.c\
+	src/libft/ft_putstr_fd.c\
+	src/libft/ft_putendl_fd.c\
 \
 	src/lexer/ft_new_token.c\
 	src/lexer/ft_skip_spaces.c\
@@ -43,6 +46,18 @@ SRC =\
 	src/list/elem_new.c\
 	src/list/list_del.c\
 	src/list/list_new.c\
+\
+	src/parser/expect.c\
+	src/parser/is_dless.c\
+	src/parser/is_separator.c\
+	src/parser/is_redirection.c\
+	src/parser/is_word_string.c\
+	src/parser/separator_expect.c\
+	src/parser/symbol_expect.c\
+	src/parser/dless_expect.c\
+	src/parser/check_start.c\
+	src/parser/print_syntax_error.c\
+	src/parser/parser.c\
 \
 	src/get_next_line/get_next_line.c\
 	src/get_next_line/get_next_line_utils.c\
