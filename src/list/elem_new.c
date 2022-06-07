@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   elem_new.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:37:02 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/03 17:42:21 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/06 16:41:17 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "list.h"
+#include "minishell.h"
 
 t_element *elem_new(void *content)
 {

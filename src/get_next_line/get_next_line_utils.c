@@ -1,39 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/31 09:35:28 by nerraou           #+#    #+#             */
+/*   Created: 2021/12/12 21:38:41 by obelkhad          #+#    #+#             */
 /*   Updated: 2022/06/06 16:41:17 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_atoi(const char *str)
+size_t	check_end_of_line(char	*buf)
 {
-	int i;
-	int signe;
-	int num;
+	size_t	i;
 
 	i = 0;
-	signe = 1;
-	num = 0;
-	while (str[i] == '\n' || str[i] == '\t' || str[i] == '\r' || str[i] == '\v' || str[i] == '\f' || str[i] == ' ')
+	while (buf[i] != '\n' && buf[i])
 		i++;
-	if (str[i] == '+')
-		i++;
-	else if (str[i] == '-')
-	{
-		i++;
-		signe = -1;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		num = num * 10 + str[i] - '0';
-		i++;
-	}
-	return (num * signe);
+	return (i);
 }
+
+
+char	*ft_strjoin1(char **line, char **str)
+{
+	char	*temp;
+
+	if (!*line && *str)
+	{
+		*line = (char *)malloc(sizeof(char) * (ft_strlen(*str) + 1));
+		ft_strncpy(*line, *str, ft_strlen(*str) + 1);
+		free(*str);
+		*str = NULL;
+		return (*line);
+	}
+	if (*line && *str)
+	{
+		temp = *line;
+		*line = malloc(sizeof(char) * (ft_strlen(*line) + ft_strlen(*str) + 1));
+		ft_strncpy(*line, temp, ft_strlen(temp));
+		ft_strncpy(*line + ft_strlen(temp), *str, ft_strlen(*str) + 1);
+		free(*str);
+		*str = NULL;
+		free(temp);
+	}
+	return (*line);
+}
+

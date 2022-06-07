@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_skip_spaces.c                                   :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/31 17:34:21 by nerraou           #+#    #+#             */
+/*   Created: 2021/11/05 16:03:10 by obelkhad          #+#    #+#             */
 /*   Updated: 2022/06/06 16:41:17 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_skip_spaces(const char *str)
+void	*ft_memcpy(void	*dst, const void	*src, size_t	n)
 {
-	int i;
+	size_t	i;
 
 	i = 0;
-	while (ft_isspace(str[i]))
+	if (dst == NULL && src == NULL)
+		return (0);
+	while (i < n)
+	{
+		((char *)dst)[i] = ((char *)src)[i];
 		i++;
-	return i;
+	}
+	return (dst);
 }

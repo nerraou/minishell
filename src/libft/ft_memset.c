@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 17:12:45 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/03 17:13:30 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/06 16:41:17 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 void *ft_memset(void *s, int c, size_t n)
 {

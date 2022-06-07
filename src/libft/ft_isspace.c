@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 15:20:42 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/02 14:47:57 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/06 16:41:17 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 int ft_isspace(int c)
 {

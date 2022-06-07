@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_skip_spaces.c                                   :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/31 17:34:21 by nerraou           #+#    #+#             */
+/*   Created: 2021/11/06 10:18:27 by obelkhad          #+#    #+#             */
 /*   Updated: 2022/06/06 16:41:17 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_skip_spaces(const char *str)
+size_t	ft_strlcpy(char	*dst, const char *src, size_t dstsize)
 {
-	int i;
+	size_t	i;
 
 	i = 0;
-	while (ft_isspace(str[i]))
-		i++;
-	return i;
+	if (dstsize != 0)
+	{
+		while (i < dstsize - 1 && src[i])
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	return (ft_strlen(src));
 }

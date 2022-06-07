@@ -1,34 +1,49 @@
 NAME = minishell
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror
 HEADERS = ./includes/minishell.h
 
-SRC = src/list/add_back.c\
-		src/list/add_front.c\
-		src/list/elem_new.c\
-		src/list/list_del.c\
-		src/list/list_new.c\
-		src/list/list_new.c\
-		src/libft/ft_substr.c\
-		src/libft/ft_strncpy.c\
-		src/libft/ft_strlen.c\
-		src/libft/ft_isspace.c\
-		src/libft/ft_strdup.c\
-		src/libft/ft_strncmp.c\
-		src/libft/ft_malloc.c\
-		src/libft/ft_memset.c\
-		src/lexer/lexer.c\
-		src/lexer/set_newline.c\
-		src/lexer/set_d_string.c\
-		src/lexer/set_s_string.c\
-		src/lexer/set_less.c\
-		src/lexer/set_great.c\
-		src/lexer/set_dless.c\
-		src/lexer/set_dgreat.c\
-		src/lexer/set_pipe.c\
-		src/lexer/set_word.c\
-		src/lexer/ft_skip_spaces.c\
-		src/lexer/ft_new_token.c\
-		src/main.c
+SRC =\
+	src/libft/ft_atoi.c\
+	src/libft/ft_indexof.c\
+	src/libft/ft_isspace.c\
+	src/libft/ft_itoa.c\
+	src/libft/ft_malloc.c\
+	src/libft/ft_memset.c\
+	src/libft/ft_strdup.c\
+	src/libft/ft_strlen.c\
+	src/libft/ft_strncmp.c\
+	src/libft/ft_strncpy.c\
+	src/libft/ft_substr.c\
+	src/libft/ft_strjoin.c\
+	src/libft/ft_strlcpy.c\
+	src/libft/ft_memcpy.c\
+\
+	src/lexer/ft_new_token.c\
+	src/lexer/ft_skip_spaces.c\
+	src/lexer/lexer.c\
+	src/lexer/set_d_string.c\
+	src/lexer/set_dgreat.c\
+	src/lexer/set_dless.c\
+	src/lexer/set_great.c\
+	src/lexer/set_less.c\
+	src/lexer/set_newline.c\
+	src/lexer/set_pipe.c\
+	src/lexer/set_s_string.c\
+	src/lexer/set_word.c\
+\
+	src/list/add_back.c\
+	src/list/add_front.c\
+	src/list/elem_new.c\
+	src/list/list_del.c\
+	src/list/list_new.c\
+\
+	src/get_next_line/get_next_line.c\
+	src/get_next_line/get_next_line_utils.c\
+\
+	src/initialing/shlvl.c\
+	src/initialing/history.c\
+\
+	src/main.c\
 
 OBJ =  $(SRC:.c=.o)
 
