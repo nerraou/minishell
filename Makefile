@@ -30,6 +30,8 @@ SRC =\
 	src/lexer/set_pipe.c\
 	src/lexer/set_s_string.c\
 	src/lexer/set_word.c\
+	src/lexer/set_or.c\
+	src/lexer/set_and.c\
 \
 	src/list/add_back.c\
 	src/list/add_front.c\

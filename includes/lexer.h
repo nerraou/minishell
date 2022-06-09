@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:48 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/09 15:56:17 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/09 16:04:21 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ int set_word(const char *str, t_list *list);
 int set_newline(const char *str, t_list *list);
 t_token *ft_new_token(char *value, int type);
 void lexer(const char *str, t_list *list);
-
+int set_or(const char *str, t_list *list);
+int set_and(const char *str, t_list *list);
 #endif
