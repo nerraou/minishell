@@ -1,40 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_word.c                                         :+:      :+:    :+:   */
+/*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/31 14:59:09 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/09 11:26:37 by obelkhad         ###   ########.fr       */
+/*   Created: 2022/06/09 14:11:17 by obelkhad          #+#    #+#             */
+/*   Updated: 2022/06/09 15:25:08 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int word_len(const char *str)
+void	dollar(t_list *list, char **envp)
 {
-	int i;
+	t_element	*temp;
+	t_token		*token;
+	char		*buffer;
+	int			i;
 
 	i = 0;
-	while (str[i] && !ft_isspace(str[i]) && str[i] != '\n')
+	temp = list->head;
+	while (temp)
 	{
-		i++;
+		token = (t_token *)temp->content;
+		if (token->type == 2)
+			return ;
+		if (token->type == 1 || !token->type)
+		{
+			while (token->value[i] && token->value[i] != '$')
+				i++;
+			if (token->value[i] && i > 0)
+			{
+				
+			}
+		}
+		i = 0;
+		temp = temp->next;
 	}
-	return i;
 }
 
-int set_word(const char *str, t_list *list)
+void	expanding(t_list *list)
 {
-	int t_len;
-	t_token *token;
-
-	t_len = word_len(str);
-	if (t_len == 0)
-		return -1;
-	token = ft_new_token(ft_substr(str, 0, t_len), T_WORD);
-	if (!token)
-		return -1;
-	add_back(list, token);
-	return t_len;
 }

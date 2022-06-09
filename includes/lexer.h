@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:48 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/06 12:55:42 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/09 15:56:17 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_token
 #define T_DGREAT 6
 #define T_PIPE 7
 #define T_NEWLINE 8
+#define T_OR 9
+#define T_AND 10
 
 int set_d_string(const char *str, t_list *list);
 int set_s_string(const char *str, t_list *list);
