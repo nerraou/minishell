@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:49:39 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/06 16:41:17 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/07 11:52:19 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void lexer(const char *str, t_list *list)
 	int i;
 	int len;
 
-	len = 0;
 	i = 0;
+	len = 0;
 	while (str[i])
 	{
 		i += ft_skip_spaces(str + i);

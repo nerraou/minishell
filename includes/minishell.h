@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:28:29 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/06 15:09:00 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/09 09:49:08 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 #define T_DGREAT 6
 #define T_PIPE 7
 #define T_NEWLINE 8
+#define T_OR 9
+#define T_AND 10
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -46,6 +48,6 @@
 void	update_shlvl(char **envp);
 char	*get_env_value(char	*env, char **envp, int *i);
 void	history(char *cmd, char **envp);
-
+void	prompt(char *_prompt, char **envp);
 
 #endif

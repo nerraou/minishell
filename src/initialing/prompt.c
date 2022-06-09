@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 07:47:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/07 07:47:14 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/09 10:17:08 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,31 @@ int	empty_prompt(char *cmd)
 	return (0);
 }
 
+void lol(char *str, t_list *list)
+{
+    t_element *elm;
+    t_token *token;
+    int i;
+
+    i = 0;
+    list = list_new();
+    lexer(str, list);
+    elm = list->head;
+    while (i < list->size)
+    {
+        token = (t_token *)elm->content;
+        printf(" [ %s ] [%d]\n", token->value, token->type);
+        elm = elm->next;
+        i++;
+    }
+}
+
 void	prompt(char *_prompt, char **envp)
 {
+	t_list	*list;
 	char	*cmd;
+
+	list = NULL;
 	while (1)
 	{
 		struct termios tp;
@@ -40,9 +62,13 @@ void	prompt(char *_prompt, char **envp)
 		if (!empty_prompt(cmd))
 		{
 			history(cmd, envp);
-			printf("DONE\n");
-			/* CHECK syntax => DO parsing */
+			lol(cmd, list);
+			// lexer(cmd, &list);
 		}
+		// printf("TEST1\n");
+		// printf("| %s |\n",(char *)list->head->content);
+		// printf("TEST2\n");
 		free(cmd);
 	}
+
 }

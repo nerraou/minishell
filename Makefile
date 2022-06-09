@@ -42,6 +42,9 @@ SRC =\
 \
 	src/initialing/shlvl.c\
 	src/initialing/history.c\
+	src/initialing/prompt.c\
+\
+	src/execute/execut.c\
 \
 	src/main.c\
 
