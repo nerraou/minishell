@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 10:27:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/09 10:29:24 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/09 10:34:22 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int set_and(const char *str, t_list *list)
 		if (!token)
 			return -1;
 		add_back(list, token);
-		return 1;
+		return 2;
 	}
 	return -1;
 }

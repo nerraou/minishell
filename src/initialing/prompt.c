@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 07:47:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/09 10:17:08 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/09 10:32:48 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,7 @@ void	prompt(char *_prompt, char **envp)
 		{
 			history(cmd, envp);
 			lol(cmd, list);
-			// lexer(cmd, &list);
 		}
-		// printf("TEST1\n");
-		// printf("| %s |\n",(char *)list->head->content);
-		// printf("TEST2\n");
 		free(cmd);
 	}
 
