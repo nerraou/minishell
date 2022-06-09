@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:49:39 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/07 11:52:19 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/09 10:26:00 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ void lexer(const char *str, t_list *list)
 		len = set_d_string(str + i, list);
 		if (len == -1)
 			len = set_s_string(str + i, list);
+		if (len == -1)
+			len = set_or(str + i, list);
+		if (len == -1)
+			len = set_and(str + i, list);
 		if (len == -1)
 			len = set_dless(str + i, list);
 		if (len == -1)
