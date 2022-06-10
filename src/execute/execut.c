@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 11:07:11 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/10 09:50:33 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/10 15:31:14 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	execut(t_list *list, char **envp)
     int i;
 
     i = 0;
-	(void) envp;
     elm = list->head;
 	expanding(list, envp);
 

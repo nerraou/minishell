@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:20:21 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/10 11:43:15 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/10 15:17:44 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ char	*get_env_value(char	*env, char **envp)
 		(i)++;
 	if (envp[i])
 		return (envp[i] + ft_strlen(env));
-	return (0);
+	return (env);
 }
