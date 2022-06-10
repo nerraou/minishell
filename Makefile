@@ -51,6 +51,7 @@ SRC =\
 \
 	src/execute/execut.c\
 	src/execute/expanding.c\
+	src/execute/env_value.c\
 \
 	src/main.c\
 

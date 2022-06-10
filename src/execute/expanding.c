@@ -6,32 +6,44 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:11:17 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/10 10:01:05 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/10 12:00:46 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	expand(char *value, int i)
+void	expand(char *value, char **envp, int i)
 {
 	char	*after;
 	char	*val;
 	char	*befor;
-	int 	j;
 
-	befor = ft_substr(value, 0, i - 1);
+	int 	j;
+	(void)envp;
+
+	if (i - 1 > 0)
+		befor = ft_substr(value, 0, i - 1);
+	else
+		befor = NULL;
 	j = i;
-	i--;
 	while (value[j] && ft_isalnum(value[j]))
 		j++;
-	val = ft_substr(value, i, j - i);
-	i = j + 1;
-	j++;
-	while (value[i])
-		i++;
-	after = ft_substr(value, j, i - j);
-	printf()
-
+	val = ft_substr(value, i , j - i);
+	i = j;
+	while (value[j])
+		j++;
+	if (j - i > 0)
+		after = ft_substr(value, i, j - i);
+	else
+		after = NULL;
+	printf ("val = %s\n",ft_strjoin(val, "="));
+	{
+		printf ("befor = %s\n",befor);
+		printf ("val = %s\n",val);
+		printf ("after = %s\n",after);
+	}
+	// result = ft_strjoin(ft_strjoin(befor, get_env_value(ft_strjoin(val, "="), envp, NULL)), after);
+	// printf ("result = %s\n",result);
 }
 
 void	dollar_handling(t_list *list, char **envp)
@@ -53,12 +65,10 @@ void	dollar_handling(t_list *list, char **envp)
 		if (token->value[i] == '$' && token->value[i + 1])
 		{
 			i++;
-			if (token->type == 2)
+			if (token->type == T_S_SRRING)
 				return ;
-			if (token->type == 1 || !token->type)
-			{
-				expand(token->value, i);
-			}
+			if (token->type == T_D_STRING || token->type == T_WORD)
+				expand(token->value, envp, i);
 		}
 
 		elm = elm->next;
