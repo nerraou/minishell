@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:37:41 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/06 12:12:18 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/09 18:52:08 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ char	*ft_itoa(int n);
 void	*ft_memcpy(void	*dst, const void	*src, size_t	n);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcpy(char	*dst, const char *src, size_t dstsize);
-
+int	ft_isalnum(int c);
+int	ft_isalpha(int c);
+int	ft_isdigit(int c);
 #endif

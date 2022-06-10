@@ -17,6 +17,9 @@ SRC =\
 	src/libft/ft_strjoin.c\
 	src/libft/ft_strlcpy.c\
 	src/libft/ft_memcpy.c\
+	src/libft/ft_isalnum.c\
+	src/libft/ft_isalpha.c\
+	src/libft/ft_isdigit.c\
 \
 	src/lexer/ft_new_token.c\
 	src/lexer/ft_skip_spaces.c\
@@ -44,6 +47,10 @@ SRC =\
 \
 	src/initialing/shlvl.c\
 	src/initialing/history.c\
+	src/initialing/prompt.c\
+\
+	src/execute/execut.c\
+	src/execute/expanding.c\
 \
 	src/main.c\
 

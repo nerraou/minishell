@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:28:29 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/09 15:55:49 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/09 16:53:00 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ void	update_shlvl(char **envp);
 char	*get_env_value(char	*env, char **envp, int *i);
 void	history(char *cmd, char **envp);
 void	prompt(char *_prompt, char **envp);
-void	execut(t_list *list);
+void	execut(t_list *list, char **envp);
+void	expanding(t_list *list, char **envp);
 #endif

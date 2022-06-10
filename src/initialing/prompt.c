@@ -6,9 +6,11 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 07:47:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/07 07:47:14 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/10 09:03:36 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
 
 #include "minishell.h"
 
@@ -27,9 +29,12 @@ int	empty_prompt(char *cmd)
 
 void	prompt(char *_prompt, char **envp)
 {
+	t_list	*list;
 	char	*cmd;
+
 	while (1)
 	{
+		list = list_new();
 		struct termios tp;
 		if (tcgetattr(STDIN_FILENO, &tp))
 			perror("tcgetattr");
@@ -40,9 +45,10 @@ void	prompt(char *_prompt, char **envp)
 		if (!empty_prompt(cmd))
 		{
 			history(cmd, envp);
-			printf("DONE\n");
-			/* CHECK syntax => DO parsing */
+			lexer(cmd, list);
+			execut(list, envp);
 		}
 		free(cmd);
+		list_del(&list, free);
 	}
 }
