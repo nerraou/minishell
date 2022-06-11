@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:48 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/09 16:04:21 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/11 11:23:47 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_token
 #define T_NEWLINE 8
 #define T_OR 9
 #define T_AND 10
+#define T_L_PARENTH 12 // (
+#define T_R_PARENTH 13 // )
 
 int set_d_string(const char *str, t_list *list);
 int set_s_string(const char *str, t_list *list);
