@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_value.c                                        :+:      :+:    :+:   */
+/*   cmd_exe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/10 11:20:21 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/12 10:30:11 by obelkhad         ###   ########.fr       */
+/*   Created: 2022/06/12 16:25:43 by obelkhad          #+#    #+#             */
+/*   Updated: 2022/06/12 16:44:42 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_env(char	*vrb, char **envp)
+void	cmd_execut(t_element *f_cmd, t_element *l_cmd, char **envp)
 {
-	int	i;
+	t_element *elm;
+	t_token *token;
 
-	i = 0;
-	while (envp && envp[i] && ft_strncmp(vrb, envp[i], ft_strlen(vrb)))
-		i++;
-	if (envp[i])
-		return (i);
-	return (0);
-}
+	elm = f_cmd;
 
-char	*get_env_value(char	*env, char **envp)
-{
-	int i;
+	expanding(f_cmd, l_cmd, envp);
 
-	i = 0;
-	while (envp && envp[i] && ft_strncmp(env, envp[i], ft_strlen(env)))
-		(i)++;
-	if (envp[i])
-		return (envp[i] + ft_strlen(env));
-	return (ft_substr(env, 0, ft_strlen(env) - 1));
+	while (elm && elm->prev != l_cmd)
+	{
+		token = (t_token *)elm->content;
+        printf("[ %s ][%d]\n",token->value, token->type);
+        elm = elm->next;
+	}
+	printf("--------------------------\n");
+
+	// pipe_parse
+	// fork_processes
 }

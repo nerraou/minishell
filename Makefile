@@ -35,6 +35,8 @@ SRC =\
 	src/lexer/set_word.c\
 	src/lexer/set_or.c\
 	src/lexer/set_and.c\
+	src/lexer/set_l_parenth.c \
+	src/lexer/set_r_parenth.c \
 \
 	src/list/add_back.c\
 	src/list/add_front.c\
@@ -52,6 +54,8 @@ SRC =\
 	src/execute/execut.c\
 	src/execute/expanding.c\
 	src/execute/env_value.c\
+	src/execute/cmd_exe.c\
+	src/execute/dividing_cmd.c\
 \
 	src/main.c\
 

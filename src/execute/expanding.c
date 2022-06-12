@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:11:17 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/11 15:58:40 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/12 10:30:20 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	dollar_handling(t_element *f_cmd, t_element *l_cmd, char **envp)
 	int			i;
 
 	elm = f_cmd;
-	while (elm->prev != l_cmd)
+	while (elm && elm->prev != l_cmd)
 	{
 		token = (t_token *)elm->content;
 		i = 0;
@@ -67,6 +67,7 @@ void	dollar_handling(t_element *f_cmd, t_element *l_cmd, char **envp)
 
 void	expanding(t_element *f_cmd, t_element *l_cmd, char **envp)
 {
+
 	dollar_handling(f_cmd, l_cmd, envp);
 	/* expanding the [*] */
 }
