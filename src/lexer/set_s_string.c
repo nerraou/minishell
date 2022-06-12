@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:10:12 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/10 09:20:46 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/12 15:52:07 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int set_s_string(const char *str, t_list *list)
 	token = ft_new_token(ft_substr(str, 1, t_len - 2), T_S_SRRING);
 	if (!token)
 		return -1;
+	if (str[t_len] && is_joinable(str[t_len]))
+		token->to_join = TRUE;
 	add_back(list, token);
 	return t_len;
 }

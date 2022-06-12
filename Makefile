@@ -40,6 +40,7 @@ SRC =\
 	src/lexer/set_and.c\
 	src/lexer/set_l_parenth.c \
 	src/lexer/set_r_parenth.c \
+	src/lexer/is_joinable.c\
 \
 	src/list/add_back.c\
 	src/list/add_front.c\

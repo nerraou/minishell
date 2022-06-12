@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_new_token.c                                     :+:      :+:    :+:   */
+/*   is_joinable.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/03 17:15:47 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/12 14:44:50 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/12 14:31:41 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/12 14:47:15 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-t_token *ft_new_token(char *value, int type)
+static int is_redirection(char c)
 {
-	t_token *token;
+	if (c == '>' || c == '<')
+		return (1);
+	return (0);
+}
 
-	if (!value)
-		return NULL;
-	token = (t_token *)ft_malloc(sizeof(t_token));
-	if (!token)
-		return NULL;
-	token->value = value;
-	token->type = type;
-	return token;
+static int is_separator(char c)
+{
+	if (c == '|' || c == '&')
+		return (1);
+	return (0);
+}
+
+int is_joinable(char c)
+{
+	if (!is_redirection(c) && !is_separator(c) && !ft_isspace(c) && c != '\n')
+		return (1);
+	return (0);
 }

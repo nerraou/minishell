@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 10:29:52 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/11 10:32:21 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/12 14:15:12 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,8 @@
 #define FT_STDIN 0
 #define FT_STDOUT 1
 #define FT_STDERR 2
+
+#define FALSE 0
+#define TRUE 1
 
 #endif
