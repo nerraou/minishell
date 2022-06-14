@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:28:29 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/14 09:20:50 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/14 09:27:53 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@
 #include "get_next_line.h"
 
 void update_shlvl(char **envp);
-char *get_env_value(char *env, char **envp, int *i);
 void history(char *cmd, char **envp);
 void prompt(char *_prompt, char **envp);
-void execut(t_list *list);
+
 #endif
