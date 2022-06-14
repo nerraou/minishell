@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:49:39 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/09 11:26:26 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/12 10:44:35 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ void lexer(const char *str, t_list *list)
 	{
 		i += ft_skip_spaces(str + i);
 		len = set_d_string(str + i, list);
+		if (len == -1)
+			len = set_l_parenth(str + i, list);
+		if (len == -1)
+			len = set_r_parenth(str + i, list);
+
 		if (len == -1)
 			len = set_s_string(str + i, list);
 		if (len == -1)

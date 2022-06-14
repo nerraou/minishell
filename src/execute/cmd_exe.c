@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shlvl.c                                            :+:      :+:    :+:   */
+/*   cmd_exe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/06 11:26:11 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/10 11:39:43 by obelkhad         ###   ########.fr       */
+/*   Created: 2022/06/12 16:25:43 by obelkhad          #+#    #+#             */
+/*   Updated: 2022/06/12 16:44:42 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	update_shlvl(char **envp)
+void	cmd_execut(t_element *f_cmd, t_element *l_cmd, char **envp)
 {
-	int	i;
-	int	lvl;
+	t_element *elm;
+	t_token *token;
 
-	i = 0;
-	while (envp && envp[i])
+	elm = f_cmd;
+
+	expanding(f_cmd, l_cmd, envp);
+
+	while (elm && elm->prev != l_cmd)
 	{
-		envp[i] = ft_strdup(envp[i]);
-		i++;
+		token = (t_token *)elm->content;
+        printf("[ %s ][%d]\n",token->value, token->type);
+        elm = elm->next;
 	}
-	lvl = ft_atoi(get_env_value("SHLVL=", envp));
-	lvl++;
-	i = check_env("SHLVL=", envp);
-	free(envp[i]);
-	envp[i] = ft_strdup(ft_strjoin("SHLVL=", ft_itoa(lvl)));
+	printf("--------------------------\n");
+
+	// pipe_parse
+	// fork_processes
 }

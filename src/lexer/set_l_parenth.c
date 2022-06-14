@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shlvl.c                                            :+:      :+:    :+:   */
+/*   set_l_parenth.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/06 11:26:11 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/10 11:39:43 by obelkhad         ###   ########.fr       */
+/*   Created: 2022/06/12 10:44:57 by obelkhad          #+#    #+#             */
+/*   Updated: 2022/06/12 10:47:39 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	update_shlvl(char **envp)
+int set_l_parenth(const char *str, t_list *list)
 {
-	int	i;
-	int	lvl;
+	t_token *token;
 
-	i = 0;
-	while (envp && envp[i])
+	if (str[0] == '(')
 	{
-		envp[i] = ft_strdup(envp[i]);
-		i++;
+		token = ft_new_token(ft_strdup("("), T_L_PARENTH);
+		if (!token)
+			return -1;
+		add_back(list, token);
+		return 1;
 	}
-	lvl = ft_atoi(get_env_value("SHLVL=", envp));
-	lvl++;
-	i = check_env("SHLVL=", envp);
-	free(envp[i]);
-	envp[i] = ft_strdup(ft_strjoin("SHLVL=", ft_itoa(lvl)));
+	return -1;
 }
