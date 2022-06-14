@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   set_word.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:59:09 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/09 11:26:37 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/12 14:52:17 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "lexer.h"
 
 static int word_len(const char *str)
 {
@@ -35,6 +35,8 @@ int set_word(const char *str, t_list *list)
 	token = ft_new_token(ft_substr(str, 0, t_len), T_WORD);
 	if (!token)
 		return -1;
+	if (str[t_len] && is_joinable(str[t_len]))
+		token->to_join = TRUE;
 	add_back(list, token);
 	return t_len;
 }

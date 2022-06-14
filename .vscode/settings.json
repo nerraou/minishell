@@ -1,6 +1,7 @@
 {
-	"files.associations": {
-		"list.h": "c",
-		"utility": "c"
-	}
+  "files.associations": {
+	"list.h": "c",
+	"parser.h": "c",
+	"stddef.h": "c"
+}
 }

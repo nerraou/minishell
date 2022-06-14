@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_new_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 17:15:47 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/09 08:15:49 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/12 14:44:50 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "lexer.h"
 
 t_token *ft_new_token(char *value, int type)
 {

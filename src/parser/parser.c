@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_and.c                                          :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 10:27:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/10 09:17:11 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/11 17:43:34 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/11 18:01:31 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "parser.h"
 
-int set_and(const char *str, t_list *list)
+int parser(const char *str, t_list *list)
 {
+	t_element *elm;
 	t_token *token;
 
-	if (str[0] == '&' && str[1] == '&')
+	lexer(str, list);
+	if (list->size == 0)
+		return FT_SUCCESS;
+	elm = list->head;
+	if (check_start(elm))
+		return FT_FAILURE;
+	while (elm)
 	{
-		token = ft_new_token(ft_strdup("&&"), T_AND);
-		if (!token)
-			return -1;
-		add_back(list, token);
-		return 2;
+		token = (t_token *)elm->content;
+		if (expect(elm, elm->next) == 1)
+			return FT_FAILURE;
+		elm = elm->next;
 	}
-	return -1;
+	return FT_SUCCESS;
 }

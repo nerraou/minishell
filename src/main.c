@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include "parser.h"
 
 int main(int argc, char **argv, char **envp)
 {

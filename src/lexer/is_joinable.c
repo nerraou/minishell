@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_and.c                                          :+:      :+:    :+:   */
+/*   is_joinable.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 10:27:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/10 09:17:11 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/12 14:31:41 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/12 14:47:15 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int set_and(const char *str, t_list *list)
+static int is_redirection(char c)
 {
-	t_token *token;
+	if (c == '>' || c == '<')
+		return (1);
+	return (0);
+}
 
-	if (str[0] == '&' && str[1] == '&')
-	{
-		token = ft_new_token(ft_strdup("&&"), T_AND);
-		if (!token)
-			return -1;
-		add_back(list, token);
-		return 2;
-	}
-	return -1;
+static int is_separator(char c)
+{
+	if (c == '|' || c == '&')
+		return (1);
+	return (0);
+}
+
+int is_joinable(char c)
+{
+	if (!is_redirection(c) && !is_separator(c) && !ft_isspace(c) && c != '\n')
+		return (1);
+	return (0);
 }

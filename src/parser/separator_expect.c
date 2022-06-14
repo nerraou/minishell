@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_and.c                                          :+:      :+:    :+:   */
+/*   separator_expect.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 10:27:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/10 09:17:11 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/10 15:24:06 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/11 16:01:59 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "parser.h"
 
-int set_and(const char *str, t_list *list)
+int separator_expect(t_element *next_elem)
 {
-	t_token *token;
-
-	if (str[0] == '&' && str[1] == '&')
+	if (next_elem == NULL || is_separator(next_elem))
 	{
-		token = ft_new_token(ft_strdup("&&"), T_AND);
-		if (!token)
-			return -1;
-		add_back(list, token);
-		return 2;
+		print_syntax_error(next_elem);
+		return FT_FAILURE;
 	}
-	return -1;
+	return FT_SUCCESS;
 }
