@@ -12,6 +12,7 @@ SRC =\
 	src/libft/ft_strdup.c\
 	src/libft/ft_strlen.c\
 	src/libft/ft_strncmp.c\
+	src/libft/ft_strcmp.c\
 	src/libft/ft_strncpy.c\
 	src/libft/ft_substr.c\
 	src/libft/ft_strjoin.c\
@@ -59,6 +60,7 @@ SRC =\
 	src/parser/check_start.c\
 	src/parser/print_syntax_error.c\
 	src/parser/parser.c\
+	src/parser/heredoc.c\
 \
 	src/get_next_line/get_next_line.c\
 	src/get_next_line/get_next_line_utils.c\

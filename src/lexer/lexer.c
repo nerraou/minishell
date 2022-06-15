@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:49:39 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/14 09:22:42 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/14 14:20:09 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ void lexer(const char *str, t_list *list)
 		if (len == -1)
 			len = set_pipe(str + i, list);
 		if (len == -1)
+		{
 			len = set_newline(str + i, list);
+			if (len != -1)
+				break;
+		}
 		if (len == -1)
 			len = set_word(str + i, list);
 		if (str[i] && len == -1)
