@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:29:46 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/12 16:27:33 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/15 11:40:19 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ typedef struct s_opr_logic
 	t_element	*opr_cmd;
 	t_element	*l_cmd;
 	int			operator;
+	t_element	*parent_r;
+	t_element	*parent_l;
 } t_opr_logic;
 
 void	execut(t_list *list, char **envp);

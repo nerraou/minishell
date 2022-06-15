@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:11:17 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/12 10:30:20 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/14 15:55:40 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,16 @@ void	dollar_handling(t_element *f_cmd, t_element *l_cmd, char **envp)
 	int			i;
 
 	elm = f_cmd;
+
 	while (elm && elm->prev != l_cmd)
 	{
-		token = (t_token *)elm->content;
 		i = 0;
+		token = (t_token *)elm->content;
 		while (token->value[i] && token->value[i] != '$')
 			i++;
 		if (token->value[i] == '$' && token->value[i + 1])
 		{
 			i++;
-			if (token->type == T_S_SRRING)
-				return ;
 			if (token->type == T_D_STRING || token->type == T_WORD)
 				expand(&token->value, envp, i);
 		}

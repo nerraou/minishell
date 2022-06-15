@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:25:43 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/12 16:44:42 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/15 11:53:46 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 void	cmd_execut(t_element *f_cmd, t_element *l_cmd, char **envp)
 {
 	t_element *elm;
+	(void)envp;
+	(void)l_cmd;
+	(void)f_cmd;
 	t_token *token;
 
 	elm = f_cmd;
