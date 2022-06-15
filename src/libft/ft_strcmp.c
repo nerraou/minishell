@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stddef.h                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/11 10:29:52 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/14 17:10:51 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/15 11:43:24 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/15 17:16:11 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_STDDEF_H
-#define FT_STDDEF_H
+#include "libft.h"
 
-#define FT_SUCCESS 0
-#define FT_FAILURE 1
-#define FT_REPROMPT 2
+int ft_strcmp(const char *s1, const char *s2)
+{
+	unsigned const char *str1;
+	unsigned const char *str2;
+	size_t i;
+	int diff;
 
-#define FT_STDIN 0
-#define FT_STDOUT 1
-#define FT_STDERR 2
-
-#define FALSE 0
-#define TRUE 1
-
-#endif
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	i = 0;
+	diff = 0;
+	while (str1[i] || str2[i])
+	{
+		diff = str1[i] - str2[i];
+		if (diff != 0)
+			break;
+		i++;
+	}
+	return (diff);
+}
