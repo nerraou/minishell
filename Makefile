@@ -48,6 +48,7 @@ SRC =\
 	src/list/elem_new.c\
 	src/list/list_del.c\
 	src/list/list_new.c\
+	src/list/del_element.c\
 \
 	src/parser/expect.c\
 	src/parser/is_dless.c\
@@ -75,6 +76,7 @@ SRC =\
 	src/execute/env_value.c\
 	src/execute/cmd_exe.c\
 	src/execute/dividing_cmd.c\
+	src/execute/join.c\
 \
 	src/main.c\
 

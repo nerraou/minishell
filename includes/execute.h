@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:29:46 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/15 14:47:41 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/16 09:18:48 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ char	*get_env_value(char	*env, char **envp);
 int		check_env(char	*vrb, char **envp);
 void	cmd_execut(t_element *f_cmd, t_element *l_cmd, char **envp);
 void	priority_handling(t_element *f_cmd, t_element *l_cmd, char **envp);
-/*need optimze*/
 void	divide_by_last_operator(t_opr_logic *opertor);
-
+void	join_pieces(t_element *f_cmd, t_element *l_cmd);
 
 #endif
