@@ -65,6 +65,8 @@ SRC =\
 	src/parser/parser.c\
 	src/parser/heredoc.c\
 \
+	src/env/init_env.c\
+\
 	src/get_next_line/get_next_line.c\
 	src/get_next_line/get_next_line_utils.c\
 \

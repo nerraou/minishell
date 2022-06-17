@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_new.c                                         :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 15:36:16 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/17 17:10:22 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/16 12:03:50 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/17 11:57:12 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
-t_list *list_new(void)
+int echo(int ac, char *av[])
 {
-	t_list *new_list;
+	int i;
+	int has_n_flag;
 
-	new_list = (t_list *)ft_malloc(sizeof(t_list));
-	if (!new_list)
-		return (NULL);
-	new_list->head = NULL;
-	new_list->tail = NULL;
-	new_list->size = 0;
-	return (new_list);
+	i = 1;
+	has_n_flag = strcmp(av[1], "-n") == 0;
+	if (has_n_flag)
+		i++;
+	while (i < ac)
+	{
+		printf("%s", av[i]);
+		i++;
+		if (av[i])
+			printf(" ");
+	}
+	if (!has_n_flag)
+		printf("\n");
+	return (0);
 }
