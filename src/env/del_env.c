@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   del_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/16 12:03:50 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/18 10:44:03 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/18 19:41:43 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/18 19:44:35 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "env.h"
 
-int echo(int ac, char *av[])
+void del_env(t_env *env)
 {
-	int i;
-	int has_n_flag;
-
-	i = 1;
-	has_n_flag = strcmp(av[1], "-n") == 0;
-	if (has_n_flag)
-		i++;
-	while (i < ac)
-	{
-		printf("%s", av[i]);
-		i++;
-		if (av[i])
-			printf(" ");
-	}
-	if (!has_n_flag)
-		printf("\n");
-	return (0);
+	free(env->key);
+	free(env->prepared);
+	free(env->value);
+	free(env);
 }

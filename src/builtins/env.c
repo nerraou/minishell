@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/16 12:03:50 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/18 10:44:03 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/18 10:37:17 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/18 10:52:10 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int echo(int ac, char *av[])
+int env(t_list *env_list)
 {
-	int i;
-	int has_n_flag;
 
-	i = 1;
-	has_n_flag = strcmp(av[1], "-n") == 0;
-	if (has_n_flag)
-		i++;
-	while (i < ac)
+	t_element *elem;
+	t_env *env_elm;
+	int i;
+
+	elem = env_list->head;
+	i = 0;
+	while (env_list->size > i)
 	{
-		printf("%s", av[i]);
+		env_elm = (t_env *)elem->content;
+		// printf("%s\n", env_elm->key);
+		// printf("%s\n", env_elm->value);
+		printf("%s\n", env_elm->prepared);
+		elem = elem->next;
 		i++;
-		if (av[i])
-			printf(" ");
 	}
-	if (!has_n_flag)
-		printf("\n");
-	return (0);
+	return FT_SUCCESS;
 }

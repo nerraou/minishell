@@ -65,7 +65,15 @@ SRC =\
 	src/parser/parser.c\
 	src/parser/heredoc.c\
 \
+	src/builtins/env.c\
+	src/builtins/echo.c\
+	src/builtins/export.c\
+	src/builtins/is_valid_var_name.c\
+\
+\
 	src/env/init_env.c\
+	src/env/new_env.c\
+	src/env/del_env.c\
 \
 	src/get_next_line/get_next_line.c\
 	src/get_next_line/get_next_line_utils.c\

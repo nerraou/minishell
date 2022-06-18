@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   is_valid_var_name.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/16 12:03:50 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/18 10:44:03 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/18 16:54:43 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/18 18:43:22 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int echo(int ac, char *av[])
+int is_valid_var_name(const char *str, int len)
 {
 	int i;
-	int has_n_flag;
-
+	if (!ft_isalpha(str[0]) && str[0] != '_')
+		return 0;
 	i = 1;
-	has_n_flag = strcmp(av[1], "-n") == 0;
-	if (has_n_flag)
-		i++;
-	while (i < ac)
+	while (i < len)
 	{
-		printf("%s", av[i]);
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return 0;
 		i++;
-		if (av[i])
-			printf(" ");
 	}
-	if (!has_n_flag)
-		printf("\n");
-	return (0);
+	return 1;
 }
