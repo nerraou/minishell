@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 11:07:11 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/15 15:09:02 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/18 17:08:16 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_parentheses(t_opr_logic *operators)
 	return (0);
 }
 
-void	priority_handling(t_element *f_cmd, t_element *l_cmd, char **envp)
+void	priority_handling(t_element *f_cmd, t_element *l_cmd, char **envp, t_list *heredoc_list)
 {
 	t_opr_logic	operators;
 
@@ -46,12 +46,12 @@ void	priority_handling(t_element *f_cmd, t_element *l_cmd, char **envp)
 	if (operators.opr_cmd == operators.f_cmd)
 	{
 		if (check_parentheses(&operators))
-			priority_handling(operators.f_cmd, operators.l_cmd, envp);
+			priority_handling(operators.f_cmd, operators.l_cmd, envp, heredoc_list);
 		else
-			cmd_execut(operators.f_cmd, operators.l_cmd, envp);
+			cmd_execut(operators.f_cmd, operators.l_cmd, envp, heredoc_list);
 	}
 	else
-		priority_handling(operators.f_cmd, operators.opr_cmd->prev, envp);
+		priority_handling(operators.f_cmd, operators.opr_cmd->prev, envp, heredoc_list);
 	if (operators.operator == T_OR && 0) // && cmd not success
 	{
 		if (operators.parent_l && operators.parent_r)
@@ -61,7 +61,7 @@ void	priority_handling(t_element *f_cmd, t_element *l_cmd, char **envp)
 		}
 		else
 			operators.opr_cmd = operators.opr_cmd->next;
-		priority_handling(operators.opr_cmd, operators.l_cmd, envp);
+		priority_handling(operators.opr_cmd, operators.l_cmd, envp, heredoc_list);
 	}
 	if (operators.operator == T_AND && 1) // && cmd success
 	{
@@ -72,6 +72,6 @@ void	priority_handling(t_element *f_cmd, t_element *l_cmd, char **envp)
 		}
 		else
 			operators.opr_cmd = operators.opr_cmd->next;
-		priority_handling(operators.opr_cmd, operators.l_cmd, envp);
+		priority_handling(operators.opr_cmd, operators.l_cmd, envp, heredoc_list);
 	}
 }

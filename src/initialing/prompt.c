@@ -6,11 +6,12 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 07:47:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/12 16:34:45 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/18 17:05:30 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parser.h"
 
 int	empty_prompt(char *cmd)
 {
@@ -29,6 +30,9 @@ void	prompt(char *_prompt, char **envp)
 {
 	t_list	*list;
 	char	*cmd;
+	int 	result;
+	int		heredoc_num = 0;
+	t_list *heredoc_list;
 
 	while (1)
 	{
@@ -40,13 +44,26 @@ void	prompt(char *_prompt, char **envp)
 		// if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &tp))
 		// 	perror("tcsetattr");
 		cmd = readline(_prompt);
-		if (!empty_prompt(cmd))
+		result = parser(cmd, list, &heredoc_num);
+		if (result == FT_REPROMPT)
 		{
-			history(cmd, envp);
-			lexer(cmd, list);
-			priority_handling(list->head, list->tail, envp);
+			heredoc_list = heredoc(&heredoc_num, list);
+			result = FT_SUCCESS;
 		}
-		free(cmd);
-		list_del(&list, free);
+		if (result == FT_SUCCESS)
+		{
+			if (!empty_prompt(cmd))
+			{
+				history(cmd, envp);
+				priority_handling(list->head, list->tail, envp, heredoc_list);
+			}
+		}
+		if (result == FT_FAILURE)
+		{
+			free(cmd);
+			list_del(&list, free);
+		}
+		if (heredoc_num == 0)
+			break;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:48 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/14 09:24:33 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/19 09:34:30 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ typedef struct s_token
 #define T_S_SRRING 2
 #define T_LESS 3
 #define T_GREAT 4
-#define T_DLESS 5
-#define T_DGREAT 6
+#define T_DGREAT 5
+#define T_DLESS 6
 #define T_PIPE 7
 #define T_NEWLINE 8
 #define T_OR 9
