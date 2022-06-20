@@ -24,35 +24,36 @@ int main()
 	t_element *elm;
 	list = list_new();
 
-	while (1)
-	{
-		line = readline("$> ");
-		result = parser(line, list, &heredoc_num);
+	line = readline("$> ");
+	result = parser(line, list, &heredoc_num);
 
-		if (result == FT_SUCCESS)
-		{
-			// execute(cmd);
-			printf("THIS MUS BE EXECUTED \n");
-			return 0;
-		}
-		else if (result == FT_FAILURE)
-		{
-			// cmd = ft_strdup("");
-			printf("IT'S FAILURE MUST TRY AGIN \n");
-			return 1;
-		}
-		else if (result == FT_REPROMPT)
-		{
-			heredoc_list = heredoc(&heredoc_num, list);
-		}
-		if (heredoc_num == 0)
-			break;
+	if (result == FT_SUCCESS)
+	{
+		// execute(cmd);
+		printf("THIS MUS BE EXECUTED \n");
+		return 0;
 	}
-	elm = heredoc_list->head;
+	else if (result == FT_FAILURE)
+	{
+		// cmd = ft_strdup("");
+		printf("IT'S FAILURE MUST TRY AGIN \n");
+		return 1;
+	}
+	else if (result == FT_REPROMPT)
+	{
+		heredoc_list = heredoc(heredoc_num, list);
+		printf("%d[heredoc_list size]\n", heredoc_list->size);
+		move_heredoc_content(list, heredoc_list);
+	}
+
+	t_token *token;
+	elm = list->head;
 	printf("----------------heredoc list content---------------\n");
 	while (elm)
 	{
-		printf("%s", (char *)elm->content);
+		token = (t_token *)elm->content;
+		printf("`[type]%d`   === `[content]%s`\n", token->type, token->value);
+		// printf("%s", (char *)elm->content);
 		elm = elm->next;
 	}
 }
