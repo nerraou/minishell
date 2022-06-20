@@ -59,6 +59,7 @@ SRC =\
 	src/parser/dless_expect.c\
 	src/parser/check_start.c\
 	src/parser/print_syntax_error.c\
+	src/parser/move_heredoc_content.c\
 	src/parser/parser.c\
 	src/parser/heredoc.c\
 \
