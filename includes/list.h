@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:28:25 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/18 19:24:46 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/20 11:44:43 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,4 @@ void add_front(t_list *list, void *content);
 void add_back(t_list *last, void *content);
 void list_del(t_list **lst, void (*del)(void *));
 void	del_element_token(t_element *elm);
-void	del_element(t_element *elm);
 #endif

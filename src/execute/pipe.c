@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 15:29:04 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/18 15:29:23 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/20 18:29:29 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	n_of_pipes(t_element *f_cmd, t_element *l_cmd)
 {
 	t_element	*elm;
 	t_token		*token;
-	int	pipes;
+	int			pipes;
 
 	pipes = 0;
 	elm = f_cmd;
@@ -41,12 +41,14 @@ int	n_of_pipes(t_element *f_cmd, t_element *l_cmd)
 	return (pipes);
 }
 
-void	pipes_creation(t_element *f_cmd, t_element *l_cmd, int n_pipe)
+int	**pipes_creation(t_element *f_cmd, t_element *l_cmd)
 {
 	int i;
+	int n_pipe;
 	int	**pipes_r_w;
 
 	i = 0;
+	n_pipe = n_of_pipes(f_cmd, l_cmd);
 	if (n_pipe > 0)
 		pipes_r_w = (int **)malloc(sizeof(int *) * n_pipe);
 	while (i < n_pipe)
@@ -59,4 +61,5 @@ void	pipes_creation(t_element *f_cmd, t_element *l_cmd, int n_pipe)
 		}
 		i++;
 	}
+	return (pipes_r_w);
 }

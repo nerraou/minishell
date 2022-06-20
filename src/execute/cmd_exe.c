@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:25:43 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/19 19:21:06 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/20 18:44:10 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,12 @@ int	executable_cmd(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd)
 	}
 	while (path[i])
 	{
+		cmd->cmd_name = token->value;
 		cmd->cmd = ft_strjoin(path[i], token->value);
 		if (access(cmd->cmd, X_OK))
 			break ;
 		free (cmd->cmd);
+		free (cmd->cmd_name);
 		i++;
 	}
 	if (path[i])
@@ -93,55 +95,124 @@ int	how_many_element(t_element *f_cmd, t_element *l_cmd)
 		counter++;
 		elm = elm->next;
 	}
+	return (counter);
 }
 
 char	**prepear_execve_args(t_element *f_cmd, t_element *l_cmd, t_cmd	*cmd)
 {
-	char	**args;
-	int		wc;
-	int		i;
+	char		**args;
+	t_element	*elm;
+	t_token		*token;
+	int			wc;
+	int			i;
 
 	i = 1;
-	wc = wcount(argv, ' ');
-	char **lol;
-	if (wc == 1)
+	elm = f_cmd;
+	elm = elm->next;
+	wc = how_many_element(f_cmd, l_cmd);
+	args = (char **)malloc(sizeof(char *) * (wc + 2));
+	args[0] = ft_strdup(cmd->cmd);
+	while (elm && elm->prev != l_cmd)
 	{
-		exev_args = (char **)malloc(sizeof(char *) * 2);
-		exev_args[0] = ft_strdup(commands->paths[commands->correct_path]);
-		exev_args[1] = 0;
+		token = (t_token *)elm->content;
+		args[i] = ft_strdup(token->value);
+		elm = elm->next;
+		i++;
+	}
+	args[wc + 1] = 0;
+	return (args);
+}
+
+void	close_pipes(t_cmd *cmd)
+{
+	int	i;
+
+	if (cmd->id == 0)
+	{
+		i = cmd->id + 1;
+		while (i < cmd->n_of_pipes)
+		{
+			close(cmd->pipes[i][READ_END]);
+			close(cmd->pipes[i][WRITE_END]);
+			i++;
+		}
+	}
+	else if (cmd->id > 0 && cmd->id < cmd->n_of_pipes)
+	{
+		i = 0;
+		while (i < cmd->id - 1)
+		{
+			close(cmd->pipes[i][READ_END]);
+			close(cmd->pipes[i][WRITE_END]);
+			i++;
+		}
+		close(cmd->pipes[cmd->id - 1][WRITE_END]);
+		i = cmd->id + 1;
+		while (i < cmd->n_of_pipes)
+		{
+			close(cmd->pipes[i][READ_END]);
+			close(cmd->pipes[i][WRITE_END]);
+			i++;
+		}
 	}
 	else
 	{
-		int j = 0;
-		lol = cmd_arg(commands, argv, i, wc);
-		while (lol[j])
+		i = 0;
+		while (i < cmd->id - 1)
 		{
-			printf("@> %s\n",lol[j]);
-			j++;
+			close(cmd->pipes[i][READ_END]);
+			close(cmd->pipes[i][WRITE_END]);
+			i++;
 		}
-		return (cmd_arg(commands, argv, i, wc));
+		close(cmd->pipes[cmd->id - 1][WRITE_END]);
 	}
-	return (exev_args);
 }
 
-void	fork_proccesses(t_element *f_cmd, t_element *l_cmd, char **envp)
+void	fork_proccesses(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd)
 {
 	int		child;
-	t_cmd	*cmd;
+	t_token	*token_first;
+	t_token	*token_last;
 
 	child = fork();
 	if (child == 0)
 	{
+		/* INPUT */
+		token_first = (t_token *)l_cmd->content;
+		token_last = (t_token *)f_cmd->content;
+		if (cmd->id == 0 && token_last->type == T_PIPE)
+		{
+			close(cmd->pipes[cmd->id][READ_END]);
+			dup2(cmd->pipes[cmd->id][WRITE_END], STDOUT_FILENO);
+			close(cmd->pipes[cmd->id][WRITE_END]);
+			close_pipes(cmd);
+		}
+
+		
+		if (token->type == T_PIPE)
+		{
+			
+			/*output to pipe*/
+		}
+		else
+		{
+			/*output to STDOUT*/
+		}
+		get_io(f_cmd, l_cmd);
 		if (executable_cmd(f_cmd, l_cmd, envp, cmd))
 		{
-			get_io(f_cmd, l_cmd);
 			cmd->args = prepear_execve_args(f_cmd, l_cmd, cmd);
-			/* built in  ??*/
+			if (!is_builtin(cmd))
+			{
+				
+			}
 		}
 		else
 		{
 			/* CMD ERROR*/
 			/*free cmd*/
+			/*close opend file*/
+			/*free pipe && close*/
 			/*exit code*/
 			/*exit()*/
 		}
@@ -154,12 +225,14 @@ void	cmd_execut(t_element *f_cmd, t_element *l_cmd, char **envp,  t_list *heredo
 	t_element	*pipes;
 	t_token		*token;
 	int			n_cmd;
+	t_cmd		*cmd;
+	int			cmd_num;
 
+	cmd->id = 0;
 	expanding(f_cmd, l_cmd, envp);
 	join_pieces(f_cmd, l_cmd);
-	n_cmd = n_of_pipes(f_cmd, l_cmd) + 1;
-	if (n_cmd > 1)
-		pipes_creation(f_cmd, l_cmd, n_cmd - 1);
+	cmd->n_of_pipes = n_of_pipes(f_cmd, l_cmd);
+	cmd->pipes = pipes_creation(f_cmd, l_cmd);
 	pipes = f_cmd;
 	while (pipes && pipes->prev != l_cmd)
 	{
@@ -169,10 +242,10 @@ void	cmd_execut(t_element *f_cmd, t_element *l_cmd, char **envp,  t_list *heredo
 			pipes = pipes->next;
 			token = (t_token *)pipes->content;
 		}
-		fork_proccesses(f_cmd, pipes, envp, heredoc_list);
+		fork_proccesses(f_cmd, pipes, envp, cmd);
+		cmd->id++;
 		f_cmd = pipes->next;
 		pipes = f_cmd;
-
 	}
 
 

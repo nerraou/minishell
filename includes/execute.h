@@ -6,12 +6,15 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:29:46 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/19 15:35:20 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/20 18:27:12 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTE_H
 #define EXECUTE_H
+
+# define READ_END 0
+# define WRITE_END 1
 
 typedef struct s_opr_logic
 {
@@ -25,8 +28,12 @@ typedef struct s_opr_logic
 
 typedef struct s_cmd
 {
+	int		id;
 	char	*cmd;
+	char	*cmd_name;
 	char	**args;
+	int		**pipes;
+	int		n_of_pipes;
 	int		executable;
 } t_cmd;
 
