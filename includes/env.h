@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 16:38:07 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/18 19:45:14 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/20 17:19:00 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,8 @@ typedef struct s_env
 t_list *init_env(char *env[]);
 t_env *new_env(const char *env_value);
 void del_env(t_env *env);
+t_element *ft_getenv(t_list *env, char *key);
+int ft_setenv(t_list *env_list, t_env *env);
+int ft_unsetenv(t_list *env_list, char *key);
 
 #endif

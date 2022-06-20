@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/16 09:44:20 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/20 17:19:43 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/20 15:37:19 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/20 17:08:20 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-#define BUILTINS_H
-
 #include "env.h"
-#include "ft_stddef.h"
-int echo(int ac, char *av[]);
-int env(t_list *env_list);
-int export(int ac, char *av[], t_list *env_list);
-int unset(int ac, char *av[], t_list *env_list);
-int is_valid_var_name(const char *str, int len);
 
-#endif
+t_element *ft_getenv(t_list *env, char *key)
+{
+	t_element *elm;
+	t_env *env_var;
+	elm = env->head;
+	while (elm)
+	{
+		env_var = (t_env *)elm->content;
+		if (ft_strcmp(env_var->key, key) == 0)
+			return (elm);
+		elm = elm->next;
+	}
+	return (NULL);
+}

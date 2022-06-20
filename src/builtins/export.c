@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 16:26:19 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/18 19:47:54 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/20 15:57:25 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,43 +37,18 @@ static void print_export_error(char *str)
 	ft_putendl_fd(": not a valid identifier", 2);
 }
 
-static t_element *find_env(t_list *env, t_env *to_find)
-{
-	t_element *elm;
-	t_env *env_var;
-	elm = env->head;
-	while (elm)
-	{
-		env_var = (t_env *)elm->content;
-		if (ft_strcmp(env_var->key, to_find->key) == 0)
-			return (elm);
-		elm = elm->next;
-	}
-	return (NULL);
-}
-
-static void update_env(t_element *elm, t_env *env)
-{
-	del_env((t_env *)elm->content);
-	elm->content = env;
-}
-
 int export(int ac, char *av[], t_list *env_list)
 {
 	int i;
 	t_env *env;
-	t_element *elm;
+
 	i = 1;
 	while (i < ac)
 	{
 		if (is_valid_env(av[i]))
 		{
 			env = new_env(av[i]);
-			elm = find_env(env_list, env);
-			if (elm)
-				update_env(elm, env);
-			else
-				add_back(env_list, env);
+			ft_setenv(env_list, env);
 		}
 		else
 			print_export_error(av[i]);

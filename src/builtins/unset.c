@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/16 09:44:20 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/20 17:19:43 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/20 13:20:50 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/20 17:19:32 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-#define BUILTINS_H
+#include "builtins.h"
 
-#include "env.h"
-#include "ft_stddef.h"
-int echo(int ac, char *av[]);
-int env(t_list *env_list);
-int export(int ac, char *av[], t_list *env_list);
-int unset(int ac, char *av[], t_list *env_list);
-int is_valid_var_name(const char *str, int len);
+int unset(int ac, char *av[], t_list *env_list)
+{
+	int i;
 
-#endif
+	i = 1;
+	while (i < ac)
+	{
+		ft_unsetenv(env_list, av[i]);
+		i++;
+	}
+	return 0;
+}
