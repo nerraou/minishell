@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:00:34 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/20 11:44:34 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/21 19:03:02 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	del_element_token(t_element *elm)
 {
-	t_token	*token;
+	t_token		*token;
 
 	if (elm->next)
 		elm->next->prev = elm->prev;
@@ -22,6 +22,5 @@ void	del_element_token(t_element *elm)
 		elm->prev->next = elm->next;
 	token = (t_token *)elm->content;
 	free(token->value);
-	free(token);
 	free(elm);
 }

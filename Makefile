@@ -1,5 +1,5 @@
 NAME = minishell
-CFLAGS = -Wall -Wextra -Werror -g 
+CFLAGS = -Wall -Wextra -Werror
 HEADERS = ./includes/minishell.h
 
 SRC =\
@@ -24,6 +24,7 @@ SRC =\
 	src/libft/ft_putchar_fd.c\
 	src/libft/ft_putstr_fd.c\
 	src/libft/ft_putendl_fd.c\
+	src/libft/ft_split.c\
 \
 	src/lexer/ft_new_token.c\
 	src/lexer/ft_skip_spaces.c\
@@ -77,6 +78,8 @@ SRC =\
 	src/execute/cmd_exe.c\
 	src/execute/dividing_cmd.c\
 	src/execute/join.c\
+	src/execute/pipe.c\
+	src/execute/io_files.c\
 \
 	src/main.c\
 

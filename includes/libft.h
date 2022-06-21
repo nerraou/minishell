@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:37:41 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/15 11:46:29 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/21 10:34:41 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ size_t ft_strlcpy(char *dst, const char *src, size_t dstsize);
 void ft_putendl_fd(char *s, int fd);
 void ft_putchar_fd(char c, int fd);
 void ft_putstr_fd(char *s, int fd);
-
+char	**ft_split(char const *s, char c);
 #endif

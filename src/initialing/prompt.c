@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 07:47:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/18 17:05:30 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/21 10:56:43 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	prompt(char *_prompt, char **envp)
 			if (!empty_prompt(cmd))
 			{
 				history(cmd, envp);
-				priority_handling(list->head, list->tail, envp, heredoc_list);
+				priority_handling(list->head, list->tail, envp);
 			}
 		}
 		if (result == FT_FAILURE)

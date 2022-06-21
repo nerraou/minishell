@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 15:29:04 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/20 18:29:29 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/21 12:49:57 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	n_of_pipes(t_element *f_cmd, t_element *l_cmd)
 
 	pipes = 0;
 	elm = f_cmd;
-	token = (t_token *)elm->content;
 	while (elm && elm->prev != l_cmd)
 	{
+		token = (t_token *)elm->content;
 		if (token->type == T_PIPE)
 			pipes++;
 		elm = elm->next;
@@ -41,17 +41,15 @@ int	n_of_pipes(t_element *f_cmd, t_element *l_cmd)
 	return (pipes);
 }
 
-int	**pipes_creation(t_element *f_cmd, t_element *l_cmd)
+int	**pipes_creation(t_cmd *cmd)
 {
 	int i;
-	int n_pipe;
 	int	**pipes_r_w;
 
 	i = 0;
-	n_pipe = n_of_pipes(f_cmd, l_cmd);
-	if (n_pipe > 0)
-		pipes_r_w = (int **)malloc(sizeof(int *) * n_pipe);
-	while (i < n_pipe)
+	if (cmd->n_of_pipes > 0)
+		pipes_r_w = (int **)malloc(sizeof(int *) * cmd->n_of_pipes);
+	while (i < cmd->n_of_pipes)
 	{
 		pipes_r_w[i] = (int *)malloc(sizeof(int) * 2);
 		if (pipe(pipes_r_w[i]) == -1)

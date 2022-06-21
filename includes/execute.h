@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:29:46 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/20 18:27:12 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:05:32 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,12 @@ void	execut(t_list *list, char **envp);
 void	expanding(t_element *f_cmd, t_element *l_cmd, char **envp);
 char	*get_env_value(char	*env, char **envp);
 int		check_env(char	*vrb, char **envp);
-void	cmd_execut(t_element *f_cmd, t_element *l_cmd, char **envp,  t_list *heredoc_list);
-void	priority_handling(t_element *f_cmd, t_element *l_cmd, char **envp, t_list *heredoc_list);
+void	cmd_execut(t_element *f_cmd, t_element *l_cmd, char **envp);
+void	priority_handling(t_element *f_cmd, t_element *l_cmd, char **envp);
 void	divide_by_last_operator(t_opr_logic *opertor);
 void	join_pieces(t_element *f_cmd, t_element *l_cmd);
-
+int		**pipes_creation(t_cmd *cmd);
+int		n_of_pipes(t_element *f_cmd, t_element *l_cmd);
+void	free_pipes(int	**pipes, int size);
+void	get_io(t_element **f_cmd, t_element **l_cmd);
 #endif
