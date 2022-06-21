@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_valid_var_name.c                                :+:      :+:    :+:   */
+/*   is_var_name.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 16:54:43 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/18 18:43:22 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/21 17:52:45 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int is_valid_var_name(const char *str, int len)
+int is_var_name(const char *str, int len)
 {
 	int i;
 	if (!ft_isalpha(str[0]) && str[0] != '_')

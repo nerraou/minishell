@@ -69,7 +69,7 @@ SRC =\
 	src/builtins/echo.c\
 	src/builtins/export.c\
 	src/builtins/unset.c\
-	src/builtins/is_valid_var_name.c\
+	src/builtins/is_var_name.c\
 \
 \
 	src/env/init_env.c\
@@ -78,6 +78,8 @@ SRC =\
 	src/env/ft_getenv.c\
 	src/env/ft_setenv.c\
 	src/env/ft_unsetenv.c\
+	src/env/list_to_array.c\
+	src/env/sort_array.c\
 \
 	src/get_next_line/get_next_line.c\
 	src/get_next_line/get_next_line_utils.c\

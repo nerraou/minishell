@@ -1,24 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/16 09:44:20 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/21 17:53:23 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/21 16:52:21 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/21 16:59:50 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-#define BUILTINS_H
+#include "builtins.h"
 
-#include "env.h"
-#include "ft_stddef.h"
-int echo(int ac, char *av[]);
-int env(t_list *env_list);
-int export(int ac, char *av[], t_list *env_list);
-int unset(int ac, char *av[], t_list *env_list);
-int is_var_name(const char *str, int len);
-
-#endif
+int ft_exit(int ac, char *av[], t_list *env_list)
+{
+}

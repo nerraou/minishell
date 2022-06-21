@@ -6,13 +6,13 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:51:33 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/20 18:19:16 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/21 10:01:01 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int ft_unsetenv(t_list *env_list, char *key)
+int ft_unsetenv(t_list *env_list, const char *key)
 {
 	t_element *elm;
 

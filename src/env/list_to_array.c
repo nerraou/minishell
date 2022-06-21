@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   list_to_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/16 09:44:20 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/21 17:53:23 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/21 13:20:38 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/21 14:47:53 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-#define BUILTINS_H
-
 #include "env.h"
-#include "ft_stddef.h"
-int echo(int ac, char *av[]);
-int env(t_list *env_list);
-int export(int ac, char *av[], t_list *env_list);
-int unset(int ac, char *av[], t_list *env_list);
-int is_var_name(const char *str, int len);
 
-#endif
+char **list_to_array(t_list *env_list)
+{
+	char **env_arr;
+	t_element *elm;
+	t_env *env;
+	int i;
+
+	env_arr = (char **)ft_malloc(sizeof(char *) * (env_list->size + 1));
+	if (!env_arr)
+		return NULL;
+	i = 0;
+	elm = env_list->head;
+	while (elm)
+	{
+		env = (t_env *)elm->content;
+		env_arr[i] = ft_strdup(env->prepared);
+		i++;
+		elm = elm->next;
+	}
+	return (env_arr);
+}
