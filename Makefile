@@ -69,6 +69,8 @@ SRC =\
 	src/builtins/echo.c\
 	src/builtins/export.c\
 	src/builtins/unset.c\
+	src/builtins/pwd.c\
+	src/builtins/cd.c\
 	src/builtins/is_var_name.c\
 \
 \
