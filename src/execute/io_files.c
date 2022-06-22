@@ -6,23 +6,20 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 18:22:58 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/21 19:13:24 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/22 19:03:28 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	heredoc_to_file(t_element *heredoc_content)
+void	heredoc_to_file(char *heredoc_content)
 {
 	int		fd;
 	int		flags;
-	t_token	*token;
 
-	token = (t_token *)heredoc_content->content;
 	flags = O_TRUNC | O_CREAT | O_WRONLY;
 	fd = open("heredoc", flags, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	/*EXPEAND $HOME*/
-	write(fd, token->value, ft_strlen(token->value));
+	write(fd, heredoc_content, ft_strlen(heredoc_content));
 	close(fd);
 }
 
@@ -34,13 +31,13 @@ void	open_file_read(char	*infile)
 	if (fd < 0)
 	{
 		/*free*/
-		write(2, "minish: ",8);
+		write(2, "minishell: ",ft_strlen("minishell: "));
 		perror (infile);
 		free(infile);
 		exit(1);
 	}
 	free(infile);
-	// dup2(fd, STDIN_FILENO);
+	dup2(fd, STDIN_FILENO);
 	close(fd);
 }
 
@@ -58,77 +55,61 @@ void	open_file_write(char *outfile, int mode)
 	if (fd < 0)
 	{
 		/*free*/
-		write(2, "minish: ",8);
+		write(2, "minishell: ",ft_strlen("minishell: "));
 		perror (outfile);
 		free(outfile);
 		exit (1);
 	}
 	free(outfile);
-	// dup2(fd, STDOUT_FILENO);
+	dup2(fd, STDOUT_FILENO);
 	close(fd);
 }
 
-
-void	less_great_dgreat(t_element	**elm)
+void	less_great_dgreat(t_element	*elm)
 {
 	t_token		*token;
 	t_token		*_file;
 
-	token = (t_token *)(*elm)->content;
-
-	_file = (t_token *)(*elm)->next->content;
+	token = (t_token *)elm->content;
+	_file = (t_token *)elm->next->content;
 	if (token->type == T_LESS)
 		open_file_read(ft_strdup(_file->value));
 	else if (token->type == T_GREAT)
 		open_file_write(ft_strdup(_file->value), 0);
 	else if (token->type == T_DGREAT)
 		open_file_write(ft_strdup(_file->value), 1);
-	del_element_token((*elm)->next);
-	(*elm) = (*elm)->next;
-	del_element_token((*elm)->prev);
+	token->type = -1;
+	_file->type = -1;
 }
 
-void	dless(t_element	**elm)
+void	dless(t_element	*elm)
 {
-	t_element	*head;
+	t_token		*token;
+	t_token		*content_heredoc;
 
-	head = *elm;
-	heredoc_to_file(head->next);
-	del_element_token(head->next);
-	head = head->next;
-	del_element_token(head->prev);
+	token = (t_token *)elm->content;
+	content_heredoc = (t_token *)elm->next->content;
+	heredoc_to_file(content_heredoc->value);
+	content_heredoc->type = -1;
+	token->type = -1;
 	open_file_read(ft_strdup("heredoc"));
-	*elm = (*elm)->next;
 }
 
-void	get_io(t_element **f_cmd, t_element **l_cmd)
+void	get_io(t_element *f_cmd, t_element *l_cmd)
 {
 	t_element	*elm;
 	t_token		*token;
 
-	elm = *f_cmd;
-	while (elm &&elm->prev != *l_cmd)
+	elm = f_cmd;
+	while (elm &&elm->prev != l_cmd)
 	{
-
-
 		token = (t_token *)elm->content;
 		if (token->type >= T_LESS && token->type <= T_DGREAT)
-		{
-			less_great_dgreat(&elm);
-		}
+			less_great_dgreat(elm);
 		if (token->type == T_DLESS)
-		{
-			dless(&elm);
-			token = (t_token *)elm->content;
-			printf("( %s )\n",token->value);
-			// heredoc_to_file(elm->next);
-			// del_element_token(elm->next);
-			// elm = elm->next;
-			// del_element_token(elm->prev);
-			// open_file_read(ft_strdup("heredoc"));
-		}
+			dless(elm);
 		token = (t_token *)elm->content;
-		if (!(token->type >= T_LESS && token->type <= T_DLESS))
+		if (!(token->type >= T_LESS && token->type <= T_DGREAT))
 			elm = elm->next;
 	}
 }

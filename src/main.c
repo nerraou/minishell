@@ -7,5 +7,6 @@ int main(int argc, char **argv, char **envp)
 	(void)argv;
 	update_shlvl(envp);
 	history(NULL, envp);
-	prompt("minish ^$ ", envp);
+	prompt("MiniShell $ ", envp);
+	return (0);
 }

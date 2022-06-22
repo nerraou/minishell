@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:29:46 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/21 16:05:32 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/22 11:39:37 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,5 @@ void	join_pieces(t_element *f_cmd, t_element *l_cmd);
 int		**pipes_creation(t_cmd *cmd);
 int		n_of_pipes(t_element *f_cmd, t_element *l_cmd);
 void	free_pipes(int	**pipes, int size);
-void	get_io(t_element **f_cmd, t_element **l_cmd);
+void	get_io(t_element *f_cmd, t_element *l_cmd);
 #endif
