@@ -1,26 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   is_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/21 16:52:21 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/23 14:35:35 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/22 18:24:19 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/23 14:53:16 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "libft.h"
 
-void ft_exit(int ac, char *av[])
+int is_long(const char *str)
 {
-	int check;
-	if (ac > 1)
+	int i;
+	int sign;
+	long count;
+
+	i = 0;
+	sign = 1;
+	count = 0;
+	if (!str[i])
+		return (0);
+	if (str[0] == '+' || str[0] == '-')
 	{
-		check = is_long(av[1]);
-		if (check == 1)
-			printf("YES IS A LONG NUMBER\n");
-		else
-			printf("NO IS NOT A LONG NUMBER\n");
+		if (str[0] == '-')
+			sign = -1;
+		i++;
 	}
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		count = count * 10 + str[i] - '0';
+		if (count * sign > LONG_MAX || sign * count < LONG_MIN)
+			return (0);
+		i++;
+	}
+	return (1);
 }

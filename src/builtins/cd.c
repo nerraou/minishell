@@ -6,17 +6,29 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:49:23 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/22 13:39:25 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/22 18:31:55 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 // handle the env
 
-void chang
+void change_pwd(char *new_pwd, t_list *env)
+{
+	t_element *elm;
+	t_env *old_path;
+	char *old_pwd;
 
-	int
-	cd(int ac, char *av[], t_list *env)
+	elm = ft_getenv(env, "PWD");
+	old_path = (t_env *)elm->content;
+	old_pwd = old_path->value;
+	new_pwd = ft_strjoin("PWD=", new_pwd);
+	old_pwd = ft_strjoin("OLDPWD=", old_pwd);
+	ft_setenv(env, new_env(new_pwd));
+	ft_setenv(env, new_env(old_pwd));
+}
+
+int cd(int ac, char *av[], t_list *env)
 {
 	int check;
 	t_element *elm;
@@ -33,8 +45,7 @@ void chang
 			printf("minishell: %s\n", strerror(errno));
 			return FT_FAILURE;
 		}
-		pwd();
-
+		change_pwd(getcwd(NULL, 0), env);
 		return FT_SUCCESS;
 	}
 	else
@@ -45,7 +56,7 @@ void chang
 			printf("minishell: %s\n", strerror(errno));
 			return FT_FAILURE;
 		}
-		pwd();
+		change_pwd(getcwd(NULL, 0), env);
 	}
 
 	return FT_SUCCESS;

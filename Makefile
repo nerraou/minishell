@@ -18,6 +18,8 @@ SRC =\
 	src/libft/ft_strjoin.c\
 	src/libft/ft_strlcpy.c\
 	src/libft/ft_memcpy.c\
+	src/libft/is_long.c\
+	src/libft/ft_atol.c\
 	src/libft/ft_isalnum.c\
 	src/libft/ft_isalpha.c\
 	src/libft/ft_isdigit.c\
@@ -71,6 +73,7 @@ SRC =\
 	src/builtins/unset.c\
 	src/builtins/pwd.c\
 	src/builtins/cd.c\
+	src/builtins/ft_exit.c\
 	src/builtins/is_var_name.c\
 \
 \
