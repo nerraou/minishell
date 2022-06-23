@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:22:52 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/23 19:32:22 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/23 19:42:42 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	divide_by_last_operator(t_opr_logic *opertor)
 		// printf("F-- %s --\n",token->value);
 		// token = (t_token *)opertor->l_cmd->content;
 		// printf("L-- %s --\n",token->value);
+		token = (t_token *)opertor->opr_cmd->content;
 		token = (t_token *)opertor->opr_cmd->content;
 		// printf("O-- %s --\n",token->value);
 
