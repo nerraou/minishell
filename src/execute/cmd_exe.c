@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:25:43 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/22 19:17:35 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/23 12:40:08 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void	prepear_execve_args(t_element *f_cmd, t_element *l_cmd, t_cmd	*cmd)
 				wc++;
 			elm = elm->next;
 		}
+
+
 	}
 }
 
@@ -102,7 +104,7 @@ void	close_pipes(t_cmd *cmd)
 	i = 0;
 	while (i < cmd->n_of_pipes)
 	{
-		if (!(i == cmd->id || i == cmd->id - 1))
+		if (i != cmd->id && i != cmd->id - 1)
 		{
 			close(cmd->pipes[i][READ_END]);
 			close(cmd->pipes[i][WRITE_END]);
@@ -118,16 +120,26 @@ void	pipe_io(t_cmd *cmd, t_element *l_cmd)
 	token = (t_token *)l_cmd->content;
 	if (cmd->id == 0 && token->type == T_PIPE)
 	{
+		// printf("F_CMD = %d\n",cmd->id);
 		token->type = -1;
 		close_pipes(cmd);
+		// close(cmd->pipes[1][READ_END]);
+		// close(cmd->pipes[1][WRITE_END]);
 		close(cmd->pipes[cmd->id][READ_END]);
 		dup2(cmd->pipes[cmd->id][WRITE_END], STDOUT_FILENO);
 		close(cmd->pipes[cmd->id][WRITE_END]);
 	}
-	if (cmd->id > 0 && token->type == T_PIPE)
+	else if (cmd->id > 0 && token->type == T_PIPE)
 	{
+		// printf("S_CMD = %d\n",cmd->id);
 		token->type = -1;
 		close_pipes(cmd);
+		// close(cmd->pipes[0][WRITE_END]);
+		// dup2(cmd->pipes[0][READ_END], STDIN_FILENO);
+		// close(cmd->pipes[0][READ_END]);
+		// close(cmd->pipes[1][READ_END]);
+		// dup2(cmd->pipes[1][WRITE_END], STDOUT_FILENO);
+		// close(cmd->pipes[1][WRITE_END]);
 		close(cmd->pipes[cmd->id - 1][WRITE_END]);
 		dup2(cmd->pipes[cmd->id - 1][READ_END], STDIN_FILENO);
 		close(cmd->pipes[cmd->id - 1][READ_END]);
@@ -135,9 +147,15 @@ void	pipe_io(t_cmd *cmd, t_element *l_cmd)
 		dup2(cmd->pipes[cmd->id][WRITE_END], STDOUT_FILENO);
 		close(cmd->pipes[cmd->id][WRITE_END]);
 	}
-	if (cmd->id > 0 && token->type != T_PIPE)
+	else if (cmd->id > 0 && token->type != T_PIPE)
 	{
+		// printf("L_CMD = %d\n",cmd->id);
 		close_pipes(cmd);
+		// close(cmd->pipes[0][READ_END]);
+		// close(cmd->pipes[0][WRITE_END]);
+		// close(cmd->pipes[1][WRITE_END]);
+		// dup2(cmd->pipes[1][READ_END], STDIN_FILENO);
+		// close(cmd->pipes[1][READ_END]);
 		close(cmd->pipes[cmd->id - 1][WRITE_END]);
 		dup2(cmd->pipes[cmd->id - 1][READ_END], STDIN_FILENO);
 		close(cmd->pipes[cmd->id - 1][READ_END]);
@@ -187,6 +205,10 @@ int	executable_cmd(t_element *f_cmd, char **envp, t_cmd *cmd)
 			write(2, " :command not found\n", ft_strlen(" :command not found\n"));
 		}
 	}
+			// token = (t_token *)f_cmd->content;
+			// printf("#> %s \n",token->value);
+			// token = (t_token *)l_cmd->content;
+			// printf("#> %s \n",token->value);
 	return (cmd->executable);
 }
 
@@ -195,19 +217,20 @@ void	fork_proccesses(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd
 	int		child;
 
 
-	// int	t[2];
+	// int	in;
+	// int	out;
 
-	// t[0] = dup(STDIN_FILENO);
-	// t[1] = dup(STDOUT_FILENO);
+	// in = dup(STDIN_FILENO);
+	// out = dup(STDOUT_FILENO);
 
 	child = fork();
 	if (child == 0)
 	{
-	// dup2(t[0], STDIN_FILENO);
-	// dup2(t[1], STDOUT_FILENO);
+	// dup2(in, STDIN_FILENO);
+	// dup2(out, STDOUT_FILENO);
 	pipe_io(cmd, l_cmd);
 	get_io(f_cmd, l_cmd);
-	if (executable_cmd(f_cmd, envp, cmd))
+	if (executable_cmd(f_cmd,envp, cmd))
 	{
 
 	// t_token	*tok;
@@ -242,8 +265,8 @@ void	fork_proccesses(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd
 		// if (!is_builtin(cmd))
 		if (1)
 		{
-			if (execve(cmd->args[0], cmd->args, envp) == -1)
-			{
+			
+			execve(cmd->args[0], cmd->args, envp);
 				// printf("--------------------\n");
 				/* CMD ERROR*/
 				/*free cmd*/
@@ -253,7 +276,6 @@ void	fork_proccesses(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd
 				/*exit()*/
 				perror("execve");
 				exit (1);
-			}
 		}
 		else
 		{
@@ -271,6 +293,7 @@ void	fork_proccesses(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd
 	}
 
 	}
+	
 }
 
 void	cmd_execut(t_element *f_cmd, t_element *l_cmd, char **envp)
@@ -304,11 +327,14 @@ void	cmd_execut(t_element *f_cmd, t_element *l_cmd, char **envp)
 			token = (t_token *)pipes->content;
 		}
 		fork_proccesses(f_cmd, pipes, envp, cmd);
-		waitpid(-1, NULL, 0);
+		write(2, "ok1\n", 4);
+		
 		cmd->id++;
 		pipes = pipes->next;
 		f_cmd = pipes;
 	}
+	while (waitpid(-1, NULL, 0) > 0);
+	write(2, "ok\n", 3);
 
 
 	// t_element	*elm;
