@@ -1,5 +1,5 @@
 NAME = minishell
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 HEADERS = ./includes/minishell.h
 
 SRC =\
@@ -72,14 +72,16 @@ SRC =\
 	src/initialing/history.c\
 	src/initialing/prompt.c\
 \
-	src/execute/execut.c\
+	src/execute/priority.c\
 	src/execute/expanding.c\
 	src/execute/env_value.c\
-	src/execute/cmd_exe.c\
+	src/execute/execute.c\
 	src/execute/dividing_cmd.c\
 	src/execute/join.c\
-	src/execute/pipe.c\
 	src/execute/io_files.c\
+	src/execute/fork.c\
+	src/execute/args.c\
+	src/execute/check_cmd.c\
 \
 	src/main.c\
 
@@ -93,7 +95,7 @@ all: $(NAME)
 	gcc $(CFLAGS) $(INCLUDES_PATH) -o $@ -c $<
 
 $(NAME): $(OBJ)
-	gcc -o $(NAME) $^ $(INCLUDES_PATH) -lreadline -lncurses
+	gcc $(CFLAGS) -o $(NAME) $^ $(INCLUDES_PATH) -lreadline -lncurses
 
 clean:
 	rm -f $(OBJ)

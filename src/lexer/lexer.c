@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:49:39 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/14 14:20:09 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/23 16:34:19 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void lexer(const char *str, t_list *list)
 			len = set_l_parenth(str + i, list);
 		if (len == -1)
 			len = set_r_parenth(str + i, list);
-
 		if (len == -1)
 			len = set_s_string(str + i, list);
 		if (len == -1)

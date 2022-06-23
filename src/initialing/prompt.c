@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 07:47:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/22 19:01:10 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/23 18:30:50 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ void	prompt(char *_prompt, char **envp)
 	t_list	*list;
 	char	*cmd;
 	int 	result;
+	int		in;
 	int		heredoc_num = 0;
 	t_list *heredoc_list;
 
+	in = dup(STDIN_FILENO);
 	while (1)
 	{
 		list = list_new();
@@ -44,6 +46,8 @@ void	prompt(char *_prompt, char **envp)
 		// if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &tp))
 		// 	perror("tcsetattr");
 		cmd = readline(_prompt);
+		// if (!cmd)
+		// 	exit(0);
 		result = parser(cmd, list, &heredoc_num);
 		if (result == FT_REPROMPT)
 		{
@@ -55,7 +59,7 @@ void	prompt(char *_prompt, char **envp)
 			if (!empty_prompt(cmd))
 			{
 				history(cmd, envp);
-				priority_handling(list->head, list->tail, envp);
+				priority(list->head, list->tail, envp, in);
 			}
 		}
 		if (result == FT_FAILURE)
