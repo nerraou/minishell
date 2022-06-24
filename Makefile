@@ -66,6 +66,7 @@ SRC =\
 	src/parser/move_heredoc_content.c\
 	src/parser/parser.c\
 	src/parser/heredoc.c\
+	src/parser/is_parenthesis_balanced.c\
 \
 	src/builtins/env.c\
 	src/builtins/echo.c\

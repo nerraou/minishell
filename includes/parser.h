@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 09:22:23 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/20 10:13:06 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/25 16:11:02 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,6 @@ int check_start(t_element *elm);
 int parser(const char *str, t_list *list, int *heredoc);
 t_list *heredoc(int heredoc_num, t_list *list);
 void move_heredoc_content(t_list *list, t_list *heredoc_list);
+int is_parenthesis_balanced(t_list *list);
+
 #endif
