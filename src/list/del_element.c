@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_exe.c                                          :+:      :+:    :+:   */
+/*   del_element.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/12 16:25:43 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/12 16:44:42 by obelkhad         ###   ########.fr       */
+/*   Created: 2022/06/16 09:00:34 by obelkhad          #+#    #+#             */
+/*   Updated: 2022/06/22 11:39:43 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cmd_execut(t_element *f_cmd, t_element *l_cmd, char **envp)
+void	del_element_token(t_element *elm)
 {
-	t_element *elm;
-	t_token *token;
+	t_token		*token;
 
-	elm = f_cmd;
+	if (elm->next)
+		elm->next->prev = elm->prev;
+	if (elm->prev)
+		elm->prev->next = elm->next;
 
-	expanding(f_cmd, l_cmd, envp);
-
-	while (elm && elm->prev != l_cmd)
-	{
-		token = (t_token *)elm->content;
-        printf("[ %s ][%d]\n",token->value, token->type);
-        elm = elm->next;
-	}
-	printf("--------------------------\n");
-
-	// pipe_parse
-	// fork_processes
+	token = (t_token *)elm->content;
+	printf("D %s D\n",token->value);
+	// free(token->value);
+	// free(token);
+	// free(elm);
 }

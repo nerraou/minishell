@@ -1,7 +1,0 @@
-{
-  "files.associations": {
-	"list.h": "c",
-	"parser.h": "c",
-	"stddef.h": "c"
-}
-}

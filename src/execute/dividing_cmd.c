@@ -6,30 +6,50 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:22:52 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/12 16:23:23 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/24 18:32:59 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	divide_by_last_operator(t_element *f_cmd, t_element *l_cmd,t_opr_logic *opertor)
+void	divide_by_last_operator(t_opr_logic *opertor)
 {
 	t_token		*token;
 	int			parentheses;
 
-	parentheses = 1;
+	parentheses = 0;
 	opertor->operator = 0;
-	opertor->f_cmd = f_cmd;
-	opertor->l_cmd = l_cmd;
-	opertor->opr_cmd = l_cmd;
+	token = (t_token *)opertor->l_cmd->content;
+	if (token->type == T_R_PARENTH)
+	{
+		opertor->parent_r = opertor->l_cmd;
+		opertor->l_cmd = opertor->l_cmd->prev;
+		token = (t_token *)opertor->l_cmd->content;
+		while (token->type != T_L_PARENTH || parentheses)
+		{
+			if (token->type == T_R_PARENTH)
+				parentheses--;
+			if (token->type == T_L_PARENTH)
+				parentheses++;
+			opertor->l_cmd = opertor->l_cmd->prev;
+			token = (t_token *)opertor->l_cmd->content;
+		}
+		opertor->opr_cmd = opertor->l_cmd->prev;
+		opertor->parent_l = opertor->l_cmd;
+	}
+	else
+	{
+		opertor->parent_r = NULL;
+		opertor->parent_l = NULL;
+	}
 	while (opertor->opr_cmd != opertor->f_cmd)
 	{
 		token = (t_token *)opertor->opr_cmd->content;
-		if (token->type == T_R_PARENTH)  // )
-			parentheses = 0;
-		if (token->type == T_L_PARENTH)  // (
-			parentheses = 1;
-		if (parentheses)
+		if (token->type == T_R_PARENTH)
+			parentheses--;
+		if (token->type == T_L_PARENTH)
+			parentheses++;
+		if (!parentheses)
 		{
 			if (token->type == T_AND || token->type == T_OR)
 			{
