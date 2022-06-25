@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_new.c                                         :+:      :+:    :+:   */
+/*   list_to_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 15:36:16 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/17 17:10:22 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/21 13:20:38 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/21 14:47:53 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "env.h"
 
-t_list *list_new(void)
+char **list_to_array(t_list *env_list)
 {
-	t_list *new_list;
+	char **env_arr;
+	t_element *elm;
+	t_env *env;
+	int i;
 
-	new_list = (t_list *)ft_malloc(sizeof(t_list));
-	if (!new_list)
-		return (NULL);
-	new_list->head = NULL;
-	new_list->tail = NULL;
-	new_list->size = 0;
-	return (new_list);
+	env_arr = (char **)ft_malloc(sizeof(char *) * (env_list->size + 1));
+	if (!env_arr)
+		return NULL;
+	i = 0;
+	elm = env_list->head;
+	while (elm)
+	{
+		env = (t_env *)elm->content;
+		env_arr[i] = ft_strdup(env->prepared);
+		i++;
+		elm = elm->next;
+	}
+	return (env_arr);
 }

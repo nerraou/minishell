@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   list.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:28:25 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/20 11:44:43 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/25 17:05:38 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIST_H
 #define LIST_H
+
+#include "libft.h"
 
 typedef struct s_element
 {
@@ -33,5 +35,5 @@ t_list *list_new(void);
 void add_front(t_list *list, void *content);
 void add_back(t_list *last, void *content);
 void list_del(t_list **lst, void (*del)(void *));
-void	del_element_token(t_element *elm);
+void del_element_token(t_element *elm);
 #endif

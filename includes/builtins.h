@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_new.c                                         :+:      :+:    :+:   */
+/*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 15:36:16 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/17 17:10:22 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/16 09:44:20 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/24 09:30:13 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef BUILTINS_H
+#define BUILTINS_H
 
-t_list *list_new(void)
-{
-	t_list *new_list;
+#include <errno.h>
+#include "env.h"
+#include "ft_stddef.h"
 
-	new_list = (t_list *)ft_malloc(sizeof(t_list));
-	if (!new_list)
-		return (NULL);
-	new_list->head = NULL;
-	new_list->tail = NULL;
-	new_list->size = 0;
-	return (new_list);
-}
+int echo(int ac, char *av[]);
+int env(t_list *env_list);
+int export(int ac, char *av[], t_list *env_list);
+int unset(int ac, char *av[], t_list *env_list);
+int pwd(void);
+int cd(int ac, char *av[], t_list *env);
+int ft_exit(int ac, char *av[]);
+int is_var_name(const char *str, int len);
+
+#endif

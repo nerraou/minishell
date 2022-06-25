@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_new.c                                         :+:      :+:    :+:   */
+/*   is_var_name.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 15:36:16 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/17 17:10:22 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/18 16:54:43 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/21 17:52:45 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
-t_list *list_new(void)
+int is_var_name(const char *str, int len)
 {
-	t_list *new_list;
-
-	new_list = (t_list *)ft_malloc(sizeof(t_list));
-	if (!new_list)
-		return (NULL);
-	new_list->head = NULL;
-	new_list->tail = NULL;
-	new_list->size = 0;
-	return (new_list);
+	int i;
+	if (!ft_isalpha(str[0]) && str[0] != '_')
+		return 0;
+	i = 1;
+	while (i < len)
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return 0;
+		i++;
+	}
+	return 1;
 }

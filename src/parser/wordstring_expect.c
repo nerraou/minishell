@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_new.c                                         :+:      :+:    :+:   */
+/*   wordstring_expect.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 15:36:16 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/17 17:10:22 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/25 12:11:58 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/25 12:25:50 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parser.h"
 
-t_list *list_new(void)
+int wordstring_expect(t_element *next_elm)
 {
-	t_list *new_list;
-
-	new_list = (t_list *)ft_malloc(sizeof(t_list));
-	if (!new_list)
-		return (NULL);
-	new_list->head = NULL;
-	new_list->tail = NULL;
-	new_list->size = 0;
-	return (new_list);
+	if (next_elm == NULL || !is_l_parenthesis(next_elm))
+		return FT_SUCCESS;
+	else
+		print_syntax_error(next_elm);
+	return FT_FAILURE;
 }

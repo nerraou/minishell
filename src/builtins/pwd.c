@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_new.c                                         :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 15:36:16 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/17 17:10:22 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/22 10:14:30 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/22 10:17:52 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
-t_list *list_new(void)
+int pwd(void)
 {
-	t_list *new_list;
+	char *pwd_path;
 
-	new_list = (t_list *)ft_malloc(sizeof(t_list));
-	if (!new_list)
-		return (NULL);
-	new_list->head = NULL;
-	new_list->tail = NULL;
-	new_list->size = 0;
-	return (new_list);
+	pwd_path = getcwd(NULL, 0);
+	if (pwd_path == NULL)
+	{
+		printf("Error: %s\n", strerror(errno));
+		return 1;
+	}
+	printf("%s\n", pwd_path);
+	free(pwd_path);
+	return 0;
 }

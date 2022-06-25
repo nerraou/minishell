@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_new.c                                         :+:      :+:    :+:   */
+/*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 15:36:16 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/17 17:10:22 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/17 17:02:03 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/21 10:12:33 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "env.h"
 
-t_list *list_new(void)
+t_list *init_env(char *env_arr[])
 {
-	t_list *new_list;
+	t_list *env_list;
+	t_env *env;
+	int i;
 
-	new_list = (t_list *)ft_malloc(sizeof(t_list));
-	if (!new_list)
-		return (NULL);
-	new_list->head = NULL;
-	new_list->tail = NULL;
-	new_list->size = 0;
-	return (new_list);
+	env_list = list_new();
+	i = 0;
+	while (env_arr[i])
+	{
+		env = new_env(env_arr[i]);
+		add_back(env_list, env);
+		i++;
+	}
+	return (env_list);
 }

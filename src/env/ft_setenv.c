@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_new.c                                         :+:      :+:    :+:   */
+/*   ft_setenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 15:36:16 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/17 17:10:22 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/20 14:05:05 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/21 09:58:36 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "env.h"
 
-t_list *list_new(void)
+int ft_setenv(t_list *env_list, t_env *env)
 {
-	t_list *new_list;
+	t_element *elm;
 
-	new_list = (t_list *)ft_malloc(sizeof(t_list));
-	if (!new_list)
-		return (NULL);
-	new_list->head = NULL;
-	new_list->tail = NULL;
-	new_list->size = 0;
-	return (new_list);
+	elm = ft_getenv(env_list, env->key);
+	if (elm)
+	{
+		del_env((t_env *)elm->content);
+		elm->content = env;
+	}
+	else
+		add_back(env_list, env);
+	return 0;
 }

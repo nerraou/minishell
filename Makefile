@@ -18,6 +18,8 @@ SRC =\
 	src/libft/ft_strjoin.c\
 	src/libft/ft_strlcpy.c\
 	src/libft/ft_memcpy.c\
+	src/libft/is_long.c\
+	src/libft/ft_atol.c\
 	src/libft/ft_isalnum.c\
 	src/libft/ft_isalpha.c\
 	src/libft/ft_isdigit.c\
@@ -64,6 +66,31 @@ SRC =\
 	src/parser/move_heredoc_content.c\
 	src/parser/parser.c\
 	src/parser/heredoc.c\
+	src/parser/is_parentheses_balanced.c\
+	src/parser/lparenthesis_expect.c\
+	src/parser/rparenthesis_expect.c\
+	src/parser/is_l_parenthesis.c\
+	src/parser/is_r_parenthesis.c\
+	src/parser/wordstring_expect.c\
+\
+	src/builtins/env.c\
+	src/builtins/echo.c\
+	src/builtins/export.c\
+	src/builtins/unset.c\
+	src/builtins/pwd.c\
+	src/builtins/cd.c\
+	src/builtins/ft_exit.c\
+	src/builtins/is_var_name.c\
+\
+\
+	src/env/init_env.c\
+	src/env/new_env.c\
+	src/env/del_env.c\
+	src/env/ft_getenv.c\
+	src/env/ft_setenv.c\
+	src/env/ft_unsetenv.c\
+	src/env/list_to_array.c\
+	src/env/sort_array.c\
 \
 	src/get_next_line/get_next_line.c\
 	src/get_next_line/get_next_line_utils.c\

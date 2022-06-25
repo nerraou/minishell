@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_new.c                                         :+:      :+:    :+:   */
+/*   new_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 15:36:16 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/17 17:10:22 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/18 15:33:19 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/18 15:55:02 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "env.h"
 
-t_list *list_new(void)
+t_env *new_env(const char *env_value)
 {
-	t_list *new_list;
-
-	new_list = (t_list *)ft_malloc(sizeof(t_list));
-	if (!new_list)
-		return (NULL);
-	new_list->head = NULL;
-	new_list->tail = NULL;
-	new_list->size = 0;
-	return (new_list);
+	t_env *env;
+	int equal_index;
+	env = (t_env *)ft_malloc(sizeof(t_env));
+	if (!env)
+		return NULL;
+	equal_index = ft_indexof(env_value, '=');
+	env->prepared = ft_strdup(env_value);
+	env->key = ft_substr(env_value, 0, equal_index);
+	env->value = ft_strdup(env_value + equal_index + 1);
+	return (env);
 }

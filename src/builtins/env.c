@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_new.c                                         :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 15:36:16 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/17 17:10:22 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/18 10:37:17 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/18 10:52:10 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
-t_list *list_new(void)
+int env(t_list *env_list)
 {
-	t_list *new_list;
 
-	new_list = (t_list *)ft_malloc(sizeof(t_list));
-	if (!new_list)
-		return (NULL);
-	new_list->head = NULL;
-	new_list->tail = NULL;
-	new_list->size = 0;
-	return (new_list);
+	t_element *elem;
+	t_env *env_elm;
+	int i;
+
+	elem = env_list->head;
+	i = 0;
+	while (env_list->size > i)
+	{
+		env_elm = (t_env *)elem->content;
+		// printf("%s\n", env_elm->key);
+		// printf("%s\n", env_elm->value);
+		printf("%s\n", env_elm->prepared);
+		elem = elem->next;
+		i++;
+	}
+	return FT_SUCCESS;
 }

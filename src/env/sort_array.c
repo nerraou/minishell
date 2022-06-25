@@ -1,26 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_new.c                                         :+:      :+:    :+:   */
+/*   sort_array.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 15:36:16 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/17 17:10:22 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/21 13:43:19 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/21 14:21:31 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "env.h"
 
-t_list *list_new(void)
+static void ft_swap(char **str1, char **str2)
 {
-	t_list *new_list;
+	char *tmp;
 
-	new_list = (t_list *)ft_malloc(sizeof(t_list));
-	if (!new_list)
-		return (NULL);
-	new_list->head = NULL;
-	new_list->tail = NULL;
-	new_list->size = 0;
-	return (new_list);
+	tmp = *str1;
+	*str1 = *str2;
+	*str2 = tmp;
+}
+
+void sort_array(char **arr, int size)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < size - 1)
+	{
+		j = 0;
+		while (j < size - i - 1)
+		{
+			if (ft_strcmp(arr[j], arr[j + 1]) > 0)
+				ft_swap(&arr[j], &arr[j + 1]);
+			j++;
+		}
+		i++;
+	}
 }
