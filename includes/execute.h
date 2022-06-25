@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:29:46 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/25 15:44:58 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/25 19:02:31 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct s_cmd
 	int		next_is_pipes;
 	int		executable;
 } t_cmd;
+
+int exit_code;
 
 void	execut(t_list *list, char **envp);
 void	expanding(t_element *f_cmd, t_element *l_cmd, char **envp);

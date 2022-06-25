@@ -55,18 +55,10 @@ void	priority(t_element *f_cmd, t_element *l_cmd, char **envp, int in)
 	operators.f_cmd = f_cmd;
 	operators.opr_cmd = l_cmd;
 	operators.l_cmd = l_cmd;
+	operators.parent_l = NULL;
+	operators.parent_r = NULL;
 	check_parentheses(&operators);
 	divide_by_last_operator(&operators);
-			t_element	*elm;
-		t_token		*token;
-		elm = operators.f_cmd;
-		while (elm && elm->prev != operators.l_cmd)
-		{
-			token = (t_token*)elm->content;
-			printf("[ %s ] . [ %d ]\n",token->value, token->type);
-			elm = elm->next;
-		}
-		printf("[++++++++++]\n\n");
 	if (operators.opr_cmd == operators.f_cmd)
 	{
 		if (check_parentheses(&operators))
@@ -76,7 +68,7 @@ void	priority(t_element *f_cmd, t_element *l_cmd, char **envp, int in)
 	}
 	else
 		priority(operators.f_cmd, operators.opr_cmd->prev, envp, in);
-	if (operators.operator == T_OR && 0) // && cmd not success
+	if (operators.operator == T_OR && exit_code) // && cmd not success
 	{
 		if (operators.parent_l && operators.parent_r)
 		{
@@ -87,7 +79,7 @@ void	priority(t_element *f_cmd, t_element *l_cmd, char **envp, int in)
 			operators.opr_cmd = operators.opr_cmd->next;
 		priority(operators.opr_cmd, operators.l_cmd, envp, in);
 	}
-	if (operators.operator == T_AND && 1) // && cmd success
+	if (operators.operator == T_AND && !exit_code) // && cmd success
 	{
 		if (operators.parent_l && operators.parent_r)
 		{
