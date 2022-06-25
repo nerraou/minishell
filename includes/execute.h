@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:29:46 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/23 18:34:13 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/25 15:44:58 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,5 @@ void	get_io(t_element *f_cmd, t_element *l_cmd);
 int		fork_proccesses(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd);
 void	prepear_execve_args(t_element *f_cmd, t_element *l_cmd, t_cmd *cmd);
 int		executable_cmd(t_element *f_cmd, char **envp, t_cmd *cmd);
+int		check_parentheses(t_opr_logic *operators);
 #endif

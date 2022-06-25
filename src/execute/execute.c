@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:25:43 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/23 18:57:49 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/25 16:09:58 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,17 @@ void	execute(t_element *f_cmd, t_element *l_cmd, char **envp, int in)
 				perror("minish: pipe");
 		}
 		child = fork_proccesses(f_cmd, pipes, envp, cmd);
-		if (!cmd->next_is_pipes)
-		{
-			waitpid(child, NULL, 0);
-			close(STDIN_FILENO);
-		}
+		// if (cmd->next_is_pipes == 0)
+		// {
+		// 	waitpid(child, NULL, 0);
+		// 	close(STDIN_FILENO);
+		// }
 		if (cmd->next_is_pipes)
 		{
 			cmd->next_is_pipes = 0;
-			close(cmd->pipes[WRITE_END]);
-			dup2(cmd->pipes[READ_END], STDIN_FILENO);
-			close(cmd->pipes[READ_END]);
+			// close(cmd->pipes[WRITE_END]);
+			// dup2(cmd->pipes[READ_END], STDIN_FILENO);
+			// close(cmd->pipes[READ_END]);
 		}
 		cmd->id++;
 		pipes = pipes->next;

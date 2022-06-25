@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   agrs.c                                             :+:      :+:    :+:   */
+/*   args.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:26:11 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/23 18:26:45 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/25 14:56:11 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ void	prepear_execve_args(t_element *f_cmd, t_element *l_cmd, t_cmd *cmd)
 			elm = elm->next;
 		}
 	}
-	if (cmd->executable == 2)
-	{
-		cmd->args = (char **)malloc(sizeof(char *) * 2);
-		cmd->args[0] = ft_strdup("/bin/cat");
-		cmd->args[1] = 0;
-	}
+	// if (cmd->executable == 2)
+	// {
+	// 	cmd->args = (char **)malloc(sizeof(char *) * 2);
+	// 	cmd->args[0] = ft_strdup("/bin/cat");
+	// 	cmd->args[1] = 0;
+	// }
 }
