@@ -1,44 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   is_parentheses_balanced.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/11 17:43:34 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/25 17:06:42 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/24 10:47:18 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/25 12:35:49 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int parser(const char *str, t_list *list, int *heredoc)
+int is_parentheses_balanced(t_list *list)
 {
 	t_element *elm;
 	t_token *token;
+	int check;
 
-	*heredoc = 0;
-	lexer(str, list);
-	if (list->size == 0)
-		return FT_SUCCESS;
 	elm = list->head;
-	if (check_start(elm))
-		return FT_FAILURE;
-	if (is_parentheses_balanced(list) == 0)
-	{
-		printf("not balanced\n");
-		return FT_FAILURE;
-	}
+	check = 0;
 	while (elm)
 	{
 		token = (t_token *)elm->content;
-		if (token->type == T_DLESS)
-			(*heredoc)++;
-		if (expect(elm, elm->next) == FT_FAILURE)
-			return FT_FAILURE;
+		if (token->type == T_L_PARENTH)
+			check++;
+		else if (token->type == T_R_PARENTH)
+			check--;
+		if (check < 0)
+			return 0;
 		elm = elm->next;
 	}
-	if (*heredoc > 0)
-		return FT_REPROMPT;
-	return FT_SUCCESS;
+	if (check == 0)
+		return 1;
+	return 0;
 }
