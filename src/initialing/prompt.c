@@ -3,36 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 07:47:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/23 18:30:50 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/25 17:07:21 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
 
-int	empty_prompt(char *cmd)
+int empty_prompt(char *cmd)
 {
-	int	i;
+	int i;
 
 	i = 0;
-	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t' || cmd[i] == '\n' ||\
-		cmd[i] == '\v' || cmd[i] == '\f' || cmd[i] == '\r'))
+	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t' || cmd[i] == '\n' ||
+					  cmd[i] == '\v' || cmd[i] == '\f' || cmd[i] == '\r'))
 		i++;
 	if (!cmd[i])
 		return (1);
 	return (0);
 }
 
-void	prompt(char *_prompt, char **envp)
+void prompt(char *_prompt, char **envp)
 {
-	t_list	*list;
-	char	*cmd;
-	int 	result;
-	int		in;
-	int		heredoc_num = 0;
+	t_list *list;
+	char *cmd;
+	int result;
+	int in;
+	int heredoc_num = 0;
 	t_list *heredoc_list;
 
 	in = dup(STDIN_FILENO);
@@ -51,7 +51,7 @@ void	prompt(char *_prompt, char **envp)
 		result = parser(cmd, list, &heredoc_num);
 		if (result == FT_REPROMPT)
 		{
-			heredoc_list = heredoc(&heredoc_num, list);
+			heredoc_list = heredoc(heredoc_num, list);
 			result = FT_SUCCESS;
 		}
 		if (result == FT_SUCCESS)
@@ -67,7 +67,5 @@ void	prompt(char *_prompt, char **envp)
 			free(cmd);
 			list_del(&list, free);
 		}
-		// if (heredoc_num == 0)
-		// 	break;
 	}
 }
