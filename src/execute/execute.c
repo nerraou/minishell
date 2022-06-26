@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:25:43 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/25 19:09:00 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/26 10:30:45 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,8 @@ void	init_cmd(t_cmd *cmd)
 	cmd->next_is_pipes = 0;
 }
 
-void	get_exit_code(int pid, int *status)
+void	get_exit_code(int *status)
 {
-	if (pid == -1)
-		return (perror("minish: fork"));
-	waitpid(pid, status, 0);
 	if (WIFEXITED(*status))
 		exit_code = WEXITSTATUS(*status);
 	else if (WIFSIGNALED(*status))
@@ -34,16 +31,6 @@ void	get_exit_code(int pid, int *status)
 		if (exit_code == 130)
 			printf("\n");
 		else if (exit_code == 131)
-			printf("Quit: 3\n");
-	}
-	close(STDIN_FILENO);
-	while (waitpid(-1, status, 0) > 0)
-		;
-	if (WIFSIGNALED(*status) && exit_code < 128)
-	{
-		if (WTERMSIG(*status) == 2)
-			printf("\n");
-		else if (WTERMSIG(*status) == 3)
 			printf("Quit: 3\n");
 	}
 }
@@ -84,9 +71,10 @@ void	execute(t_element *f_cmd, t_element *l_cmd, char **envp, int in)
 		{
 			waitpid(child, &status, 0);
 			close(STDIN_FILENO);
-			get_exit_code(child, &status);
+			get_exit_code(&status);
+			printf(">> [%s] -> %d\n",cmd->cmd_name,exit_code);
 		}
-		// printf(">> %d\n",exit_code);
+		// write(2,"ok\n",3);
 		if (cmd->next_is_pipes)
 		{
 			cmd->next_is_pipes = 0;

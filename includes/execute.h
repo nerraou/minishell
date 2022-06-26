@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:29:46 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/25 19:02:31 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/26 09:00:18 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ void	free_pipes(int	**pipes, int size);
 void	get_io(t_element *f_cmd, t_element *l_cmd);
 int		fork_proccesses(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd);
 void	prepear_execve_args(t_element *f_cmd, t_element *l_cmd, t_cmd *cmd);
-int		executable_cmd(t_element *f_cmd, char **envp, t_cmd *cmd);
+void	executable_cmd(t_element *f_cmd, char **envp, t_cmd *cmd);
 int		check_parentheses(t_opr_logic *operators);
 #endif

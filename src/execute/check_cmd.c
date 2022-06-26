@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:28:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/23 18:44:53 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/26 09:00:00 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,14 @@ int	check_access(t_cmd *cmd, char **path)
 	else
 	{
 		cmd->executable = 0;
+		write(2, "MiniShell: ", ft_strlen("MiniShell: "));
 		write(2, cmd->cmd_name, ft_strlen(cmd->cmd_name));
 		write(2, " :command not found\n", ft_strlen(" :command not found\n"));
 	}
 	return (cmd->executable);
 }
 
-int	executable_cmd(t_element *f_cmd, char **envp, t_cmd *cmd)
+void	executable_cmd(t_element *f_cmd, char **envp, t_cmd *cmd)
 {
 	t_element	*elm;
 	t_token		*token;
@@ -91,5 +92,4 @@ int	executable_cmd(t_element *f_cmd, char **envp, t_cmd *cmd)
 		}
 		cmd->executable = check_access(cmd, path);
 	}
-	return (cmd->executable);
 }

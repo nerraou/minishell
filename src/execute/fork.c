@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:24:33 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/25 19:04:37 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/26 08:58:13 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,37 +42,26 @@ int	fork_proccesses(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd)
 		operators.f_cmd = f_cmd;
 		operators.l_cmd = l_cmd;
 		check_parentheses(&operators);
-		if (executable_cmd(operators.f_cmd, envp, cmd))
+		executable_cmd(operators.f_cmd, envp, cmd);
+		prepear_execve_args(operators.f_cmd, operators.l_cmd, cmd);
+		// if (!is_builtin(cmd))
+		if (1)
 		{
-			prepear_execve_args(operators.f_cmd, operators.l_cmd, cmd);
-			// if (!is_builtin(cmd))
-			if (1)
+			if (execve(cmd->args[0], cmd->args, envp) == -1)
 			{
-				if (execve(cmd->args[0], cmd->args, envp) == -1)
-				{
-					/* CMD ERROR*/
-					/*free cmd*/
-					/*close opend file*/
-					/*free pipe && close*/
-					/*exit code*/
-					/*exit()*/
-					// perror("execve");
-					// exit (1);
-				}
-			}
-			else
-			{
-				printf("is buildin cmd \n");
+				/* CMD ERROR*/
+				/*free cmd*/
+				/*close opend file*/
+				/*free pipe && close*/
+				/*exit code*/
+				/*exit()*/
+				// perror("execve");
+				// exit (1);
 			}
 		}
-		// else
+		else
 		{
-			/* CMD ERROR*/
-			/*free cmd*/
-			/*close opend file*/
-			/*free pipe && close*/
-			/*exit code*/
-			/*exit()*/
+			printf("is buildin cmd \n");
 		}
 	}
 	return (child);
