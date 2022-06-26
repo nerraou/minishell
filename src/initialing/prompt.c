@@ -3,55 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 07:47:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/25 17:07:21 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/26 20:43:53 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
 
-int empty_prompt(char *cmd)
+char	*read_line(char *_prompt)
 {
-	int i;
+	struct termios	tp;
+	char			*cmd;
 
-	i = 0;
-	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t' || cmd[i] == '\n' ||
-					  cmd[i] == '\v' || cmd[i] == '\f' || cmd[i] == '\r'))
-		i++;
-	if (!cmd[i])
-		return (1);
-	return (0);
+	if (tcgetattr(STDIN_FILENO, &tp))
+		perror("tcgetattr");
+	tp.c_lflag &= ~ECHOCTL;
+	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &tp))
+		perror("tcsetattr");
+	cmd = readline(_prompt);
+	return (cmd);
 }
 
-void prompt(char *_prompt, char **envp)
+void prompt(char *_prompt, char **envp, int in)
 {
 	t_list *list;
 	char *cmd;
 	int result;
-	int in;
 	int heredoc_num = 0;
 	t_list *heredoc_list;
 
-	in = dup(STDIN_FILENO);
 	while (1)
 	{
 		list = list_new();
-		// struct termios tp;
-		// if (tcgetattr(STDIN_FILENO, &tp))
-		// 	perror("tcgetattr");
-		// tp.c_lflag &= ~ECHOCTL;
-		// if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &tp))
-		// 	perror("tcsetattr");
-		cmd = readline(_prompt);
-		// if (!cmd)
-		// 	exit(0);
+		global_vars.heredoc = 1;
+		cmd = read_line(_prompt);
+		if (!cmd)
+			ctr_d();
 		result = parser(cmd, list, &heredoc_num);
 		if (result == FT_REPROMPT)
 		{
 			heredoc_list = heredoc(heredoc_num, list);
+			move_heredoc_content(list, heredoc_list);
 			result = FT_SUCCESS;
 		}
 		if (result == FT_SUCCESS)

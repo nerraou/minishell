@@ -6,13 +6,12 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:29:46 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/26 09:00:18 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/26 20:05:31 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTE_H
 #define EXECUTE_H
-
 # define READ_END 0
 # define WRITE_END 1
 
@@ -37,7 +36,6 @@ typedef struct s_cmd
 	int		executable;
 } t_cmd;
 
-int exit_code;
 
 void	execut(t_list *list, char **envp);
 void	expanding(t_element *f_cmd, t_element *l_cmd, char **envp);
@@ -55,4 +53,7 @@ int		fork_proccesses(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd
 void	prepear_execve_args(t_element *f_cmd, t_element *l_cmd, t_cmd *cmd);
 void	executable_cmd(t_element *f_cmd, char **envp, t_cmd *cmd);
 int		check_parentheses(t_opr_logic *operators);
+void	sig_handel(int sig);
+void	ctr_d(void);
+int 	empty_prompt(char *cmd);
 #endif

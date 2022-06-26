@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:25:43 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/26 10:30:45 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/26 20:10:56 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,10 @@ void	init_cmd(t_cmd *cmd)
 void	get_exit_code(int *status)
 {
 	if (WIFEXITED(*status))
-		exit_code = WEXITSTATUS(*status);
+		global_vars.exit_code = WEXITSTATUS(*status);
 	else if (WIFSIGNALED(*status))
-	{
-		exit_code = WTERMSIG(*status) + 128;
-		if (exit_code == 130)
-			printf("\n");
-		else if (exit_code == 131)
-			printf("Quit: 3\n");
-	}
+		global_vars.exit_code = WTERMSIG(*status) + 128;
+
 }
 void	execute(t_element *f_cmd, t_element *l_cmd, char **envp, int in)
 {
@@ -72,9 +67,7 @@ void	execute(t_element *f_cmd, t_element *l_cmd, char **envp, int in)
 			waitpid(child, &status, 0);
 			close(STDIN_FILENO);
 			get_exit_code(&status);
-			printf(">> [%s] -> %d\n",cmd->cmd_name,exit_code);
 		}
-		// write(2,"ok\n",3);
 		if (cmd->next_is_pipes)
 		{
 			cmd->next_is_pipes = 0;

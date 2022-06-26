@@ -68,7 +68,7 @@ void	priority(t_element *f_cmd, t_element *l_cmd, char **envp, int in)
 	}
 	else
 		priority(operators.f_cmd, operators.opr_cmd->prev, envp, in);
-	if (operators.operator == T_OR && exit_code) // && cmd not success
+	if (operators.operator == T_OR && global_vars.exit_code) // && cmd not success
 	{
 		if (operators.parent_l && operators.parent_r)
 		{
@@ -79,7 +79,7 @@ void	priority(t_element *f_cmd, t_element *l_cmd, char **envp, int in)
 			operators.opr_cmd = operators.opr_cmd->next;
 		priority(operators.opr_cmd, operators.l_cmd, envp, in);
 	}
-	if (operators.operator == T_AND && !exit_code) // && cmd success
+	if (operators.operator == T_AND && !global_vars.exit_code) // && cmd success
 	{
 		if (operators.parent_l && operators.parent_r)
 		{

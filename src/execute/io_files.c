@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 18:22:58 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/23 16:27:39 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/26 18:56:05 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,14 @@ void	less_great_dgreat(t_element	*elm)
 
 void	dless(t_element	*elm)
 {
-	t_token		*token;
+	t_token		*lim;
 	t_token		*content_heredoc;
 
-	token = (t_token *)elm->content;
-	content_heredoc = (t_token *)elm->next->content;
+	lim = (t_token *)elm->next->content;
+	content_heredoc = (t_token *)elm->content;
 	heredoc_to_file(content_heredoc->value);
 	content_heredoc->type = -1;
-	token->type = -1;
+	lim->type = -1;
 	open_file_read(ft_strdup("heredoc"));
 }
 

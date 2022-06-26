@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 14:46:37 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/10 11:39:54 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/26 20:58:00 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	retrieve_old_cmds(char *file)
 	old_cmd = get_next_line(fd);
 	while (old_cmd)
 	{
-		add_history(old_cmd);
+		add_history(ft_substr(old_cmd,0, ft_strlen(old_cmd) - 1));
 		free(old_cmd);
 		old_cmd = get_next_line(fd);
 	}
@@ -44,8 +44,8 @@ void	history(char *cmd, char **envp)
 	if (cmd)
 	{
 		write(fd, cmd, ft_strlen(cmd));
+		add_history("cmd");
 		write(fd, "\n", 1);
-		add_history(cmd);
 	}
 	close(fd);
 	retrieve_old_cmds(file);
