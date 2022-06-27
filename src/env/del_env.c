@@ -6,13 +6,13 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:41:43 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/18 19:44:35 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/28 11:29:23 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void del_env(t_env *env)
+void	del_env(t_env *env)
 {
 	free(env->key);
 	free(env->prepared);

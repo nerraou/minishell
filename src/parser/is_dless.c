@@ -6,15 +6,15 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 18:51:51 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/10 09:16:15 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/27 18:43:41 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int is_dless(t_element *cur_elem)
+int	is_dless(t_element *cur_elem)
 {
-	t_token *token;
+	t_token	*token;
 
 	token = (t_token *)cur_elem->content;
 	if (token->type == T_DLESS)

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:26:21 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/06 16:41:17 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/27 14:36:38 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char *ft_strcpy(char *dst, const char *src)
+static char	*ft_strcpy(char *dst, const char *src)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (src[i])
@@ -26,10 +26,10 @@ static char *ft_strcpy(char *dst, const char *src)
 	return (dst);
 }
 
-char *ft_strdup(const char *s)
+char	*ft_strdup(const char *s)
 {
-	int len;
-	char *dst;
+	int		len;
+	char	*dst;
 
 	len = ft_strlen(s);
 	dst = (char *)ft_malloc(sizeof(char) * (len + 1));

@@ -6,48 +6,65 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:49:39 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/25 17:06:18 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/28 10:58:46 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-void lexer(const char *str, t_list *list)
+static int	set_string(const char *str, t_list *list)
 {
-	int i;
-	int len;
+	int	len;
+
+	len = set_d_string(str, list);
+	if (len == -1)
+		len = set_s_string(str, list);
+	return (len);
+}
+
+static int	set_symboles(const char *str, t_list *list)
+{
+	int	len;
+
+	len = 0;
+	len = set_l_parenth(str, list);
+	if (len == -1)
+		len = set_r_parenth(str, list);
+	if (len == -1)
+		len = set_or(str, list);
+	if (len == -1)
+		len = set_and(str, list);
+	if (len == -1)
+		len = set_dless(str, list);
+	if (len == -1)
+		len = set_dgreat(str, list);
+	if (len == -1)
+		len = set_great(str, list);
+	if (len == -1)
+		len = set_less(str, list);
+	if (len == -1)
+		len = set_pipe(str, list);
+	return (len);
+}
+
+void	lexer(const char *str, t_list *list)
+{
+	int	i;
+	int	len;
 
 	i = 0;
 	len = 0;
 	while (str[i])
 	{
 		i += ft_skip_spaces(str + i);
-		len = set_d_string(str + i, list);
+		len = set_string(str, list);
 		if (len == -1)
-			len = set_l_parenth(str + i, list);
-		if (len == -1)
-			len = set_r_parenth(str + i, list);
-		if (len == -1)
-			len = set_s_string(str + i, list);
-		if (len == -1)
-			len = set_or(str + i, list);
-		if (len == -1)
-			len = set_and(str + i, list);
-		if (len == -1)
-			len = set_dless(str + i, list);
-		if (len == -1)
-			len = set_dgreat(str + i, list);
-		if (len == -1)
-			len = set_great(str + i, list);
-		if (len == -1)
-			len = set_less(str + i, list);
-		if (len == -1)
-			len = set_pipe(str + i, list);
+			len = set_symboles(str + i, list);
 		if (len == -1)
 		{
 			len = set_newline(str + i, list);
 			if (len != -1)
-				break;
+				break ;
 		}
 		if (len == -1)
 			len = set_word(str + i, list);

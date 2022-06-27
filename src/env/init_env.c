@@ -6,16 +6,16 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 17:02:03 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/27 12:39:56 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/28 11:34:36 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-static void handle_shlvl(t_list *env_list)
+static void	handle_shlvl(t_list *env_list)
 {
-	char *shelvl;
-	t_env *env;
+	char	*shelvl;
+	t_env	*env;
 
 	if (ft_getenv(env_list, "SHLVL") == NULL)
 	{
@@ -25,13 +25,13 @@ static void handle_shlvl(t_list *env_list)
 	}
 }
 
-t_list *init_env(char *env_arr[])
+t_list	*init_env(char *env_arr[])
 {
-	t_list *env_list;
-	t_env *env;
-	char *shelvl;
-	int lvl;
-	int i;
+	t_list	*env_list;
+	t_env	*env;
+	char	*shelvl;
+	int		lvl;
+	int		i;
 
 	env_list = list_new();
 	i = 0;

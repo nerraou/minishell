@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:49:23 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/28 13:21:05 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 14:37:16 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 // handle the env
 
-void change_pwd(char *new_pwd, t_list *env)
+void	change_pwd(char *new_pwd, t_list *env)
 {
-	t_element *elm;
-	t_env *old_path;
-	char *old_pwd;
+	t_element	*elm;
+	t_env		*old_path;
+	char		*old_pwd;
 
 	elm = ft_getenv(env, "PWD");
 	old_path = (t_env *)elm->content;
@@ -28,36 +28,41 @@ void change_pwd(char *new_pwd, t_list *env)
 	ft_setenv(env, new_env(old_pwd));
 }
 
-int cd(int ac, char *av[], t_list *env)
+static int	ft_cd(t_list *env)
 {
-	int check;
-	t_element *elm;
-	t_env *home_env;
-	if (ac == 1)
+	int			check;
+	t_element	*elm;
+	t_env		*home_env;
+
+	elm = ft_getenv(env, "HOME");
+	if (!elm)
+		return (FT_FAILURE);
+	home_env = (t_env *)elm->content;
+	check = chdir(home_env->value);
+	if (check == -1)
 	{
-		elm = ft_getenv(env, "HOME");
-		if (!elm)
-			return 1;
-		home_env = (t_env *)elm->content;
-		check = chdir(home_env->value);
-		if (check == -1)
-		{
-			printf("minishell: %s\n", strerror(errno));
-			return FT_FAILURE;
-		}
-		change_pwd(getcwd(NULL, 0), env);
-		return FT_SUCCESS;
+		printf("minishell: %s\n", strerror(errno));
+		return (FT_FAILURE);
 	}
+	change_pwd(getcwd(NULL, 0), env);
+	return (FT_SUCCESS);
+}
+
+int	cd(int ac, char *av[], t_list *env)
+{
+	int			check;
+
+	if (ac == 1)
+		return (ft_cd(env));
 	else
 	{
 		check = chdir(av[1]);
 		if (check == -1)
 		{
 			printf("minishell: %s\n", strerror(errno));
-			return FT_FAILURE;
+			return (FT_FAILURE);
 		}
 		change_pwd(getcwd(NULL, 0), env);
 	}
-
-	return FT_SUCCESS;
+	return (FT_SUCCESS);
 }

@@ -6,19 +6,19 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:51:33 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/21 10:01:01 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/28 11:31:32 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int ft_unsetenv(t_list *env_list, const char *key)
+int	ft_unsetenv(t_list *env_list, const char *key)
 {
-	t_element *elm;
+	t_element	*elm;
 
 	elm = ft_getenv(env_list, key);
 	if (!elm)
-		return 0;
+		return (0);
 	del_env((t_env *)elm->content);
 	if (elm->prev == NULL)
 	{
@@ -38,5 +38,5 @@ int ft_unsetenv(t_list *env_list, const char *key)
 	}
 	free(elm);
 	env_list->size--;
-	return 0;
+	return (0);
 }
