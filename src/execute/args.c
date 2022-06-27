@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:26:11 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/26 08:55:32 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/27 13:24:50 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	prepear_execve_args(t_element *f_cmd, t_element *l_cmd, t_cmd *cmd)
 			elm = elm->next;
 		}
 	}
-	if (cmd->executable == 2)
+	if (cmd->executable == 2 && global_vars.heredoc != T_DLESS)
 	{
 		cmd->args = (char **)malloc(sizeof(char *) * 2);
 		cmd->args[0] = ft_strdup("/bin/cat");

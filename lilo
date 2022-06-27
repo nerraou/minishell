@@ -1,7 +1,14 @@
+.gitignore
 
-.*/ == ../, ./, .git/, .vscode/
+.:
+Makefile
+includes
+lilo
+lol
+minishell
+src
 
-../:
+..:
 643959.jpeg
 Mdshell
 Screen Shot 2022-06-10 at 12.40.24 PM.png
@@ -24,16 +31,7 @@ pipe
 simple_simple_pwn
 the-ray-tracer-challenge-1nbsped-9781680500554-9781937785338-9781680502442-9781680502091-9781680502527-9781680502268-9781680502435-9781680502558-1.pdf
 
-./:
-Mae
-Makefile
-includes
-lilo
-lol
-minishell
-src
-
-.git/:
+.git:
 COMMIT_EDITMSG
 FETCH_HEAD
 HEAD
@@ -48,5 +46,5 @@ objects
 packed-refs
 refs
 
-.vscode/:
+.vscode:
 settings.json

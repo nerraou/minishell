@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 14:46:37 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/26 20:58:00 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/27 13:17:44 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	history(char *cmd, char **envp)
 	if (cmd)
 	{
 		write(fd, cmd, ft_strlen(cmd));
-		add_history("cmd");
+		add_history(cmd);
 		write(fd, "\n", 1);
 	}
 	close(fd);

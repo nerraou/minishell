@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 07:47:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/27 08:49:08 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/27 13:22:58 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void prompt(char *_prompt, char **envp, int in)
 		list = list_new();
 		global_vars.heredoc = 1;
 		cmd = read_line(_prompt);
+		global_vars.heredoc = 0;
 		if (!cmd)
 			ctr_d();
 		result = parser(cmd, list, &heredoc_num);

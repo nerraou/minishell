@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:11:17 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/27 09:45:15 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/27 12:21:50 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,3 +70,27 @@ void	expanding(t_element *f_cmd, t_element *l_cmd, char **envp)
 	dollar_handling(f_cmd, l_cmd, envp);
 	/* expanding the [*] */
 }
+
+/*
+ expanding the [*]
+// 	DIR *dir = opendir(".");
+// 	struct dirent *dire;
+// 	if (dir) {
+//     while ((dire = readdir(dir)) != NULL) {
+//       printf("%s\n", dire->d_name);
+//     }
+//     closedir(dir);
+//   }
+*/
+
+			// helper = elm->next;
+			// token1 = (t_token *)malloc(sizeof(t_token));
+			// token1->value = ft_strdup("OSAMA");
+			// token1->type = 120;
+			// token1->to_join = 0;
+			// add = (t_element *)malloc(sizeof(t_element));
+			// add->content = token1;
+			// elm->next = add;
+			// add->prev = elm;
+			// add->next = helper;
+			// helper->prev = add;
