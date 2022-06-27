@@ -1,0 +1,10 @@
+.
+..
+.git
+.gitignore
+.vscode
+Makefile
+includes
+lol
+minishell
+src

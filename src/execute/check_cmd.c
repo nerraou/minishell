@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:28:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/26 10:58:02 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/27 08:03:37 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,32 +93,3 @@ void	executable_cmd(t_element *f_cmd, char **envp, t_cmd *cmd)
 		cmd->executable = check_access(cmd, path);
 	}
 }
-
-// void printWaitStatus(const char *msg, int status)
-// {
-// 	if (WIFEXITED(status))
-// 		printf("child exited, status=%d\n", WEXITSTATUS(status));
-// 	else if (WIFSIGNALED(status))
-// 	{
-// 		printf("child killed by signal %d (%s)",WTERMSIG(status), strsignal(WTERMSIG(status)));
-// 		#ifdef WCOREDUMP /* Not in SUSv3, may be absent on some systems */
-// 		if (WCOREDUMP(status))
-// 		printf(" (core dumped)");
-// 		#endif
-// 		printf("\n");
-// 	}else if (WIFSTOPPED(status))
-// 	{
-// 		printf("child stopped by signal %d (%s)\n",
-// 		WSTOPSIG(status), strsignal(WSTOPSIG(status)));
-// 		#ifdef WIFCONTINUED /* SUSv3 has this, but older Linux versions and
-// 		some other UNIX implementations don't */
-// 	}else if (WIFCONTINUED(status))
-// 	{
-// 		printf("child continued\n");
-// 		#endif
-// 	}else
-// 	{ /* Should never happen */
-// 		printf("what happened to this child? (status=%x)\n",
-// 		(unsigned int) status);
-// 	}
-// }

@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 20:04:37 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/26 20:59:24 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/27 08:43:37 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int empty_prompt(char *cmd)
 
 void	ctr_d(void)
 {
-	write(1, "\033[1A\033[13Cexit\n", ft_strlen("\033[1A\033[13Cexit\n"));
+	write(1, "\033[1A\033[12Cexit\n", ft_strlen("\033[1A\033[12Cexit\n"));
 	exit (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 07:47:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/26 20:43:53 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/27 08:49:08 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,13 @@ void prompt(char *_prompt, char **envp, int in)
 			{
 				history(cmd, envp);
 				priority(list->head, list->tail, envp, in);
+				unlink("heredoc");
 			}
 		}
-		if (result == FT_FAILURE)
-		{
+		// if (result == FT_FAILURE)
+		// {
 			free(cmd);
 			list_del(&list, free);
-		}
+		// }
 	}
 }
