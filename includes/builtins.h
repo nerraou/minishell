@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:44:20 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/28 13:47:13 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 15:58:24 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <errno.h>
 #include "env.h"
 #include "ft_stddef.h"
+#include "minishell.h"
 
 int ft_echo(int ac, char *av[]);
 int env(t_list *env_list);

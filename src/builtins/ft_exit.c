@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 16:52:21 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/28 12:33:29 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/28 15:57:51 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_exit(int ac, char *av[])
 	state_num = 255;
 	if (ac > 2)
 	{
-		printf("minishell: exit: too many arguments\n");
+		ft_putendl_fd("minishell: exit: too many arguments", 2);
 		return (FT_FAILURE);
 	}
 	if (ac == 2)
@@ -39,6 +39,6 @@ int	ft_exit(int ac, char *av[])
 			print_exit_error(av[1]);
 		exit(state_num & 255);
 	}
-	exit(0);
+	exit(global_vars.exit_code & 255);
 	return (FT_SUCCESS);
 }

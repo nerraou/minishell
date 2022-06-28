@@ -75,7 +75,7 @@ SRC =\
 	src/parser/wordstring_expect.c\
 \
 	src/builtins/env.c\
-	src/builtins/echo.c\
+	src/builtins/ft_echo.c\
 	src/builtins/export.c\
 	src/builtins/unset.c\
 	src/builtins/pwd.c\
