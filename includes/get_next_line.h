@@ -6,13 +6,13 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:24:39 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/06 14:44:34 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 18:06:02 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-#define BUFFER_SIZE 42
+# define BUFFER_SIZE 42
 
 char	*get_next_line(int fd);
 size_t	check_end_of_line(char	*buf);

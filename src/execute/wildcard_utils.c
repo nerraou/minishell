@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 10:05:07 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 12:55:13 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 18:04:37 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,20 @@ int	is_wildcard(t_element *elm)
 		i++;
 	}
 	return (exist);
+}
+
+int	free_lookup(bool **lookup, int n, int m)
+{
+	int	result;
+	int	i;
+
+	result = lookup[n][m];
+	i = n - 1;
+	while (i)
+	{
+		free(lookup[i]);
+		i--;
+	}
+	free(lookup);
+	return (result);
 }

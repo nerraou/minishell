@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 11:22:55 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/28 14:38:57 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/28 18:25:20 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_list	*heredoc(int heredoc_num, t_list *list)
 	full_content = ft_strdup("");
 	while (heredoc_num > 0)
 	{
-		global_vars.heredoc = T_DLESS;
+		g_vars.heredoc = T_DLESS;
 		line = readline("> ");
 		token = (t_token *)last_pos->content;
 		if (ft_strcmp(line, token->value) != 0)

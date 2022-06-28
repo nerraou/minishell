@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:28:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 11:10:18 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 16:09:51 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,27 @@ char	**get_path_from_env(char *envp[])
 	return (path);
 }
 
+void	check_slash(char **name)
+{
+	int		i;
+	char	*holder;
+
+	i = ft_strlen(*name);
+	while ((*name)[i - 1] != '/' && (*name)[i - 1] != '.')
+		i--;
+	holder = ft_substr(*name, i, ft_strlen(*name) - i + 1);
+	free(*name);
+	*name = holder;
+}
+
+void	replace_cat(t_cmd *cmd)
+{
+	cmd->executable = 0;
+	write(2, "MiniShell: ", ft_strlen("MiniShell: "));
+	write(2, cmd->cmd_name, ft_strlen(cmd->cmd_name));
+	write(2, " :command not found\n", ft_strlen(" :command not found\n"));
+}
+
 int	check_access(t_cmd *cmd, char **path)
 {
 	int	i;
@@ -48,20 +69,24 @@ int	check_access(t_cmd *cmd, char **path)
 	i = 0;
 	while (path[i])
 	{
-		cmd->cmd = ft_strjoin(path[i], cmd->cmd_name);
-		if (!access(cmd->cmd, X_OK))
+		if (access(cmd->cmd_name, X_OK))
+		{
+			cmd->cmd = ft_strjoin(path[i], cmd->cmd_name);
+			if (!access(cmd->cmd, X_OK))
+				break ;
+		}
+		else
+		{
+			cmd->cmd = cmd->cmd_name;
+			check_slash(&cmd->cmd_name);
 			break ;
+		}
 		i++;
 	}
 	if (path[i])
 		cmd->executable = 1;
 	else
-	{
-		cmd->executable = 0;
-		write(2, "MiniShell: ", ft_strlen("MiniShell: "));
-		write(2, cmd->cmd_name, ft_strlen(cmd->cmd_name));
-		write(2, " :command not found\n", ft_strlen(" :command not found\n"));
-	}
+		replace_cat(cmd);
 	return (cmd->executable);
 }
 
@@ -89,4 +114,5 @@ void	executable_cmd(t_element *f_cmd, char **envp, t_cmd *cmd)
 			exit (1);
 		cmd->executable = check_access(cmd, path);
 	}
+	free_2_arr (envp);
 }

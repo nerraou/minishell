@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 08:54:05 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 12:59:43 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 18:04:00 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,6 @@ bool	**allocat_lookup(bool	**lookup, int n, int m)
 	}
 	lookup[0][0] = true;
 	return (lookup);
-}
-
-int	free_lookup(bool **lookup, int n, int m)
-{
-	int	result;
-	int	i;
-
-	result = lookup[n][m];
-	i = n - 1;
-	while (i)
-	{
-		free(lookup[i]);
-		i--;
-	}
-	free(lookup);
-	return (result);
 }
 
 bool	wildcard_match(char *file, char *pattern, int n, int m)
@@ -94,6 +78,13 @@ void	join_files(t_wild *match, char *dire_name, t_element *elm, int *i)
 	}
 }
 
+void	update_free(t_element *elm, t_wild *match, int i)
+{
+	update_element(elm, match, i);
+	free(match->all_matches);
+	match->all_matches = NULL;
+}
+
 void	wildcard_expand(t_element *f_cmd, t_element *l_cmd)
 {
 	t_element		*elm;
@@ -109,8 +100,6 @@ void	wildcard_expand(t_element *f_cmd, t_element *l_cmd)
 	{
 		if (is_wildcard(elm) > -1 && dir)
 		{
-			t_token *to;
-			to = (t_token*)elm->content;
 			dir = opendir(".");
 			dire = readdir(dir);
 			while (dire)
@@ -118,7 +107,7 @@ void	wildcard_expand(t_element *f_cmd, t_element *l_cmd)
 				join_files(&match, dire->d_name, elm, &i);
 				dire = readdir(dir);
 			}
-			update_element(elm, &match, i);
+			update_free(elm, &match, i);
 			closedir(dir);
 		}
 		elm = elm->next;
