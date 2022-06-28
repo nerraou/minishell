@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:37:41 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/25 17:05:05 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/28 08:18:43 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void ft_putendl_fd(char *s, int fd);
 void ft_putchar_fd(char c, int fd);
 void ft_putstr_fd(char *s, int fd);
 char **ft_split(char const *s, char c);
+int	wcount(char const *s, char c);
 int is_long(const char *str);
 
 #endif

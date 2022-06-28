@@ -6,13 +6,13 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 10:34:11 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/21 10:34:23 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 08:18:49 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	wcount(char const *s, char c)
+int	wcount(char const *s, char c)
 {
 	int	i;
 	int	n;

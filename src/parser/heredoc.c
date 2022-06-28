@@ -6,11 +6,11 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 11:22:55 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/25 16:45:56 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/27 14:14:50 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minishell.h"
 
 static t_element *find_heredoc_delimiter(t_element *last_pos)
 {
@@ -39,14 +39,14 @@ t_list *heredoc(int heredoc_num, t_list *list)
 	full_content = ft_strdup("");
 	while (heredoc_num > 0)
 	{
+		global_vars.heredoc = T_DLESS;
 		line = readline("> ");
 		token = (t_token *)last_pos->content;
-		if (ft_strcmp(line, token->value) != 0)
+		if (line && ft_strcmp(line, token->value) != 0)
 		{
 			to_free = full_content;
 			full_content = ft_strjoin(full_content, line);
 			free(to_free);
-
 			to_free = full_content;
 			full_content = ft_strjoin(full_content, "\n");
 			free(to_free);

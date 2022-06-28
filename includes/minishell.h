@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:28:29 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/14 09:27:53 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/28 13:35:31 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,32 @@
 #include <string.h>
 #include <fcntl.h>
 #include <termios.h>
+#include <curses.h>
+#include <signal.h>
+#include <dirent.h>
+#include <stdbool.h>
+#include <term.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "libft.h"
 #include "list.h"
 #include "lexer.h"
 #include "execute.h"
+#include "builtins.h"
+#include "env.h"
 #include "get_next_line.h"
+
+typedef struct s_global_vars
+{
+	int	exit_code;
+	int	exit_shell;
+	int	heredoc;
+}	t_global_vars;
+
+t_global_vars	global_vars;
 
 void update_shlvl(char **envp);
 void history(char *cmd, char **envp);
-void prompt(char *_prompt, char **envp);
+void prompt(char *_prompt, char **envp, int in);
 
 #endif

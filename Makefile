@@ -1,7 +1,8 @@
 NAME = minishell
 CFLAGS = -Wall -Wextra -Werror -g
 HEADERS = ./includes/minishell.h
-
+READLINE = -L /goinfre/$(USER)/.brew/opt/readline/lib -lreadline
+READLINE_INCLUDE = -I /goinfre/$(USER)/.brew/opt/readline/include
 SRC =\
 	src/libft/ft_atoi.c\
 	src/libft/ft_indexof.c\
@@ -109,6 +110,10 @@ SRC =\
 	src/execute/fork.c\
 	src/execute/args.c\
 	src/execute/check_cmd.c\
+	src/execute/handling.c\
+	src/execute/wildcard.c\
+	src/execute/wildcard_utils.c\
+	src/execute/open_file.c\
 \
 	src/main.c\
 
@@ -119,10 +124,10 @@ INCLUDES_PATH = -I./includes/
 all: $(NAME)
 
 %.o: %.c $(HEADERS)
-	gcc $(CFLAGS) $(INCLUDES_PATH) -o $@ -c $<
+	gcc $(CFLAGS) $(INCLUDES_PATH) $(READLINE_INCLUDE) -o $@ -c $<
 
 $(NAME): $(OBJ)
-	gcc $(CFLAGS) -o $(NAME) $^ $(INCLUDES_PATH) -lreadline -lncurses
+	gcc $(CFLAGS) -o $(NAME) $(READLINE) $^ $(INCLUDES_PATH)
 
 clean:
 	rm -f $(OBJ)

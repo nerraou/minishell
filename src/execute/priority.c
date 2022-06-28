@@ -1,16 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   priority.c                                           :+:      :+:    :+:   */
+/*   priority.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/08 11:07:11 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/23 18:30:22 by obelkhad         ###   ########.fr       */
+/*   Created: 2022/06/28 10:52:00 by obelkhad          #+#    #+#             */
+/*   Updated: 2022/06/28 11:09:40 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	check_r_l_parenth(t_element	**r_prnth, t_element	*last)
+{
+	int		parentheses;
+	t_token	*tokenr;
+
+	parentheses = 0;
+	while ((*r_prnth) && (*r_prnth) != last)
+	{
+		(*r_prnth) = (*r_prnth)->next;
+		tokenr = (t_token *)(*r_prnth)->content;
+		if (tokenr->type == T_R_PARENTH && !parentheses)
+			break ;
+		if (tokenr->type == T_L_PARENTH)
+			parentheses++;
+		if (tokenr->type == T_R_PARENTH)
+			parentheses--;
+	}
+}
 
 int	check_parentheses(t_opr_logic *operators)
 {
@@ -24,21 +43,11 @@ int	check_parentheses(t_opr_logic *operators)
 	r_prnth = operators->f_cmd;
 	last = operators->l_cmd;
 	tokenr = (t_token *)r_prnth->content;
-	int parentheses = 0;
-	while (r_prnth && r_prnth != last)
-	{
-		r_prnth = r_prnth->next;
-		tokenr = (t_token *)r_prnth->content;
-		if (tokenr->type == T_R_PARENTH && !parentheses)
-			break ;
-		if (tokenr->type == T_L_PARENTH)
-			parentheses++;
-		if (tokenr->type == T_R_PARENTH)
-			parentheses--;
-	}
+	check_r_l_parenth(&r_prnth, last);
 	tokenl = (t_token *)first->content;
 	tokenr = (t_token *)last->content;
-	if(tokenl->type == T_L_PARENTH && tokenr->type == T_R_PARENTH && r_prnth == last)
+	if (tokenl->type == T_L_PARENTH && tokenr->type == T_R_PARENTH && \
+	r_prnth == last)
 	{
 		operators->f_cmd = operators->f_cmd->next;
 		operators->l_cmd = operators->l_cmd->prev;
@@ -48,6 +57,30 @@ int	check_parentheses(t_opr_logic *operators)
 	return (0);
 }
 
+void	or_handling(t_opr_logic	*operators, char **envp, int in)
+{
+	if (operators->parent_l && operators->parent_r)
+	{
+		operators->opr_cmd = operators->parent_l;
+		operators->l_cmd = operators->parent_r;
+	}
+	else
+		operators->opr_cmd = operators->opr_cmd->next;
+	priority(operators->opr_cmd, operators->l_cmd, envp, in);
+}
+
+void	and_handling(t_opr_logic	*operators, char **envp, int in)
+{
+	if (operators->parent_l && operators->parent_r)
+	{
+		operators->opr_cmd = operators->parent_l;
+		operators->l_cmd = operators->parent_r;
+	}
+	else
+		operators->opr_cmd = operators->opr_cmd->next;
+	priority(operators->opr_cmd, operators->l_cmd, envp, in);
+}
+
 void	priority(t_element *f_cmd, t_element *l_cmd, char **envp, int in)
 {
 	t_opr_logic	operators;
@@ -55,18 +88,10 @@ void	priority(t_element *f_cmd, t_element *l_cmd, char **envp, int in)
 	operators.f_cmd = f_cmd;
 	operators.opr_cmd = l_cmd;
 	operators.l_cmd = l_cmd;
+	operators.parent_l = NULL;
+	operators.parent_r = NULL;
 	check_parentheses(&operators);
 	divide_by_last_operator(&operators);
-			t_element	*elm;
-		t_token		*token;
-		elm = operators.f_cmd;
-		while (elm && elm->prev != operators.l_cmd)
-		{
-			token = (t_token*)elm->content;
-			printf("[ %s ] . [ %d ]\n",token->value, token->type);
-			elm = elm->next;
-		}
-		printf("[++++++++++]\n\n");
 	if (operators.opr_cmd == operators.f_cmd)
 	{
 		if (check_parentheses(&operators))
@@ -76,26 +101,8 @@ void	priority(t_element *f_cmd, t_element *l_cmd, char **envp, int in)
 	}
 	else
 		priority(operators.f_cmd, operators.opr_cmd->prev, envp, in);
-	if (operators.operator == T_OR && 0) // && cmd not success
-	{
-		if (operators.parent_l && operators.parent_r)
-		{
-			operators.opr_cmd = operators.parent_l;
-			operators.l_cmd = operators.parent_r;
-		}
-		else
-			operators.opr_cmd = operators.opr_cmd->next;
-		priority(operators.opr_cmd, operators.l_cmd, envp, in);
-	}
-	if (operators.operator == T_AND && 1) // && cmd success
-	{
-		if (operators.parent_l && operators.parent_r)
-		{
-			operators.opr_cmd = operators.parent_l;
-			operators.l_cmd = operators.parent_r;
-		}
-		else
-			operators.opr_cmd = operators.opr_cmd->next;
-		priority(operators.opr_cmd, operators.l_cmd, envp, in);
-	}
+	if (operators.operator == T_OR && global_vars.exit_code)
+		or_handling(&operators, envp, in);
+	if (operators.operator == T_AND && !global_vars.exit_code)
+		and_handling(&operators, envp, in);
 }

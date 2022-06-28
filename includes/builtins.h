@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:44:20 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/24 09:30:13 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/28 13:47:13 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "env.h"
 #include "ft_stddef.h"
 
-int echo(int ac, char *av[]);
+int ft_echo(int ac, char *av[]);
 int env(t_list *env_list);
 int export(int ac, char *av[], t_list *env_list);
 int unset(int ac, char *av[], t_list *env_list);

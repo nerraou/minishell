@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 21:38:41 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/06 16:41:17 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 11:11:08 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ size_t	check_end_of_line(char	*buf)
 		i++;
 	return (i);
 }
-
 
 char	*ft_strjoin1(char **line, char **str)
 {
@@ -47,4 +46,3 @@ char	*ft_strjoin1(char **line, char **str)
 	}
 	return (*line);
 }
-
