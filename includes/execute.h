@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:29:46 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/27 14:20:28 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 10:16:03 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,16 @@ typedef struct s_cmd
 	int		executable;
 } t_cmd;
 
+typedef struct s_wild
+{
+	char	*file;
+	char	*holder;
+	char	*all_matches;
+} t_wild;
+
 
 void	execut(t_list *list, char **envp);
-void	expanding(t_element *f_cmd, t_element *l_cmd, char **envp);
+void	dollar_handling(t_element *f_cmd, t_element *l_cmd, char **envp);
 char	*get_env_value(char	*env, char **envp);
 int		check_env(char	*vrb, char **envp);
 void	execute(t_element *f_cmd, t_element *l_cmd, char **envp, int in);
@@ -56,4 +63,10 @@ int		check_parentheses(t_opr_logic *operators);
 void	sig_handel(int sig);
 void	ctr_d(void);
 int 	empty_prompt(char *cmd);
+void	wildcard_expand(t_element *f_cmd, t_element *l_cmd);
+void	open_file_write(char *outfile, int mode);
+void	open_file_read(char	*infile);
+void	init_wild(t_wild *match);
+void	update_element(t_element *elm, t_wild *match, int i);
+int		is_wildcard(t_element *elm);
 #endif

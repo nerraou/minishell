@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:28:29 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/27 19:10:13 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 13:35:31 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 #include "list.h"
 #include "lexer.h"
 #include "execute.h"
+#include "builtins.h"
+#include "env.h"
 #include "get_next_line.h"
 
 typedef struct s_global_vars

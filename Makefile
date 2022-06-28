@@ -111,6 +111,9 @@ SRC =\
 	src/execute/args.c\
 	src/execute/check_cmd.c\
 	src/execute/handling.c\
+	src/execute/wildcard.c\
+	src/execute/wildcard_utils.c\
+	src/execute/open_file.c\
 \
 	src/main.c\
 

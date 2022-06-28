@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:25:43 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/27 09:44:01 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 11:39:51 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	get_exit_code(int *status)
 		global_vars.exit_code = WEXITSTATUS(*status);
 	else if (WIFSIGNALED(*status))
 		global_vars.exit_code = WTERMSIG(*status) + 128;
-
 }
+
 void	execute(t_element *f_cmd, t_element *l_cmd, char **envp, int in)
 {
 	t_element	*pipes;
@@ -44,7 +44,7 @@ void	execute(t_element *f_cmd, t_element *l_cmd, char **envp, int in)
 		/*exit (1)*/
 	}
 	init_cmd(cmd);
-	expanding(f_cmd, l_cmd, envp);
+	dollar_handling(f_cmd, l_cmd, envp);
 	join_pieces(f_cmd, l_cmd);
 	pipes = f_cmd;
 	while (pipes && pipes->prev != l_cmd)
@@ -79,6 +79,7 @@ void	execute(t_element *f_cmd, t_element *l_cmd, char **envp, int in)
 		pipes = pipes->next;
 		f_cmd = pipes;
 	}
-	while (waitpid(-1, NULL, 0) > 0);
+	while (waitpid(-1, NULL, 0) > 0)
+		;
 	dup2(in, STDIN_FILENO);
 }

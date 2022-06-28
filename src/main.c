@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 19:18:06 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/27 19:18:07 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 13:47:57 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,19 @@
 int main(int argc, char **argv, char **envp)
 {
 	int	in;
+	// t_list *env;
 
+	// env	= init_env(envp);
+ 	// char **env_arr  = list_to_array(env);
 	in = dup(STDIN_FILENO);
 	(void)argc;
 	(void)argv;
 	signal(SIGINT, sig_handel);
 	signal(SIGQUIT, sig_handel);
-	update_shlvl(envp);
+	// update_shlvl(envp);
 	history(NULL, envp);
 	prompt("MiniShell_$ ", envp, in);
+	rl_clear_history();
 	return (0);
 }
 

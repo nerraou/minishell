@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:24:33 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/27 19:58:40 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 13:47:32 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,112 +22,42 @@ void	pipe_io(t_cmd *cmd, t_element **l_cmd)
 		token->type = -1;
 		*l_cmd = (*l_cmd)->prev;
 		close(cmd->pipes[READ_END]);
-		dup2(cmd->pipes[WRITE_END] , STDOUT_FILENO);
+		dup2(cmd->pipes[WRITE_END], STDOUT_FILENO);
 		close(cmd->pipes[WRITE_END]);
 	}
 }
 
-int	is_wildcard(t_element *elm)
-{
-	int		i;
-	int		exist;
-	t_token	*token;
+// int	is_builtin(char	*cmd)
+// {
+// 	int	check;
 
-	i = 0;
-	exist = -1;
-	token = (t_token *)elm->content;
-	while (token->value[i])
-	{
-		if (token->value[i] == '*')
-		{
-			exist = i;
-			break;
-		}
-		i++;
-	}
-	return (exist);
-}
+// 	check = 0;
+// 	if (cmd)
+// 	{
+// 		if (!ft_strncmp(cmd, "cd", 2))
+// 			check = 1;
+// 		if (!ft_strncmp(cmd, "echo", 4))
+// 			check = 2;
+// 		if (!ft_strncmp(cmd, "pwd", 3))
+// 			check = 3;
+// 		if (!ft_strncmp(cmd, "export", 6))
+// 			check = 4;
+// 		if (!ft_strncmp(cmd, "unset", 5))
+// 			check = 5;
+// 		if (!ft_strncmp(cmd, "env", 3))
+// 			check = 6;
+// 		if (!ft_strncmp(cmd, "exit", 3))
+// 			check = 7;
 
-bool wildcard_match(char *file, char *pattern, int n, int m)
-{
-	int		i;
-	int		j;
-    bool	lookup[n + 1][m + 1];
-
-	ft_memset(lookup, false, sizeof(lookup));
-    lookup[0][0] = true;
-	j = 1;
-	while (j <= m)
-	{
-        if (pattern[j - 1] == '*')
-            lookup[0][j] = lookup[0][j - 1];
-		j++;
-	}
-	i = 1;
-	while (i <= n)
-	{
-		j = 1;
-		while (j <= m)
-		{
-     		if (file[i - 1] == pattern[j - 1])
-                lookup[i][j] = lookup[i - 1][j - 1];
-           	else  if (pattern[j - 1] == '*')
-                lookup[i][j]= lookup[i][j - 1] || lookup[i - 1][j];
-			j++;
-		}
-		i++;
-	}
-    return lookup[n][m];
-}
-
-void	wildcard_expand(t_element *f_cmd, t_element *l_cmd)
-{
-	t_element	*elm;
-	t_token		*token;
-	struct dirent *dire;
-	// char		*str[];
-	char		*file;
-	char		*holder;
-	char		*all_files;
-
-	elm = f_cmd;
-	all_files = NULL;
-	holder = NULL;
-	while (elm && elm->prev != l_cmd)
-	{
-		if (is_wildcard(elm) > -1)
-		{
-			token = (t_token *)elm->content;
-			DIR *dir = opendir(".");
-			if (dir)
-			{
-				while ((dire = readdir(dir)) != NULL)
-				{
-					if (wildcard_match(dire->d_name, token->value, ft_strlen(dire->d_name), ft_strlen(token->value)))
-					{
-						if (all_files)
-						{
-							holder = ft_strdup(all_files);
-							free(all_files);
-						}
-						file = ft_strjoin(ft_strdup(dire->d_name) , " ");
-						all_files = ft_strjoin(holder, file);
-						free(holder);
-						free(file);
-						printf("> %s\n", all_files);
-					}
-				}
-				closedir(dir);
-			}
-		}
-		elm = elm->next;
-	}
-}
+// 	}
+// 	return (check);
+// }
 
 int	fork_proccesses(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd)
 {
-	int		child;
+	int			child;
 	t_opr_logic	operators;
+	// int			built;
 
 	child = fork();
 	if (child == 0)
@@ -137,23 +67,28 @@ int	fork_proccesses(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd)
 		operators.f_cmd = f_cmd;
 		operators.l_cmd = l_cmd;
 		check_parentheses(&operators);
-
 		executable_cmd(operators.f_cmd, envp, cmd);
-		wildcard_expand(f_cmd, l_cmd);
-
 		// t_element *elm;
-		// t_token *token;
+		// t_token *to;
 		// elm = f_cmd;
-		// while (elm)
+		// while (elm && elm->prev != l_cmd)
 		// {
-		// 	token = (t_token *)elm->content;
-		// 	printf("[%s] [%d]\n",token->value, token->type);
+		// 	to = (t_token*)elm->content;
+		// 	printf("(%s) = (%d)\n",to->value,to->type);
 		// 	elm = elm->next;
 		// }
+		wildcard_expand(f_cmd, l_cmd);
 		prepear_execve_args(operators.f_cmd, operators.l_cmd, cmd);
-		// if (!is_builtin(cmd))
-		if (1)
+		// built = is_builtin(cmd->cmd_name);
+		// if (!built)
 		{
+			// int i = 0;
+			// while (cmd->args[i])
+			// {
+			// 	printf("%s\n",cmd->args[i]);
+			// 	i++;
+			// }
+
 			if (execve(cmd->args[0], cmd->args, envp) == -1)
 			{
 				/* CMD ERROR*/
@@ -166,9 +101,9 @@ int	fork_proccesses(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd)
 				// exit (1);
 			}
 		}
-		else
+		// else
 		{
-			printf("is buildin cmd \n");
+			//free
 		}
 	}
 	return (child);

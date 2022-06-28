@@ -6,15 +6,15 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 20:04:37 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/27 14:20:41 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 09:58:41 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int empty_prompt(char *cmd)
+int	empty_prompt(char *cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t' || cmd[i] == '\n' || \
@@ -31,22 +31,10 @@ void	ctr_d(void)
 	exit (0);
 }
 
-// clear history
-
 void	sig_handel(int sig)
 {
-
-
-	// if (sig == SIGINT && global_vars.heredoc == T_DLESS)
-	// {
-	// 	// printf("LL\n");
-	// 	// global_vars.heredoc = 1;
-	// 	// rl_insert_text("osama$");
-	// 	// // rl_on_new_line();
-	// 	// rl_redisplay();
-	// 	// global_vars.heredoc = 1;
-	// 	global_vars.exit_code = 1;
-	// }
+	if (sig == SIGINT && global_vars.heredoc == T_DLESS)
+		global_vars.exit_code = 1;
 	if (sig == SIGQUIT)
 	{
 		rl_on_new_line();

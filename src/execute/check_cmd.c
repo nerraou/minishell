@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:28:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/27 14:37:53 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 11:10:18 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,7 @@ void	executable_cmd(t_element *f_cmd, char **envp, t_cmd *cmd)
 		cmd->cmd_name = ft_strdup(token->value);
 		path = get_path_from_env(envp);
 		if (!path)
-		{
-			/*free*/
 			exit (1);
-		}
 		cmd->executable = check_access(cmd, path);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 07:47:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/27 13:22:58 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 13:43:28 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,29 @@ char	*read_line(char *_prompt)
 	return (cmd);
 }
 
-void prompt(char *_prompt, char **envp, int in)
+int	herdoc_input(t_list	*heredoc_list, char *cmd, t_list *list)
 {
-	t_list *list;
-	char *cmd;
-	int result;
-	int heredoc_num = 0;
-	t_list *heredoc_list;
+	int		result;
+	int		heredoc_num;
 
+	heredoc_num = 0;
+	result = parser(cmd, list, &heredoc_num);
+	if (result == FT_REPROMPT)
+	{
+		heredoc_list = heredoc(heredoc_num, list);
+		move_heredoc_content(list, heredoc_list);
+		result = FT_SUCCESS;
+	}
+	return (result);
+}
+
+void	prompt(char *_prompt, char **envp, int in)
+{
+	t_list	*list;
+	char	*cmd;
+	t_list	*heredoc_list;
+
+	heredoc_list = NULL;
 	while (1)
 	{
 		list = list_new();
@@ -43,26 +58,14 @@ void prompt(char *_prompt, char **envp, int in)
 		global_vars.heredoc = 0;
 		if (!cmd)
 			ctr_d();
-		result = parser(cmd, list, &heredoc_num);
-		if (result == FT_REPROMPT)
+		if (herdoc_input(heredoc_list, cmd, list) == FT_SUCCESS && !empty_prompt(cmd))
 		{
-			heredoc_list = heredoc(heredoc_num, list);
-			move_heredoc_content(list, heredoc_list);
-			result = FT_SUCCESS;
+			
+			history(cmd, envp);
+			priority(list->head, list->tail, envp, in);
+			unlink("heredoc");
 		}
-		if (result == FT_SUCCESS)
-		{
-			if (!empty_prompt(cmd))
-			{
-				history(cmd, envp);
-				priority(list->head, list->tail, envp, in);
-				unlink("heredoc");
-			}
-		}
-		// if (result == FT_FAILURE)
-		// {
-			free(cmd);
-			list_del(&list, free);
-		// }
+		free(cmd);
+		list_del(&list, free);
 	}
 }

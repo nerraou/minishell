@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:17:54 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/19 17:11:14 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 10:02:42 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	joining(t_element *elm)
 {
 	t_token		*token_next;
 	t_token		*token;
-	char	*holder;
+	char		*holder;
 
 	token = (t_token *)elm->content;
 	token_next = (t_token *)elm->next->content;
