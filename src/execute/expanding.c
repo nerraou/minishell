@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:11:17 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 09:57:53 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 17:59:16 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,17 @@ void	expand(char **value, char **envp, int i)
 	free(env);
 }
 
+void	dollar(t_token *token, char **envp, int *i, t_token *s_str)
+{
+	if (token->value[*i] == '$' && token->value[*i + 1])
+	{
+		(*i)++;
+		if (token->type == T_D_STRING || token->type == T_WORD || \
+		(token->type == T_DLESS && s_str->type != T_S_SRRING))
+			expand(&token->value, envp, *i);
+	}
+}
+
 void	dollar_handling(t_element *f_cmd, t_element *l_cmd, char **envp)
 {
 	t_element	*elm;
@@ -57,15 +68,10 @@ void	dollar_handling(t_element *f_cmd, t_element *l_cmd, char **envp)
 			s_str = (t_token *)elm->next->content;
 		while (token->value[i])
 		{
-			if (token->value[i] == '$' && token->value[i + 1])
-			{
-				i++;
-				if (token->type == T_D_STRING || token->type == T_WORD || \
-				(token->type == T_DLESS && s_str->type != T_S_SRRING))
-					expand(&token->value, envp, i);
-			}
+			dollar(token, envp, &i, s_str);
 			i++;
 		}
 		elm = elm->next;
 	}
+	free_2_arr(envp);
 }

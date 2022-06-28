@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 07:47:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 13:43:28 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 16:08:46 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,28 @@ int	herdoc_input(t_list	*heredoc_list, char *cmd, t_list *list)
 	return (result);
 }
 
-void	prompt(char *_prompt, char **envp, int in)
+void	prompt(char *_prompt, t_list *env_list, int in)
 {
 	t_list	*list;
 	char	*cmd;
-	t_list	*heredoc_list;
+	t_list	*hrdoc;
+	char	**env_arr;
 
-	heredoc_list = NULL;
+	hrdoc = NULL;
 	while (1)
 	{
 		list = list_new();
-		global_vars.heredoc = 1;
+		g_vars.heredoc = 1;
 		cmd = read_line(_prompt);
-		global_vars.heredoc = 0;
 		if (!cmd)
 			ctr_d();
-		if (herdoc_input(heredoc_list, cmd, list) == FT_SUCCESS && !empty_prompt(cmd))
+		g_vars.heredoc = 0;
+		if (herdoc_input(hrdoc, cmd, list) == FT_SUCCESS && !empty_prompt(cmd))
 		{
-			
-			history(cmd, envp);
-			priority(list->head, list->tail, envp, in);
+			env_arr = list_to_array(env_list);
+			history(cmd, env_arr);
+			priority(list->head, list->tail, env_list, in);
+			free_2_arr (env_arr);
 			unlink("heredoc");
 		}
 		free(cmd);

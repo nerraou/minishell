@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:26:11 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 13:04:09 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 15:37:21 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,14 @@ void	prepear_execve_args(t_element *f_cmd, t_element *l_cmd, t_cmd *cmd)
 	{
 		elm = f_cmd;
 		wc = arg_count(elm, l_cmd);
+		cmd->num_of_args = wc;
 		cmd->args = (char **)malloc(sizeof(char *) * wc);
 		cmd->args[0] = ft_strdup(cmd->cmd);
 		cmd->args[wc - 1] = 0;
 		elm = f_cmd;
 		update_args(elm, l_cmd, cmd);
 	}
-	if (cmd->executable == 2 && global_vars.heredoc != T_DLESS)
+	if (cmd->executable == 2 && g_vars.heredoc != T_DLESS)
 	{
 		cmd->args = (char **)malloc(sizeof(char *) * 2);
 		cmd->args[0] = ft_strdup("/bin/cat");

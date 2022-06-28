@@ -104,6 +104,7 @@ SRC =\
 	src/execute/expanding.c\
 	src/execute/env_value.c\
 	src/execute/execute.c\
+	src/execute/execute_utils.c\
 	src/execute/dividing_cmd.c\
 	src/execute/join.c\
 	src/execute/io_files.c\
@@ -114,6 +115,7 @@ SRC =\
 	src/execute/wildcard.c\
 	src/execute/wildcard_utils.c\
 	src/execute/open_file.c\
+	src/execute/built.c\
 \
 	src/main.c\
 

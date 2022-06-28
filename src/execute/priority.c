@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 10:52:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 11:09:40 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 15:37:30 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	check_parentheses(t_opr_logic *operators)
 	return (0);
 }
 
-void	or_handling(t_opr_logic	*operators, char **envp, int in)
+void	or_handling(t_opr_logic	*operators, t_list *env_list, int in)
 {
 	if (operators->parent_l && operators->parent_r)
 	{
@@ -66,10 +66,10 @@ void	or_handling(t_opr_logic	*operators, char **envp, int in)
 	}
 	else
 		operators->opr_cmd = operators->opr_cmd->next;
-	priority(operators->opr_cmd, operators->l_cmd, envp, in);
+	priority(operators->opr_cmd, operators->l_cmd, env_list, in);
 }
 
-void	and_handling(t_opr_logic	*operators, char **envp, int in)
+void	and_handling(t_opr_logic	*operators, t_list *env_list, int in)
 {
 	if (operators->parent_l && operators->parent_r)
 	{
@@ -78,10 +78,10 @@ void	and_handling(t_opr_logic	*operators, char **envp, int in)
 	}
 	else
 		operators->opr_cmd = operators->opr_cmd->next;
-	priority(operators->opr_cmd, operators->l_cmd, envp, in);
+	priority(operators->opr_cmd, operators->l_cmd, env_list, in);
 }
 
-void	priority(t_element *f_cmd, t_element *l_cmd, char **envp, int in)
+void	priority(t_element *f_cmd, t_element *l_cmd, t_list *env_list, int in)
 {
 	t_opr_logic	operators;
 
@@ -95,14 +95,14 @@ void	priority(t_element *f_cmd, t_element *l_cmd, char **envp, int in)
 	if (operators.opr_cmd == operators.f_cmd)
 	{
 		if (check_parentheses(&operators))
-			priority(operators.f_cmd, operators.l_cmd, envp, in);
+			priority(operators.f_cmd, operators.l_cmd, env_list, in);
 		else
-			execute(operators.f_cmd, operators.l_cmd, envp, in);
+			execute(operators.f_cmd, operators.l_cmd, env_list, in);
 	}
 	else
-		priority(operators.f_cmd, operators.opr_cmd->prev, envp, in);
-	if (operators.operator == T_OR && global_vars.exit_code)
-		or_handling(&operators, envp, in);
-	if (operators.operator == T_AND && !global_vars.exit_code)
-		and_handling(&operators, envp, in);
+		priority(operators.f_cmd, operators.opr_cmd->prev, env_list, in);
+	if (operators.operator == T_OR && g_vars.exit_code)
+		or_handling(&operators, env_list, in);
+	if (operators.operator == T_AND && !g_vars.exit_code)
+		and_handling(&operators, env_list, in);
 }
