@@ -3,36 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 11:22:55 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/27 14:14:50 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/28 14:38:57 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_element *find_heredoc_delimiter(t_element *last_pos)
+static t_element	*find_heredoc_delimiter(t_element *last_pos)
 {
-	t_token *token;
+	t_token	*token;
+
 	while (last_pos)
 	{
 		token = (t_token *)last_pos->content;
 		if (token->type == T_DLESS)
-			return last_pos->next;
+			return (last_pos->next);
 		last_pos = last_pos->next;
 	}
-	return NULL;
+	return (NULL);
 }
 
-t_list *heredoc(int heredoc_num, t_list *list)
+static void	join_content(char **line, char **full_content)
 {
-	t_list *heredoc_list;
-	t_element *last_pos;
-	t_token *token;
-	char *to_free;
-	char *line;
-	char *full_content;
+	char	*to_free;
+
+	to_free = *full_content;
+	*full_content = ft_strjoin(*full_content, *line);
+	free(to_free);
+	to_free = *full_content;
+	*full_content = ft_strjoin(*full_content, "\n");
+	free(to_free);
+	free(*line);
+	*line = NULL;
+}
+
+t_list	*heredoc(int heredoc_num, t_list *list)
+{
+	t_list		*heredoc_list;
+	t_element	*last_pos;
+	t_token		*token;
+	char		*line;
+	char		*full_content;
 
 	heredoc_list = list_new();
 	last_pos = find_heredoc_delimiter(list->head);
@@ -42,16 +56,8 @@ t_list *heredoc(int heredoc_num, t_list *list)
 		global_vars.heredoc = T_DLESS;
 		line = readline("> ");
 		token = (t_token *)last_pos->content;
-		if (line && ft_strcmp(line, token->value) != 0)
-		{
-			to_free = full_content;
-			full_content = ft_strjoin(full_content, line);
-			free(to_free);
-			to_free = full_content;
-			full_content = ft_strjoin(full_content, "\n");
-			free(to_free);
-			free(line);
-		}
+		if (ft_strcmp(line, token->value) != 0)
+			join_content(&line, &full_content);
 		else
 		{
 			add_back(heredoc_list, full_content);

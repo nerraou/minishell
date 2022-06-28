@@ -6,37 +6,38 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:59:09 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/25 15:43:11 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/28 10:04:13 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-static int word_len(const char *str)
+static int	word_len(const char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while (str[i] && !ft_isspace(str[i]) && str[i] != '\n' && str[i] != ')' && str[i] != '(' && str[i] != '&' && str[i] != '|')
+	while (str[i] && !ft_isspace(str[i]) && str[i] != '\n'
+		&& str[i] != ')' && str[i] != '(' && str[i] != '&' && str[i] != '|')
 	{
 		i++;
 	}
-	return i;
+	return (i);
 }
 
-int set_word(const char *str, t_list *list)
+int	set_word(const char *str, t_list *list)
 {
-	int t_len;
-	t_token *token;
+	int		t_len;
+	t_token	*token;
 
 	t_len = word_len(str);
 	if (t_len == 0)
-		return -1;
+		return (-1);
 	token = ft_new_token(ft_substr(str, 0, t_len), T_WORD);
 	if (!token)
-		return -1;
+		return (-1);
 	if (str[t_len] && is_joinable(str[t_len]))
 		token->to_join = TRUE;
 	add_back(list, token);
-	return t_len;
+	return (t_len);
 }

@@ -6,18 +6,18 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 17:02:16 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/11 17:41:55 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/27 16:24:33 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int check_start(t_element *elm)
+int	check_start(t_element *elm)
 {
 	if (is_separator(elm))
 	{
 		print_syntax_error(elm);
-		return FT_FAILURE;
+		return (FT_FAILURE);
 	}
-	return FT_SUCCESS;
+	return (FT_SUCCESS);
 }

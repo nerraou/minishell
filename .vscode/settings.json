@@ -21,6 +21,7 @@
 		"tuple": "c",
 		"type_traits": "c",
 		"vector": "c",
-		"__locale": "c"
+		"__locale": "c",
+		"builtins.h": "c"
 	}
 }

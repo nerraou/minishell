@@ -6,27 +6,27 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 14:31:41 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/12 14:47:15 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/28 09:56:48 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-static int is_redirection(char c)
+static int	is_redirection(char c)
 {
 	if (c == '>' || c == '<')
 		return (1);
 	return (0);
 }
 
-static int is_separator(char c)
+static int	is_separator(char c)
 {
 	if (c == '|' || c == '&')
 		return (1);
 	return (0);
 }
 
-int is_joinable(char c)
+int	is_joinable(char c)
 {
 	if (!is_redirection(c) && !is_separator(c) && !ft_isspace(c) && c != '\n')
 		return (1);

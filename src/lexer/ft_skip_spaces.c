@@ -6,18 +6,18 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:34:21 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/10 09:18:55 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/28 09:54:14 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int ft_skip_spaces(const char *str)
+int	ft_skip_spaces(const char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (ft_isspace(str[i]))
 		i++;
-	return i;
+	return (i);
 }

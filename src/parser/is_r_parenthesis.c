@@ -6,15 +6,15 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 11:46:58 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/25 12:22:49 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/27 18:45:14 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int is_r_parenthesis(t_element *cur_elm)
+int	is_r_parenthesis(t_element *cur_elm)
 {
-	t_token *token;
+	t_token	*token;
 
 	token = (t_token *)cur_elm->content;
 	if (token->type == T_R_PARENTH)

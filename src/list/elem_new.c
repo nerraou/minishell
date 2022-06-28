@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   elem_new.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:37:02 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/22 11:11:58 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/27 14:21:43 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_element *elem_new(void *content)
+t_element	*elem_new(void *content)
 {
-	t_element *new_elm;
+	t_element	*new_elm;
 
 	new_elm = (t_element *)ft_malloc(sizeof(t_element));
 	if (!new_elm)
