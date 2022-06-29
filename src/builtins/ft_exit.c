@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 16:52:21 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/28 15:57:51 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/06/28 19:06:31 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ int	ft_exit(int ac, char *av[])
 			print_exit_error(av[1]);
 		exit(state_num & 255);
 	}
-	exit(global_vars.exit_code & 255);
+	exit(g_vars.exit_code & 255);
 	return (FT_SUCCESS);
 }

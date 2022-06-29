@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:28:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 16:09:51 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/29 09:07:52 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	replace_cat(t_cmd *cmd)
 	write(2, "MiniShell: ", ft_strlen("MiniShell: "));
 	write(2, cmd->cmd_name, ft_strlen(cmd->cmd_name));
 	write(2, " :command not found\n", ft_strlen(" :command not found\n"));
+	exit(127);
 }
 
 int	check_access(t_cmd *cmd, char **path)

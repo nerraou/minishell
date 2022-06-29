@@ -6,39 +6,42 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 16:32:27 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 17:11:22 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/29 09:02:43 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pipe_out(t_cmd *cmd)
+void	free_2_arr(char **env_arr)
 {
-	cmd->next_is_pipes = 0;
-	close(cmd->pipes[WRITE_END]);
-	dup2(cmd->pipes[READ_END], STDIN_FILENO);
-	close(cmd->pipes[READ_END]);
-}
+	int	i;
 
-void	get_exit_code(int *status)
-{
-	if (WIFEXITED(*status))
-		g_vars.exit_code = WEXITSTATUS(*status);
-	else if (WIFSIGNALED(*status))
-		g_vars.exit_code = WTERMSIG(*status) + 128;
-}
-
-void	last_child(t_cmd *cmd, int child)
-{
-	int	status;
-
-	if (cmd->next_is_pipes == 0)
+	i = 0;
+	while (env_arr[i])
 	{
-		waitpid(child, &status, 0);
-		close(STDIN_FILENO);
-		get_exit_code(&status);
+		free (env_arr[i]);
+		i++;
 	}
+	free (env_arr);
 }
+
+void	init_cmd(t_cmd *cmd)
+{
+	cmd->id = 0;
+	cmd->cmd = NULL;
+	cmd->cmd_name = NULL;
+	cmd->args = NULL;
+	cmd->next_is_pipes = 0;
+}
+
+void	get_exit_code(int status)
+{
+	if (WIFEXITED(status))
+		g_vars.exit_code = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
+		g_vars.exit_code = WTERMSIG(status) + 128;
+}
+
 
 void	creat_pipe(t_cmd **cmd, t_token *token)
 {
@@ -61,3 +64,9 @@ void	detect_pipe(t_element **pipes, t_element *l_cmd)
 		token = (t_token *)(*pipes)->content;
 	}
 }
+
+// exit_ code
+
+//void	expand(char **value, char **envp, int i)
+
+// builtin in parent

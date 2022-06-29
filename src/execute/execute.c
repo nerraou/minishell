@@ -6,33 +6,11 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:25:43 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 17:23:12 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/29 08:26:43 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_2_arr(char **env_arr)
-{
-	int	i;
-
-	i = 0;
-	while (env_arr[i])
-	{
-		free (env_arr[i]);
-		i++;
-	}
-	free (env_arr);
-}
-
-void	init_cmd(t_cmd *cmd)
-{
-	cmd->id = 0;
-	cmd->cmd = NULL;
-	cmd->cmd_name = NULL;
-	cmd->args = NULL;
-	cmd->next_is_pipes = 0;
-}
 
 void	pipe_handling(t_element	**pipes, t_element	*l_cmd, t_cmd **cmd)
 {
@@ -41,6 +19,26 @@ void	pipe_handling(t_element	**pipes, t_element	*l_cmd, t_cmd **cmd)
 	detect_pipe(pipes, l_cmd);
 	token = (t_token *)(*pipes)->content;
 	creat_pipe(cmd, token);
+}
+
+void	last_child(t_cmd *cmd, int child)
+{
+	int	status;
+
+	if (cmd->next_is_pipes == 0)
+	{
+		waitpid(child, &status, 0);
+		close(STDIN_FILENO);
+		get_exit_code(status);
+	}
+}
+
+void	pipe_out(t_cmd *cmd)
+{
+	cmd->next_is_pipes = 0;
+	close(cmd->pipes[WRITE_END]);
+	dup2(cmd->pipes[READ_END], STDIN_FILENO);
+	close(cmd->pipes[READ_END]);
 }
 
 void	move_forward(t_cmd *cmd, t_element **pipes, t_element **f_cmd)
