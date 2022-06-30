@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 16:32:27 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/29 09:02:43 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/30 11:31:02 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,3 @@ void	detect_pipe(t_element **pipes, t_element *l_cmd)
 		token = (t_token *)(*pipes)->content;
 	}
 }
-
-// exit_ code
-
-//void	expand(char **value, char **envp, int i)
-
-// builtin in parent

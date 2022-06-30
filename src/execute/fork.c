@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:24:33 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 17:54:05 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/30 16:56:37 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,12 @@ void	in_out(t_element *f_cmd, t_element **l_cmd, t_cmd **cmd)
 	get_io(f_cmd, *l_cmd);
 }
 
-int	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
+void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 {
-	int			child;
 	t_opr_logic	operators;
-	int			built;
 
-	child = fork();
-	if (child == 0)
+	(*cmd)->pid = fork();
+	if ((*cmd)->pid == 0)
 	{
 		in_out(f_cmd, &l_cmd, cmd);
 		operators.f_cmd = f_cmd;
@@ -57,15 +55,14 @@ int	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 		executable_cmd(operators.f_cmd, list_to_array(env_), *cmd);
 		wildcard_expand(f_cmd, l_cmd);
 		prepear_execve_args(operators.f_cmd, operators.l_cmd, *cmd);
-		built = is_builtin((*cmd)->cmd_name);
-		if (!built)
+		(*cmd)->built = is_builtin((*cmd)->cmd_name);
+		if (!(*cmd)->built)
 			execve((*cmd)->args[0], (*cmd)->args, list_to_array(env_));
 		else
 		{
-			exe_builtin(built, *cmd, env_);
-			exit(g_vars.exit_code);
+			exe_builtin((*cmd)->built, *cmd, env_);
 			free_cmd(cmd);
+			exit(g_vars.exit_code);
 		}
 	}
-	return (child);
 }

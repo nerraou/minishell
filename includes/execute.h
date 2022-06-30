@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:29:46 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/29 08:26:17 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/30 16:39:35 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct s_cmd
 	int		next_is_pipes;
 	int		executable;
 	int		num_of_args;
+	int		pid;
+	int		built;
 }	t_cmd;
 
 typedef struct s_wild
@@ -56,7 +58,7 @@ int		**pipes_creation(t_cmd *cmd);
 int		n_of_pipes(t_element *f_cmd, t_element *l_cmd);
 void	free_pipes(int	**pipes, int size);
 void	get_io(t_element *f_cmd, t_element *l_cmd);
-int		fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env, t_cmd **cmd);
+void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env, t_cmd **cmd);
 void	prepear_execve_args(t_element *f_cmd, t_element *l_cmd, t_cmd *cmd);
 void	executable_cmd(t_element *f_cmd, char **envp, t_cmd *cmd);
 int		check_parentheses(t_opr_logic *operators);
@@ -72,11 +74,12 @@ int		is_wildcard(t_element *elm);
 void	free_2_arr(char **env_arr);
 void	pipe_out(t_cmd *cmd);
 void	get_exit_code(int status);
-void	last_child(t_cmd *cmd, int child);
+void	last_child(t_cmd *cmd);
 void	creat_pipe(t_cmd **cmd, t_token *token);
 void	detect_pipe(t_element **pipes, t_element *l_cmd);
 int		is_builtin(char	*cmd);
 void	exe_builtin(int built, t_cmd *cmd, t_list *env_);
 int		free_lookup(bool **lookup, int n, int m);
 void	init_cmd(t_cmd *cmd);
+void	free_cmd(t_cmd **cmd);
 #endif

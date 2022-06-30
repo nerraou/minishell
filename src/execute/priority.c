@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 10:52:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 15:37:30 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/30 16:17:15 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,20 @@ void	and_handling(t_opr_logic	*operators, t_list *env_list, int in)
 void	priority(t_element *f_cmd, t_element *l_cmd, t_list *env_list, int in)
 {
 	t_opr_logic	operators;
+
+	// t_element *elm;
+	// t_token *tok;
+	// elm = f_cmd;
+	// tok = (t_token*)elm->content;
+	// printf("{%s}{%d}{%d}\n",tok->value,tok->type,tok->to_join);
+	// elm= elm->next;
+	// tok = (t_token*)elm->content;
+	// printf("{%s}{%d}{%d}\n",tok->value,tok->type,tok->to_join);
+	// elm= elm->next;
+	// tok = (t_token*)elm->content;
+	// printf("{%s}{%d}{%d}\n",tok->value,tok->type,tok->to_join);
+
+
 
 	operators.f_cmd = f_cmd;
 	operators.opr_cmd = l_cmd;
