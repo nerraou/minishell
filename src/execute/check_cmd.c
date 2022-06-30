@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:28:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/30 16:14:16 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/30 20:04:34 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,12 @@ void	check_slash(char **name)
 	*name = holder;
 }
 
-void	replace_cat(t_cmd *cmd)
+void	cmd_not_found(t_cmd *cmd)
 {
 	cmd->executable = 0;
 	write(2, "MiniShell: ", ft_strlen("MiniShell: "));
 	write(2, cmd->cmd_name, ft_strlen(cmd->cmd_name));
 	write(2, " :command not found\n", ft_strlen(" :command not found\n"));
-	exit(127);
 }
 
 int	check_access(t_cmd *cmd, char **path)
@@ -87,7 +86,7 @@ int	check_access(t_cmd *cmd, char **path)
 	if (path[i])
 		cmd->executable = 1;
 	else
-		replace_cat(cmd);
+		cmd_not_found(cmd);
 	return (cmd->executable);
 }
 
@@ -100,12 +99,13 @@ void	executable_cmd(t_element *f_cmd, char **envp, t_cmd *cmd)
 	elm = f_cmd;
 	cmd->executable = 2;
 	token = (t_token *)elm->content;
-	while (elm && token->type == -1)
+	while (elm && check_cmd(token->type))
 	{
 		elm = elm->next;
 		if (elm)
 			token = (t_token *)elm->content;
 	}
+		// printf("K = %s\n",token->value);
 	if (elm)
 	{
 		token->type = 100;
@@ -117,3 +117,12 @@ void	executable_cmd(t_element *f_cmd, char **envp, t_cmd *cmd)
 	}
 	free_2_arr (envp);
 }
+
+/*
+
+int	check_cmd(int mcr)
+{
+	return (mcr == T_LESS || mcr == T_GREAT || mcr == T_DGREAT || \
+	mcr == T_DLESS || mcr == T_FILE || mcr == T_LIM || mcr == -1);
+}
+*/

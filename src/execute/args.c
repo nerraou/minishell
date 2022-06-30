@@ -6,11 +6,17 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:26:11 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/30 16:16:53 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/30 19:54:50 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	check_cmd(int mcr)
+{
+	return (mcr == T_LESS || mcr == T_GREAT || mcr == T_DGREAT || \
+	mcr == T_DLESS || mcr == T_FILE || mcr == T_LIM || mcr == T_PIPE || mcr == -1);
+}
 
 int	arg_count(t_element	*elm, t_element *l_cmd)
 {
@@ -23,7 +29,7 @@ int	arg_count(t_element	*elm, t_element *l_cmd)
 		token = (t_token *)elm->content;
 		if (token->type == 100)
 			wc++;
-		if (wc && token->type != -1)
+		if (wc && !check_cmd(token->type))
 			wc += wcount(token->value, ' ');
 		elm = elm->next;
 	}
@@ -59,7 +65,7 @@ void	update_args(t_element *elm, t_element *l_cmd, t_cmd *cmd)
 	while (elm && elm->prev != l_cmd)
 	{
 		token = (t_token *)elm->content;
-		if (token->type != -1 && token->type != 100)
+		if (!check_cmd(token->type) && token->type != 100)
 		{
 			if (wcount(token->value, ' ') == 1)
 				cmd->args[i++] = ft_strdup(token->value);

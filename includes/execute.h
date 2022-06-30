@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:29:46 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/30 16:39:35 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/30 19:02:19 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,9 @@ void	last_child(t_cmd *cmd);
 void	creat_pipe(t_cmd **cmd, t_token *token);
 void	detect_pipe(t_element **pipes, t_element *l_cmd);
 int		is_builtin(char	*cmd);
-void	exe_builtin(int built, t_cmd *cmd, t_list *env_);
+int		exe_builtin(int built, t_cmd *cmd, t_list *env_);
 int		free_lookup(bool **lookup, int n, int m);
 void	init_cmd(t_cmd *cmd);
 void	free_cmd(t_cmd **cmd);
+int		check_cmd(int mcr);
 #endif

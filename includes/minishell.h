@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:28:29 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/28 19:02:12 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/30 18:40:58 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@
 typedef struct s_global_vars
 {
 	int	exit_code;
-	int	exit_shell;
 	int	heredoc;
 }	t_global_vars;
 

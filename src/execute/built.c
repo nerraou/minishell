@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 17:53:34 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/30 17:02:06 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/30 19:03:16 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,38 +16,39 @@ int	is_builtin(char	*cmd)
 {
 	if (cmd)
 	{
-		if (!ft_strncmp(cmd, "cd", 2))
+		if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
 			return (1);
-		if (!ft_strncmp(cmd, "echo", 4))
+		if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
 			return (2);
-		if (!ft_strncmp(cmd, "pwd", 3))
+		if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
 			return (3);
-		if (!ft_strncmp(cmd, "export", 6))
+		if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
 			return (4);
-		if (!ft_strncmp(cmd, "unset", 5))
+		if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
 			return (5);
-		if (!ft_strncmp(cmd, "env", 3))
+		if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
 			return (6);
-		if (!ft_strncmp(cmd, "exit", 3))
+		if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
 			return (7);
 	}
 	return (0);
 }
 
-void	exe_builtin(int built, t_cmd *cmd, t_list *env_)
+int	exe_builtin(int built, t_cmd *cmd, t_list *env_)
 {
 	if (built == 1)
-		cd(cmd->num_of_args - 1, cmd->args, env_);
+		return (cd(cmd->num_of_args - 1, cmd->args, env_));
 	if (built == 2)
-		ft_echo(cmd->num_of_args - 1, cmd->args);
+		return (ft_echo(cmd->num_of_args - 1, cmd->args));
 	if (built == 3)
-		pwd();
+		return (pwd());
 	if (built == 4)
-		export(cmd->num_of_args - 1, cmd->args, env_);
+		return (export(cmd->num_of_args - 1, cmd->args, env_));
 	if (built == 5)
-		unset(cmd->num_of_args - 1, cmd->args, env_);
+		return (unset(cmd->num_of_args - 1, cmd->args, env_));
 	if (built == 6)
-		env(env_);
+		return (env(env_));
 	if (built == 7)
-		ft_exit(cmd->num_of_args - 1, cmd->args);
+		return (ft_exit(cmd->num_of_args - 1, cmd->args));
+	return (1);
 }
