@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:48 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/30 19:34:32 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/01 16:00:21 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ typedef struct s_token
 #define T_AND 10
 #define T_L_PARENTH 12 // (
 #define T_R_PARENTH 13 // )
-#define T_FILE 14 // )
-#define T_LIM 15 // )
+#define T_FILE 14	   // )
+#define T_LIM 15	   // )
 
 int set_d_string(const char *str, t_list *list);
 int set_s_string(const char *str, t_list *list);
@@ -53,6 +53,7 @@ int set_dless(const char *str, t_list *list);
 int set_word(const char *str, t_list *list);
 int set_newline(const char *str, t_list *list);
 t_token *ft_new_token(char *value, int type);
+void del_token(void *content);
 void lexer(const char *str, t_list *list);
 int set_or(const char *str, t_list *list);
 int set_and(const char *str, t_list *list);

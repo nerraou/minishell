@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_joinable.c                                      :+:      :+:    :+:   */
+/*   del_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/12 14:31:41 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/30 15:36:24 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/29 09:18:34 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/29 09:29:20 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-static int is_redirection(char c)
-{
-	if (c == '>' || c == '<')
-		return (1);
-	return (0);
-}
 
-static int is_separator(char c)
+void del_token(void *content)
 {
-	if (c == '|' || c == '&')
-		return (1);
-	return (0);
-}
-
-int is_joinable(char c)
-{
-	if (!is_redirection(c) && !is_separator(c) && !ft_isspace(c) && c != ')' && c != '\n')
-		return (1);
-	return (0);
+	t_token *token;
+	
+	token = (t_token *)content;
+	free(token->value);
+	free(token);
 }

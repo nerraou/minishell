@@ -30,6 +30,7 @@ SRC =\
 	src/libft/ft_split.c\
 \
 	src/lexer/ft_new_token.c\
+	src/lexer/del_token.c\
 	src/lexer/ft_skip_spaces.c\
 	src/lexer/lexer.c\
 	src/lexer/set_d_string.c\
