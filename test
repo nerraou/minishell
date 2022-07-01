@@ -23,12 +23,12 @@ export "" et unset ""    ------------------------------------------------- DIF
 		>> bash: syntax error near unexpected token 'newline' | minishell: syntax error unexpected end of file
 echo -n -n -nnnn -nnnnm  -------------------------------------------------- KO
 cat Makefile | grep pr | head -n 5 | cd test (mybin) # check status code -- KO  EXIT_CODE
+echo bonjour > $test # with test not defined ------------------------------ KO
 
 
 env puis export puis env # vars aren't sorted ----------------------------- ?
 
 
-echo bonjour > $test # with test not defined
 file_name_in_current_dir
 cd ../../../../../.. ; pwd
 ctrl-C . 130 sur bin(ex : sleep 10)&line vide
