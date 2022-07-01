@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:28:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/30 20:04:34 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/01 11:16:42 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	check_access(t_cmd *cmd, char **path)
 	return (cmd->executable);
 }
 
-void	executable_cmd(t_element *f_cmd, char **envp, t_cmd *cmd)
+void	executable_cmd(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd)
 {
 	t_element	*elm;
 	t_token		*token;
@@ -99,14 +99,15 @@ void	executable_cmd(t_element *f_cmd, char **envp, t_cmd *cmd)
 	elm = f_cmd;
 	cmd->executable = 2;
 	token = (t_token *)elm->content;
-	while (elm && check_cmd(token->type))
+	while (elm && elm->prev != l_cmd && check_cmd(token->type))
 	{
 		elm = elm->next;
 		if (elm)
+		{
 			token = (t_token *)elm->content;
+		}
 	}
-		// printf("K = %s\n",token->value);
-	if (elm)
+	if (elm && elm->prev != l_cmd)
 	{
 		token->type = 100;
 		cmd->cmd_name = ft_strdup(token->value);
@@ -117,12 +118,3 @@ void	executable_cmd(t_element *f_cmd, char **envp, t_cmd *cmd)
 	}
 	free_2_arr (envp);
 }
-
-/*
-
-int	check_cmd(int mcr)
-{
-	return (mcr == T_LESS || mcr == T_GREAT || mcr == T_DGREAT || \
-	mcr == T_DLESS || mcr == T_FILE || mcr == T_LIM || mcr == -1);
-}
-*/

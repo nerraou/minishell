@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:22:52 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/25 18:13:03 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/01 11:08:16 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	divide_by_last_operator(t_opr_logic *opertor)
 			if (token->type == T_AND || token->type == T_OR)
 			{
 				opertor->operator = token->type;
-				token->type = -1;
 				break ;
 			}
 		}
