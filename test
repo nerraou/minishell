@@ -15,26 +15,27 @@ echo bonjour > > out ------------------------------------------------------ OK
 echo 2 >> out1 > out2 ----------------------------------------------------- OK
 echo 2 > out1 >> out2 ----------------------------------------------------- OK
 cat < test # with non-existent test --------------------------------------- OK
+file_name_in_current_dir -------------------------------------------------- OK
+cd ../../../../../.. ; pwd ------------------------------------------------ OK
+ctrl-C . 130 sur bin(ex : sleep 10)&line vide ----------------------------- OK
+ctrl-\ .131 sur bin   ----------------------------------------------------- OK
+cat | cat | cat | ls # check outputs order  ------------------------------- OK
+echo "bip | bip ; coyotte > < " " ----------------------------------------- OK
+
 
 
 echo >                   ------------------------------------------------- DIF
 export "" et unset ""    ------------------------------------------------- DIF
-
 		>> bash: syntax error near unexpected token 'newline' | minishell: syntax error unexpected end of file
 echo -n -n -nnnn -nnnnm  -------------------------------------------------- KO
 cat Makefile | grep pr | head -n 5 | cd test (mybin) # check status code -- KO  EXIT_CODE
 echo bonjour > $test # with test not defined ------------------------------ KO
-
-
 env puis export puis env # vars aren't sorted ----------------------------- ?
 
 
-file_name_in_current_dir
-cd ../../../../../.. ; pwd
-ctrl-C . 130 sur bin(ex : sleep 10)&line vide
-ctrl-\ .131 sur bin
-echo "bip | bip ; coyotte > < " "
-cat | cat | cat | ls # check outputs order
+
+
+
 $bla # with bla not defined
 export var ="cat Makefile | grep >"
 export "test=ici"=coucou

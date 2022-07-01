@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:26:11 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 19:38:23 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/01 19:41:48 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	arg_count(t_element	*elm, t_element *l_cmd)
 			wc++;
 		if (wc && !check_cmd(token->type))
 		{
-			if (token->type == T_D_STRING || token->type == T_S_SRRING)
+			if (token->type == T_D_STRING || token->type == T_S_STRING)
 				wc += 1;
 			else
 				wc += wcount(token->value, ' ');

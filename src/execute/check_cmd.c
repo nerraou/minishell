@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:28:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 19:30:56 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/01 20:05:03 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,28 @@ char	**get_path_from_env(char *envp[])
 	return (path);
 }
 
-void	check_slash(char **name, t_cmd **cmd)
+void	check_slash(t_cmd **cmd)
 {
 	int		i;
 	char	*holder;
 
-
-	i = ft_strle (*cmd)->cmd_name - 1;
+	i = ft_strlen((*cmd)->cmd_name) - 1;
 	while (i >= 0 && (*cmd)->cmd_name[i] != '/' && (*cmd)->cmd_name[i] != '.')
 		i--;
-	if (i == (int)ft_strlen (*cmd)->cmd_name - 1)
+	if (i == (int)ft_strlen((*cmd)->cmd_name) - 1)
 	{
-		cmd->executable = 0;
-		holder = ft_strdup (*cmd)->cmd_name;
+		(*cmd)->executable = 3;
 		write(2, "MiniShell: ", ft_strlen("MiniShell: "));
-		write(2, holder, ft_strlen(holder));
+		write(2, (*cmd)->cmd_name, ft_strlen((*cmd)->cmd_name));
 		write(2, " :is a directory\n", ft_strlen(" :is a directory\n"));
 	}
 	else
-		holder = ft_subst (*cmd)->cmd_name i, ft_strle (*cmd)->cmd_name - i + 1);
-	fre (*cmd)->cmd_name; (*cmd)->cmd_name= holder;
+	{
+		holder = ft_substr((*cmd)->cmd_name ,i , ft_strlen((*cmd)->cmd_name) - i + 1);
+		free((*cmd)->cmd_name);
+		(*cmd)->cmd_name = ft_strdup(holder);
+		free(holder);
+	}
 }
 
 void	cmd_not_found(t_cmd *cmd)
@@ -92,14 +94,14 @@ int	check_access(t_cmd *cmd, char **path)
 		else
 		{
 			cmd->cmd = ft_strdup(cmd->cmd_name);
-			check_slash(&cmd->cmd_name, &cmd);
+			check_slash(&cmd);
 			break ;
 		}
 		i++;
 	}
-	if (path[i])
+	if (path[i] && cmd->executable != 3)
 		cmd->executable = 1;
-	else
+	else if (cmd->executable != 3)
 		cmd_not_found(cmd);
 	return (cmd->executable);
 }
