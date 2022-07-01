@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 10:40:40 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/30 15:53:55 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/01 18:40:44 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	dollar(t_token *token, char **envp, int *i, t_token *s_str)
 {
 	if (token->value[*i] == '$' && token->value[*i + 1])
 	{
-		if (token->type == T_D_STRING || token->type == T_WORD || (token->type == T_DLESS && s_str->type != T_S_SRRING))
+		if (token->type == T_D_STRING || token->type == T_WORD || (token->type == T_DLESS && s_str->type != T_S_STRING))
 			expand(&token->value, envp, i);
 	}
 	(*i)++;

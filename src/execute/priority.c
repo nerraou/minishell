@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   priority.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 10:52:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 11:08:10 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/01 18:34:53 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,19 @@ int	check_parentheses(t_opr_logic *operators)
 	first = operators->f_cmd;
 	r_prnth = operators->f_cmd;
 	last = operators->l_cmd;
+
+
+	// t_element *elm;
+	// t_token *tok;
+	// elm = first;
+	// while (elm && elm->prev != last)
+	// {
+	// 	tok = (t_token*)elm->content;
+	// 	printf("{%s}{%d}\n",tok->value,tok->to_join);
+	// 	elm = elm->next;
+	// }
+
+
 	tokenr = (t_token *)r_prnth->content;
 	check_r_l_parenth(&r_prnth, last);
 	tokenl = (t_token *)first->content;

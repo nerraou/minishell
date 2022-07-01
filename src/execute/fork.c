@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:24:33 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 15:49:31 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/01 18:46:55 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,16 @@ void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 	t_opr_logic	operators;
 
 
-	// t_element *elm;
-	// t_token *tok;
+	t_element *elm;
+	t_token *tok;
 
-	// elm = f_cmd;
-	// while (elm && elm->prev != l_cmd)
-	// {
-	// 	tok = (t_token*)elm->content;
-	// 	printf("{%s}{%d}{%d}\n",tok->value,tok->type,tok->to_join);
-	// 	elm = elm->next;
-	// }
+	elm = f_cmd;
+	while (elm && elm->prev != l_cmd)
+	{
+		tok = (t_token*)elm->content;
+		printf("{%s}{%d}{%d}\n",tok->value,tok->type,tok->to_join);
+		elm = elm->next;
+	}
 	operators.f_cmd = f_cmd;
 	operators.l_cmd = l_cmd;
 	check_parentheses(&operators);
@@ -85,12 +85,12 @@ void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 	wildcard_expand(f_cmd, l_cmd);
 	prepear_execve_args(operators.f_cmd, operators.l_cmd, *cmd);
 	(*cmd)->built = is_builtin((*cmd)->cmd_name);
-	// printf("__cmd = %s\n",(*cmd)->cmd);
-	// printf("__name = %s\n",(*cmd)->cmd_name);
-	// printf("__exe = %d\n",(*cmd)->executable);
-	// printf("__n_pipe = %d\n",(*cmd)->next_is_pipes);
-	// printf("__id = %d\n",(*cmd)->id);
-	// printf("__built = %d\n",(*cmd)->built);
+	printf("__cmd = %s\n",(*cmd)->cmd);
+	printf("__name = %s\n",(*cmd)->cmd_name);
+	printf("__exe = %d\n",(*cmd)->executable);
+	printf("__n_pipe = %d\n",(*cmd)->next_is_pipes);
+	printf("__id = %d\n",(*cmd)->id);
+	printf("__built = %d\n",(*cmd)->built);
 	// int i = 0;
 	// while ((*cmd)->args[i])
 	// {
@@ -109,13 +109,17 @@ void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 		(*cmd)->pid = fork();
 		if ((*cmd)->pid == 0)
 		{
+			// printf("LOL\n");
 			if((*cmd)->executable == 0)
 				exit (127);
 			in_out(f_cmd, &l_cmd, cmd);
 			if((*cmd)->executable == 2)
 				exit (0);
 			if (!(*cmd)->built)
+			{
 				execve((*cmd)->args[0], (*cmd)->args, list_to_array(env_));
+				printf("FFFF\n");
+			}
 			else
 			{
 				exe_builtin((*cmd)->built, *cmd, env_);
