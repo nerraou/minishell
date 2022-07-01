@@ -8,6 +8,13 @@ unset var1 # with undefined var1 ------------------------------------------ OK
 echo test > file test1 ---------------------------------------------------- OK
 $ ------------------------------------------------------------------------- OK
 not_cmd bonjour > salut --------------------------------------------------- OK
+cat Makefile | grep pr | head -n 5 | hello (NA) # check status code      ---OK
+cat Makefile | grep pr | head -n 5 | cat test (bin) # check status code  ---OK
+echo bonjour >>> test  ---------------------------------------------------- OK
+echo bonjour > > out ------------------------------------------------------ OK
+echo 2 >> out1 > out2 ----------------------------------------------------- OK
+echo 2 > out1 >> out2 ----------------------------------------------------- OK
+cat < test # with non-existent test --------------------------------------- OK
 
 
 echo >                   ------------------------------------------------- DIF
@@ -15,20 +22,12 @@ export "" et unset ""    ------------------------------------------------- DIF
 
 		>> bash: syntax error near unexpected token 'newline' | minishell: syntax error unexpected end of file
 echo -n -n -nnnn -nnnnm  -------------------------------------------------- KO
+cat Makefile | grep pr | head -n 5 | cd test (mybin) # check status code -- KO  EXIT_CODE
 
 
 env puis export puis env # vars aren't sorted ----------------------------- ?
 
-cat Makefile | grep pr | head -n 5 | cd test (mybin) # check status code
-cat Makefile | grep pr | head -n 5 | cat test (bin) # check status code
-cat Makefile | grep pr | head -n 5 | hello (NA) # check status code
 
-echo bonjour >>> test
-echo bonjour > > out
-echo 2 >> out1 > out2
-echo 2 > out1 >> out2
-cat < test # with non-existent test
-export var; export var=test
 echo bonjour > $test # with test not defined
 file_name_in_current_dir
 cd ../../../../../.. ; pwd

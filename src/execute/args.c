@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:26:11 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 18:45:06 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/01 19:38:23 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,12 @@ int	arg_count(t_element	*elm, t_element *l_cmd)
 		if (token->type == 100)
 			wc++;
 		if (wc && !check_cmd(token->type))
-			wc += wcount(token->value, ' ');
+		{
+			if (token->type == T_D_STRING || token->type == T_S_SRRING)
+				wc += 1;
+			else
+				wc += wcount(token->value, ' ');
+		}
 		elm = elm->next;
 	}
 	return (wc);
@@ -94,9 +99,4 @@ void	prepear_execve_args(t_element *f_cmd, t_element *l_cmd, t_cmd *cmd)
 		elm = f_cmd;
 		update_args(elm, l_cmd, cmd);
 	}
-	// if (cmd->executable == 2 && g_vars.heredoc != T_DLESS)
-	// {
-	// 	cmd->args = (char **)malloc(sizeof(char *));
-	// 	cmd->args[0] = 0;
-	// }
 }
