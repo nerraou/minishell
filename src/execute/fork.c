@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:24:33 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 12:57:57 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/01 15:49:31 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	free_cmd(t_cmd **cmd)
 {
 	free((*cmd)->cmd);
 	free((*cmd)->cmd_name);
-	free_2_arr((*cmd)->args);
+	if ((*cmd)->args)
+		free_2_arr((*cmd)->args);
 	free (*cmd);
 }
 
@@ -66,16 +67,16 @@ void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 	t_opr_logic	operators;
 
 
-	t_element *elm;
-	t_token *tok;
+	// t_element *elm;
+	// t_token *tok;
 
-	elm = f_cmd;
-	while (elm && elm->prev != l_cmd)
-	{
-		tok = (t_token*)elm->content;
-		printf("{%s}{%d}{%d}\n",tok->value,tok->type,tok->to_join);
-		elm = elm->next;
-	}
+	// elm = f_cmd;
+	// while (elm && elm->prev != l_cmd)
+	// {
+	// 	tok = (t_token*)elm->content;
+	// 	printf("{%s}{%d}{%d}\n",tok->value,tok->type,tok->to_join);
+	// 	elm = elm->next;
+	// }
 	operators.f_cmd = f_cmd;
 	operators.l_cmd = l_cmd;
 	check_parentheses(&operators);
@@ -96,7 +97,7 @@ void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 	// 	printf("___rg = %s\n",(*cmd)->args[i]);
 	// 	i++;
 	// }
-	// printf("{-------$$$$$$$$$$$$$$$$$$------}\n\n");
+	// 	printf("{-------$$$$$$$$$$$$$$$$$$------}\n\n");
 	if ((*cmd)->id == 0 && (*cmd)->next_is_pipes == 0 && (*cmd)->built)
 	{
 		get_io(f_cmd, l_cmd);
