@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:24:33 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 18:46:55 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/01 19:37:44 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,13 @@ void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 	operators.l_cmd = l_cmd;
 	check_parentheses(&operators);
 	update_type(operators.f_cmd, operators.l_cmd);
+	elm = f_cmd;
+	while (elm && elm->prev != l_cmd)
+	{
+		tok = (t_token*)elm->content;
+		printf("{%s}{%d}{%d}\n",tok->value,tok->type,tok->to_join);
+		elm = elm->next;
+	}
 	executable_cmd(operators.f_cmd, operators.l_cmd, list_to_array(env_), *cmd);
 	wildcard_expand(f_cmd, l_cmd);
 	prepear_execve_args(operators.f_cmd, operators.l_cmd, *cmd);
@@ -110,9 +117,9 @@ void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 		if ((*cmd)->pid == 0)
 		{
 			// printf("LOL\n");
+			in_out(f_cmd, &l_cmd, cmd);
 			if((*cmd)->executable == 0)
 				exit (127);
-			in_out(f_cmd, &l_cmd, cmd);
 			if((*cmd)->executable == 2)
 				exit (0);
 			if (!(*cmd)->built)

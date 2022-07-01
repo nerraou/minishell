@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:49:23 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/30 16:51:44 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/01 17:20:26 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	cd(int ac, char *av[], t_list *env)
 		check = chdir(av[1]);
 		if (check == -1)
 		{
-			printf("minishell: %s\n", strerror(errno));
+			printf("minishell: cd: %s: %s\n",av[1], strerror(errno));
 			return (FT_FAILURE);
 		}
 		change_pwd(getcwd(NULL, 0), env);
