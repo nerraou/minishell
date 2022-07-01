@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:24:33 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 17:54:05 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/01 15:49:31 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	pipe_in(t_cmd *cmd, t_element **l_cmd)
 	token = (t_token *)(*l_cmd)->content;
 	if (token->type == T_PIPE)
 	{
-		token->type = -1;
 		*l_cmd = (*l_cmd)->prev;
 		close(cmd->pipes[READ_END]);
 		dup2(cmd->pipes[WRITE_END], STDOUT_FILENO);
@@ -31,7 +30,8 @@ void	free_cmd(t_cmd **cmd)
 {
 	free((*cmd)->cmd);
 	free((*cmd)->cmd_name);
-	free_2_arr((*cmd)->args);
+	if ((*cmd)->args)
+		free_2_arr((*cmd)->args);
 	free (*cmd);
 }
 
@@ -41,31 +41,87 @@ void	in_out(t_element *f_cmd, t_element **l_cmd, t_cmd **cmd)
 	get_io(f_cmd, *l_cmd);
 }
 
-int	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
+void	update_type(t_element *f_cmd, t_element *l_cmd)
 {
-	int			child;
-	t_opr_logic	operators;
-	int			built;
+	t_element	*elm;
+	t_token		*token;
+	t_token		*file;
 
-	child = fork();
-	if (child == 0)
+	elm = f_cmd;
+	token = (t_token *)elm->content;
+	while (elm && elm->prev != l_cmd)
 	{
-		in_out(f_cmd, &l_cmd, cmd);
-		operators.f_cmd = f_cmd;
-		operators.l_cmd = l_cmd;
-		check_parentheses(&operators);
-		executable_cmd(operators.f_cmd, list_to_array(env_), *cmd);
-		wildcard_expand(f_cmd, l_cmd);
-		prepear_execve_args(operators.f_cmd, operators.l_cmd, *cmd);
-		built = is_builtin((*cmd)->cmd_name);
-		if (!built)
-			execve((*cmd)->args[0], (*cmd)->args, list_to_array(env_));
-		else
+		token = (t_token *)elm->content;
+		if (elm->next)
+			file = (t_token *)elm->next->content;
+		if (token->type == T_GREAT || token->type == T_LESS || token->type == T_DGREAT)
+			file->type = T_FILE;
+		if (token->type == T_DLESS)
+			file->type = T_LIM;
+		elm = elm->next;
+	}
+}
+
+void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
+{
+	t_opr_logic	operators;
+
+
+	// t_element *elm;
+	// t_token *tok;
+
+	// elm = f_cmd;
+	// while (elm && elm->prev != l_cmd)
+	// {
+	// 	tok = (t_token*)elm->content;
+	// 	printf("{%s}{%d}{%d}\n",tok->value,tok->type,tok->to_join);
+	// 	elm = elm->next;
+	// }
+	operators.f_cmd = f_cmd;
+	operators.l_cmd = l_cmd;
+	check_parentheses(&operators);
+	update_type(operators.f_cmd, operators.l_cmd);
+	executable_cmd(operators.f_cmd, operators.l_cmd, list_to_array(env_), *cmd);
+	wildcard_expand(f_cmd, l_cmd);
+	prepear_execve_args(operators.f_cmd, operators.l_cmd, *cmd);
+	(*cmd)->built = is_builtin((*cmd)->cmd_name);
+	// printf("__cmd = %s\n",(*cmd)->cmd);
+	// printf("__name = %s\n",(*cmd)->cmd_name);
+	// printf("__exe = %d\n",(*cmd)->executable);
+	// printf("__n_pipe = %d\n",(*cmd)->next_is_pipes);
+	// printf("__id = %d\n",(*cmd)->id);
+	// printf("__built = %d\n",(*cmd)->built);
+	// int i = 0;
+	// while ((*cmd)->args[i])
+	// {
+	// 	printf("___rg = %s\n",(*cmd)->args[i]);
+	// 	i++;
+	// }
+	// 	printf("{-------$$$$$$$$$$$$$$$$$$------}\n\n");
+	if ((*cmd)->id == 0 && (*cmd)->next_is_pipes == 0 && (*cmd)->built)
+	{
+		get_io(f_cmd, l_cmd);
+		exe_builtin((*cmd)->built, *cmd, env_);
+		free_cmd(cmd);
+	}
+	else
+	{
+		(*cmd)->pid = fork();
+		if ((*cmd)->pid == 0)
 		{
-			exe_builtin(built, *cmd, env_);
-			exit(g_vars.exit_code);
-			free_cmd(cmd);
+			if((*cmd)->executable == 0)
+				exit (127);
+			in_out(f_cmd, &l_cmd, cmd);
+			if((*cmd)->executable == 2)
+				exit (0);
+			if (!(*cmd)->built)
+				execve((*cmd)->args[0], (*cmd)->args, list_to_array(env_));
+			else
+			{
+				exe_builtin((*cmd)->built, *cmd, env_);
+				free_cmd(cmd);
+				exit(g_vars.exit_code);
+			}
 		}
 	}
-	return (child);
 }

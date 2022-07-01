@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 18:22:58 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 10:02:11 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/01 12:55:18 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	less_great_dgreat(t_element	*elm)
 		open_file_write(ft_strdup(_file->value), 0);
 	else if (token->type == T_DGREAT)
 		open_file_write(ft_strdup(_file->value), 1);
-	token->type = -1;
-	_file->type = -1;
 }
 
 void	dless(t_element	*elm)
@@ -48,8 +46,6 @@ void	dless(t_element	*elm)
 	lim = (t_token *)elm->next->content;
 	content_heredoc = (t_token *)elm->content;
 	heredoc_to_file(content_heredoc->value);
-	content_heredoc->type = -1;
-	lim->type = -1;
 	open_file_read(ft_strdup("heredoc"));
 }
 
@@ -62,12 +58,12 @@ void	get_io(t_element *f_cmd, t_element *l_cmd)
 	while (elm && elm->prev != l_cmd)
 	{
 		token = (t_token *)elm->content;
-		if (token->type >= T_LESS && token->type <= T_DGREAT)
+		if (token->type == T_LESS || token->type == T_GREAT || token->type == T_DGREAT)
 			less_great_dgreat(elm);
-		if (token->type == T_DLESS)
+		else if (token->type == T_DLESS)
 			dless(elm);
 		token = (t_token *)elm->content;
-		if (!(token->type >= T_LESS && token->type <= T_DGREAT))
+		if (token->type != T_LESS || token->type != T_GREAT || token->type != T_DGREAT)
 			elm = elm->next;
 	}
 }

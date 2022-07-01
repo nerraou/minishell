@@ -5,51 +5,106 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 14:11:17 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 17:59:16 by obelkhad         ###   ########.fr       */
+/*   Created: 2022/06/30 10:40:40 by obelkhad          #+#    #+#             */
+/*   Updated: 2022/06/30 15:53:55 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
+
+
 #include "minishell.h"
 
-void	expand(char **value, char **envp, int i)
+void	update_befor(char **value, char **befor, int *i)
+{
+	if(*i > 0)
+		*befor = ft_substr((*value), 0, *i);
+	else
+		*befor = NULL;
+}
+
+void	update_after(char **value, char **after, int j)
+{
+	int	end;
+
+	end = j;
+	while ((*value)[end])
+		end++;
+	if (end - j > 0)
+		*after = ft_substr((*value), j + 1, end - j);
+	else
+		*after = NULL;
+}
+
+void	to_expand(char *holder, char **expander, int *i, char **envp)
+{
+	char	*env;
+	char	*minishell;
+
+	env = ft_strjoin(holder, "=");
+	*expander = get_env_value(env, envp);
+	if(!ft_strncmp(*expander, holder, ft_strlen(holder)))
+	{
+		free(*expander);
+		if (ft_isalnum(holder[0]) && holder[0] != '0')
+		{
+			*expander = ft_strdup("");
+			*i = 0;
+		}
+		else if (holder[0] == '0')
+		{
+			minishell = ft_strdup("MINISHELL");
+			free(env);
+			env = ft_substr(holder, 1, ft_strlen(holder));
+			*expander = ft_strjoin(minishell, env);
+			free(minishell);
+		}
+		else
+			*expander = ft_strjoin("$", holder);
+	}
+	free(env);
+}
+
+void	expand(char **value, char **envp, int *i)
 {
 	char	*after;
-	char	*env;
+	char	*holder;
 	char	*befor;
+	char	*expander;
 	int		j;
 
-	if (i - 1 > 0)
-		befor = ft_substr((*value), 0, i - 1);
-	else
-		befor = NULL;
-	j = i;
-	while ((*value)[j] && ft_isalnum((*value)[j]))
+	j = *i + 1;
+	update_befor(value, &befor, i);
+	while ((*value)[j] && ft_isalnum((*value)[j + 1]))
 		j++;
-	env = ft_substr((*value), i, j - i);
-	i = j;
-	while ((*value)[j])
-		j++;
-	if (j - i > 0)
-		after = ft_substr((*value), i, j - i);
+	update_after(value, &after, j);
+	holder = ft_substr((*value), *i + 1, j - *i);
+	*i = j - 1;
+	if (!ft_strncmp(holder, "$", 1))
+		expander = ft_itoa(getpid());
+	else if (!ft_strncmp(holder, "?", 1))
+		expander = ft_itoa(g_vars.exit_code);
 	else
-		after = NULL;
-	*value = ft_strjoin(ft_strjoin(befor, get_env_value(ft_strjoin(env, "="), \
-	envp)), after);
+		to_expand(holder, &expander, i, envp);
+	free(holder);
+	if (*value)
+		free(*value);
+	holder = ft_strjoin(befor, expander);
+	*value = ft_strjoin(holder, after);
+	free(expander);
+	free(holder);
 	free(befor);
 	free(after);
-	free(env);
 }
 
 void	dollar(t_token *token, char **envp, int *i, t_token *s_str)
 {
 	if (token->value[*i] == '$' && token->value[*i + 1])
 	{
-		(*i)++;
-		if (token->type == T_D_STRING || token->type == T_WORD || \
-		(token->type == T_DLESS && s_str->type != T_S_SRRING))
-			expand(&token->value, envp, *i);
+		if (token->type == T_D_STRING || token->type == T_WORD || (token->type == T_DLESS && s_str->type != T_S_SRRING))
+			expand(&token->value, envp, i);
 	}
+	(*i)++;
 }
 
 void	dollar_handling(t_element *f_cmd, t_element *l_cmd, char **envp)
@@ -67,10 +122,7 @@ void	dollar_handling(t_element *f_cmd, t_element *l_cmd, char **envp)
 		if (elm->next)
 			s_str = (t_token *)elm->next->content;
 		while (token->value[i])
-		{
 			dollar(token, envp, &i, s_str);
-			i++;
-		}
 		elm = elm->next;
 	}
 	free_2_arr(envp);

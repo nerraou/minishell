@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:28:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 16:09:51 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/01 15:48:36 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,17 @@ void	check_slash(char **name)
 	*name = holder;
 }
 
-void	replace_cat(t_cmd *cmd)
+void	cmd_not_found(t_cmd *cmd)
 {
-	cmd->executable = 0;
-	write(2, "MiniShell: ", ft_strlen("MiniShell: "));
-	write(2, cmd->cmd_name, ft_strlen(cmd->cmd_name));
-	write(2, " :command not found\n", ft_strlen(" :command not found\n"));
+	if (!is_builtin(cmd->cmd_name))
+	{
+		cmd->executable = 0;
+		write(2, "MiniShell: ", ft_strlen("MiniShell: "));
+		write(2, cmd->cmd_name, ft_strlen(cmd->cmd_name));
+		write(2, " :command not found\n", ft_strlen(" :command not found\n"));
+	}
+	else
+		cmd->executable = 1;
 }
 
 int	check_access(t_cmd *cmd, char **path)
@@ -77,7 +82,7 @@ int	check_access(t_cmd *cmd, char **path)
 		}
 		else
 		{
-			cmd->cmd = cmd->cmd_name;
+			cmd->cmd = ft_strdup(cmd->cmd_name);
 			check_slash(&cmd->cmd_name);
 			break ;
 		}
@@ -86,11 +91,11 @@ int	check_access(t_cmd *cmd, char **path)
 	if (path[i])
 		cmd->executable = 1;
 	else
-		replace_cat(cmd);
+		cmd_not_found(cmd);
 	return (cmd->executable);
 }
 
-void	executable_cmd(t_element *f_cmd, char **envp, t_cmd *cmd)
+void	executable_cmd(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd)
 {
 	t_element	*elm;
 	t_token		*token;
@@ -99,13 +104,13 @@ void	executable_cmd(t_element *f_cmd, char **envp, t_cmd *cmd)
 	elm = f_cmd;
 	cmd->executable = 2;
 	token = (t_token *)elm->content;
-	while (elm && token->type == -1)
+	while (elm && elm->prev != l_cmd && check_cmd(token->type))
 	{
 		elm = elm->next;
 		if (elm)
 			token = (t_token *)elm->content;
 	}
-	if (elm)
+	if (elm && elm->prev != l_cmd)
 	{
 		token->type = 100;
 		cmd->cmd_name = ft_strdup(token->value);

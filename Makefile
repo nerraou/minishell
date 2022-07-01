@@ -96,7 +96,6 @@ SRC =\
 	src/get_next_line/get_next_line.c\
 	src/get_next_line/get_next_line_utils.c\
 \
-	src/initialing/shlvl.c\
 	src/initialing/history.c\
 	src/initialing/prompt.c\
 \

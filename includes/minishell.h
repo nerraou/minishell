@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:28:29 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/28 15:36:37 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/30 18:40:58 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,11 @@
 typedef struct s_global_vars
 {
 	int	exit_code;
-	int	exit_shell;
 	int	heredoc;
 }	t_global_vars;
 
 t_global_vars	g_vars;
 
-void update_shlvl(char **envp);
 void history(char *cmd, char **envp);
 void prompt(char *_prompt, t_list *env_list, int in);
 
