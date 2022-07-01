@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 07:47:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 11:26:57 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/01 16:01:16 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
 
-char	*read_line(char *_prompt)
+char *read_line(char *_prompt)
 {
-	struct termios	tp;
-	char			*cmd;
+	struct termios tp;
+	char *cmd;
 
 	if (tcgetattr(STDIN_FILENO, &tp))
 		perror("tcgetattr");
@@ -27,10 +27,10 @@ char	*read_line(char *_prompt)
 	return (cmd);
 }
 
-int	herdoc_input(t_list	*heredoc_list, char *cmd, t_list *list)
+int herdoc_input(t_list *heredoc_list, char *cmd, t_list *list)
 {
-	int		result;
-	int		heredoc_num;
+	int result;
+	int heredoc_num;
 
 	heredoc_num = 0;
 	result = parser(cmd, list, &heredoc_num);
@@ -43,12 +43,12 @@ int	herdoc_input(t_list	*heredoc_list, char *cmd, t_list *list)
 	return (result);
 }
 
-void	prompt(char *_prompt, t_list *env_list, int in)
+void prompt(char *_prompt, t_list *env_list, int in)
 {
-	t_list	*list;
-	char	*cmd;
-	t_list	*hrdoc;
-	char	**env_arr;
+	t_list *list;
+	char *cmd;
+	t_list *hrdoc;
+	char **env_arr;
 
 	hrdoc = NULL;
 	while (1)
@@ -64,10 +64,10 @@ void	prompt(char *_prompt, t_list *env_list, int in)
 			env_arr = list_to_array(env_list);
 			history(cmd, env_arr);
 			priority(list->head, list->tail, env_list, in);
-			free_2_arr (env_arr);
+			free_2_arr(env_arr);
 			unlink("heredoc");
 		}
 		free(cmd);
-		list_del(&list, free);
+		list_del(&list, del_token);
 	}
 }

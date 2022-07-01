@@ -1,5 +1,13 @@
 {
+<<<<<<< HEAD
 	"files.associations": {
 		"typeinfo": "c"
 	}
 }
+=======
+  "files.associations": {
+	"lexer.h": "c",
+	"minishell.h": "c"
+}
+}
+>>>>>>> fix the parsing problem and global var
