@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 10:40:40 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 18:40:44 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/01 19:36:42 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,17 @@ void	dollar(t_token *token, char **envp, int *i, t_token *s_str)
 	(*i)++;
 }
 
+void check_tilda(t_element **elm, char **envp)
+{
+	t_token		*token;
+	token = (t_token *)(*elm)->content;
+	if (!ft_strncmp(token->value, "~", ft_strlen(token->value)))
+	{
+		free(token->value);
+		token->value = get_env_value("HOME=" ,envp);
+	}
+}
+
 void	dollar_handling(t_element *f_cmd, t_element *l_cmd, char **envp)
 {
 	t_element	*elm;
@@ -119,6 +130,7 @@ void	dollar_handling(t_element *f_cmd, t_element *l_cmd, char **envp)
 	{
 		i = 0;
 		token = (t_token *)elm->content;
+		check_tilda(&elm, envp);
 		if (elm->next)
 			s_str = (t_token *)elm->next->content;
 		while (token->value[i])

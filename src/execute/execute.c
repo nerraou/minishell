@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:25:43 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 15:05:37 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/01 16:50:38 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	execute(t_element *f_cmd, t_element *l_cmd, t_list *env_list, int in)
 {
 	t_element	*pipes;
 	t_cmd		*cmd;
+	int out = dup(STDOUT_FILENO);
 
 	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!cmd)
@@ -78,7 +79,6 @@ void	execute(t_element *f_cmd, t_element *l_cmd, t_list *env_list, int in)
 	dollar_handling(f_cmd, l_cmd, list_to_array(env_list));
 	join_pieces(f_cmd, l_cmd);
 	pipes = f_cmd;
-
 	while (pipes && pipes->prev != l_cmd)
 	{
 		pipe_handling(&pipes, l_cmd, &cmd);
@@ -89,4 +89,5 @@ void	execute(t_element *f_cmd, t_element *l_cmd, t_list *env_list, int in)
 	while (waitpid(-1, NULL, 0) > 0)
 		;
 	dup2(in, STDIN_FILENO);
+	dup2(out, STDOUT_FILENO);
 }
