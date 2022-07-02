@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 10:40:40 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 19:36:42 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/02 18:01:00 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	update_after(char **value, char **after, int j)
 		*after = NULL;
 }
 
-void	to_expand(char *holder, char **expander, int *i, char **envp)
+void	to_expand(char *holder, char **expander, char **envp)
 {
 	char	*env;
 	char	*minishell;
@@ -47,13 +47,10 @@ void	to_expand(char *holder, char **expander, int *i, char **envp)
 	{
 		free(*expander);
 		if (ft_isalnum(holder[0]) && holder[0] != '0')
-		{
 			*expander = ft_strdup("");
-			*i = 0;
-		}
 		else if (holder[0] == '0')
 		{
-			minishell = ft_strdup("MINISHELL");
+			minishell = ft_strdup("MINISH");
 			free(env);
 			env = ft_substr(holder, 1, ft_strlen(holder));
 			*expander = ft_strjoin(minishell, env);
@@ -85,12 +82,13 @@ void	expand(char **value, char **envp, int *i)
 	else if (!ft_strncmp(holder, "?", 1))
 		expander = ft_itoa(g_vars.exit_code);
 	else
-		to_expand(holder, &expander, i, envp);
+		to_expand(holder, &expander, envp);
 	free(holder);
 	if (*value)
 		free(*value);
 	holder = ft_strjoin(befor, expander);
 	*value = ft_strjoin(holder, after);
+	*i = ft_strlen(expander) + ft_strlen(befor) - 1;
 	free(expander);
 	free(holder);
 	free(befor);

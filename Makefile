@@ -1,8 +1,8 @@
 NAME = minishell
 CFLAGS = -Wall -Wextra -Werror -g
 HEADERS = ./includes/minishell.h
-READLINE = -L /goinfre/$(USER)/.brew/opt/readline/lib -lreadline
-READLINE_INCLUDE = -I /goinfre/$(USER)/.brew/opt/readline/include
+READLINE = -L /goinfre/obelkhad/homebrew/Cellar/readline/8.1.2/lib -lreadline
+READLINE_INCLUDE = -I /goinfre/obelkhad/homebrew/Cellar/readline/8.1.2/include
 SRC =\
 	src/libft/ft_atoi.c\
 	src/libft/ft_indexof.c\
@@ -28,6 +28,7 @@ SRC =\
 	src/libft/ft_putstr_fd.c\
 	src/libft/ft_putendl_fd.c\
 	src/libft/ft_split.c\
+	src/libft/ft_tolower.c\
 \
 	src/lexer/ft_new_token.c\
 	src/lexer/del_token.c\
@@ -83,7 +84,6 @@ SRC =\
 	src/builtins/cd.c\
 	src/builtins/ft_exit.c\
 	src/builtins/is_var_name.c\
-\
 \
 	src/env/init_env.c\
 	src/env/new_env.c\

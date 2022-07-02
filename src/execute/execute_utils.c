@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 16:32:27 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 15:03:40 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/02 21:55:38 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ void	init_cmd(t_cmd *cmd)
 	cmd->cmd_name = NULL;
 	cmd->args = NULL;
 	cmd->next_is_pipes = 0;
+	cmd->built_exit = 10;
+	cmd->built = 0;
+	cmd->num_of_args = 0;
+	cmd->pid = 0;
+	cmd->executable = 0;
 }
 
 void	get_exit_code(int status)

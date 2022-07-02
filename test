@@ -1,6 +1,4 @@
 
-// echo -nnnnnn -nnn
-; & \
 
 cd $HOME/Documents -------------------------------------------------------- OK
 cat /dev/random | head -n 1 | cat -e -------------------------------------- OK
@@ -20,83 +18,72 @@ cd ../../../../../.. ; pwd ------------------------------------------------ OK
 ctrl-C . 130 sur bin(ex : sleep 10)&line vide ----------------------------- OK
 ctrl-\ .131 sur bin   ----------------------------------------------------- OK
 cat | cat | cat | ls # check outputs order  ------------------------------- OK
-echo "bip | bip ; coyotte > < " " ----------------------------------------- OK
+$bla # with bla not defined  ---------------------------------------------- OK
+export "test=ici"=coucou -------------------------------------------------- OK
+c$var Makefile # with var=at ---------------------------------------------- OK
+$LESS$VAR ----------------------------------------------------------------- OK
+/bin/echo bonjour --------------------------------------------------------- OK
+not_cmd ------------------------------------------------------------------- OK
+sleep 5 | exit ------------------------------------------------------------ OK
+minishell # binary not in path without "./" before ------------------------ OK
+cat diufosgid # check exit code ------------------------------------------- OK
+exit # should return the last exit code value ----------------------------- OK
+exit -10 ------------------------------------------------------------------ OK
+exit +10 ------------------------------------------------------------------ OK
+echo "$HOME" -------------------------------------------------------------- OK
+echo '$HOME' -------------------------------------------------------------- OK
+echo $HOME ---------------------------------------------------------------- OK
+> log echo coucou --------------------------------------------------------- OK
+echo hudifg d | | hugdfihd ------------------------------------------------ OK
+echo -nnnnnn -nnn --------------------------------------------------------- OK
+echo ---------------------------------------------------------------------- OK
+echo simple --------------------------------------------------------------- OK
+echo -n simple ------------------------------------------------------------ OK
+echo '' ------------------------------------------------------------------- OK
+echo "" ------------------------------------------------------------------- OK
+cd   ---------------------------------------------------------------------- OK
+cd . ---------------------------------------------------------------------- OK
+cd ~ ---------------------------------------------------------------------- OK
+cd / ---------------------------------------------------------------------- OK
+cd no_file ---------------------------------------------------------------- OK
+cd a b c d ---------------------------------------------------------------- OK
+pwd a --------------------------------------------------------------------- OK
+pwd a b c d --------------------------------------------------------------- OK
+export LOL=lala ROR=rara -------------------------------------------------- OK
+unset LOL ROR ------------------------------------------------------------- OK
+export "HI= hi" ----------------------------------------------------------- OK
+export "HI =hi" ----------------------------------------------------------- OK
+/bin/ls ------------------------------------------------------------------- OK
+# write something the press ctrl+c  --------------------------------------- OK
+# write something then press ctrl+d --------------------------------------- OK
+# write something then press ctrl+\ --------------------------------------- OK
+echo $? ------------------------------------------------------------------- OK
+l^Ds   -------------------------------------------------------------------- OK
+echo | -------------------------------------------------------------------- OK
+| echo -------------------------------------------------------------------- OK
+sort | ls # check output order -------------------------------------------- OK
+> a ls > b < Makefile ----------------------------------------------------- OK
+echo > a Hello World! ----------------------------------------------------- OK
+> a echo Hello World! ----------------------------------------------------- OK
+cat < Makefile | grep gcc > output ---------------------------------------- OK
+exit 0 | exit 1 ----------------------------------------------------------- OK
+exit 1 | exit 0 ----------------------------------------------------------- OK
 
 
 
-echo >                   ------------------------------------------------- DIF
-export "" et unset ""    ------------------------------------------------- DIF
-		>> bash: syntax error near unexpected token 'newline' | minishell: syntax error unexpected end of file
-echo -n -n -nnnn -nnnnm  -------------------------------------------------- KO
-cat Makefile | grep pr | head -n 5 | cd test (mybin) # check status code -- KO  EXIT_CODE
-echo bonjour > $test # with test not defined ------------------------------ KO
+ 
+echo >                   -------------------------------------------------- ?
+export "" et unset ""    -------------------------------------------------- ?
+echo -n -n -nnnn -nnnnm  -------------------------------------------------- ?
+cat Makefile | grep pr | head -n 5 | cd test (mybin) # check status code -- ?
+echo bonjour > $test # with test not defined ------------------------------ ?
 env puis export puis env # vars aren't sorted ----------------------------- ?
-
-
-
-
-
-$bla # with bla not defined
-export var ="cat Makefile | grep >"
-export "test=ici"=coucou
-c$var Makefile # with var=at
-$LESS$VAR
-/bin/echo bonjour
-not_cmd
-sleep 5 | exit
-echo bonjour > $test w/ t
-"exit retour a la ligne"
-minishell # binary not in path without "./" before
-cat diufosgid # check exit code
-exit # should return the last exit code value
-exit -10
-exit +10
-;
-echo coucou | ;
-echo "$HOME"
-echo '$HOME'
-export ; env # display is different for both commands
-echo $HOME
-> log echo coucou
-echo hudifg d | | hugdfihd
-echo
-echo simple
-echo -n simple
-echo ''
-echo ""
-echo "\"
-echo "\n \n \n"
-echo "\n \n \\n"
-echo ;;
-echo hi";" hihi
-echo hi " ; " hihi
-cd
-cd .
-cd ~
-cd /
-cd no_file
-cd a b c d
-pwd a
-pwd a b c d
-export LOL=lala ROR=rara
-unset LOL ROR
-export "HI= hi"
-export "HI =hi"
-/bin/ls
-# write something the press ctrl+c
-# write something then press ctrl+d
-# write something then press ctrl+\
-echo $?
-l^Ds
-echo |
-| echo
-sort | ls # check output order
-cat < >
-cat < <
-cat > >
-> a ls > b < Makefile
-echo > a Hello World!
-> a echo Hello World!
-cat < Makefile | grep gcc > output
-exit 0 | exit 1
-exit 1 | exit 0
+export var ="cat Makefile | grep >" --------------------------------------- ?
+echo bonjour > $test w/ t ------------------------------------------------- ?
+"exit retour a la ligne" -------------------------------------------------- ?
+echo "\" ------------------------------------------------------------------ ?
+echo "\n \n \n" ----------------------------------------------------------- ?
+echo "\n \n \\n" ---------------------------------------------------------- ?
+cat < > ------------------------------------------------------------------- ?
+cat < < ------------------------------------------------------------------- ?
+cat > > ------------------------------------------------------------------- ?

@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:25:43 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 16:50:38 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/02 21:55:41 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,6 @@ void	execute(t_element *f_cmd, t_element *l_cmd, t_list *env_list, int in)
 	}
 	// t_element *elm;
 	// t_token *tok;
-	// elm = f_cmd;
-	// elm = elm->next->next->next;
-	// tok = (t_token*)elm->content;
-	// tok->to_join = 1;
 	// elm = f_cmd;
 	// while (elm && elm->prev != l_cmd)
 	// {

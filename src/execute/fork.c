@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:24:33 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 20:03:58 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/02 21:53:47 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,6 @@ void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 {
 	t_opr_logic	operators;
 
-
-	// t_element *elm;
-	// t_token *tok;
-
-	// elm = f_cmd;
-	// while (elm && elm->prev != l_cmd)
-	// {
-	// 	tok = (t_token*)elm->content;
-	// 	printf("{%s}{%d}{%d}\n",tok->value,tok->type,tok->to_join);
-	// 	elm = elm->next;
-	// }
 	operators.f_cmd = f_cmd;
 	operators.l_cmd = l_cmd;
 	check_parentheses(&operators);
@@ -85,13 +74,13 @@ void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 	wildcard_expand(f_cmd, l_cmd);
 	prepear_execve_args(operators.f_cmd, operators.l_cmd, *cmd);
 	(*cmd)->built = is_builtin((*cmd)->cmd_name);
-	// printf("__cmd = %s\n",(*cmd)->cmd);
+	// printf("\n__cmd = %s\n",(*cmd)->cmd);
 	// printf("__name = %s\n",(*cmd)->cmd_name);
 	// printf("__exe = %d\n",(*cmd)->executable);
 	// printf("__n_pipe = %d\n",(*cmd)->next_is_pipes);
 	// printf("__id = %d\n",(*cmd)->id);
 	// printf("__built = %d\n",(*cmd)->built);
-	// int i = 0;
+	// // int i = 0;
 	// while ((*cmd)->args[i])
 	// {
 	// 	printf("___rg = %s\n",(*cmd)->args[i]);
@@ -100,8 +89,9 @@ void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 	// 	printf("{-------$$$$$$$$$$$$$$$$$$------}\n\n");
 	if ((*cmd)->id == 0 && (*cmd)->next_is_pipes == 0 && (*cmd)->built)
 	{
+		// printf("{-------$$$$$$$$$$$$$$$$$$------}\n\n");
 		get_io(f_cmd, l_cmd);
-		exe_builtin((*cmd)->built, *cmd, env_);
+		g_vars.exit_code = exe_builtin((*cmd)->built, *cmd, env_);
 		free_cmd(cmd);
 	}
 	else
@@ -120,7 +110,7 @@ void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 				execve((*cmd)->args[0], (*cmd)->args, list_to_array(env_));
 			else
 			{
-				exe_builtin((*cmd)->built, *cmd, env_);
+				(*cmd)->built_exit = exe_builtin((*cmd)->built, *cmd, env_);
 				free_cmd(cmd);
 				exit(g_vars.exit_code);
 			}

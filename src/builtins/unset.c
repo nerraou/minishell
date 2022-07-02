@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 13:20:50 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/28 12:31:43 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/02 18:50:51 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	unset(int ac, char *av[], t_list *env_list)
 	int	i;
 
 	i = 1;
+	// printf("I AM HERE\n");
 	while (i < ac)
 	{
 		if (ft_indexof(av[i], '=') != -1

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 07:47:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 18:33:47 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/02 21:05:42 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,16 @@ char *read_line(char *_prompt)
 	return (cmd);
 }
 
-int herdoc_input(t_list *heredoc_list, char *cmd, t_list *list)
+int herdoc_input(t_list *heredoc_list, char *cmd, t_list *list, t_list *env)
 {
 	int result;
 	int heredoc_num;
+	char **env_arr;
 
 	heredoc_num = 0;
+	env_arr = list_to_array(env);
+	history(cmd, env_arr);
+	free_2_arr(env_arr);
 	result = parser(cmd, list, &heredoc_num);
 	if (result == FT_REPROMPT)
 	{
@@ -48,7 +52,6 @@ void prompt(char *_prompt, t_list *env_list, int in)
 	t_list *list;
 	char *cmd;
 	t_list *hrdoc;
-	char **env_arr;
 
 	hrdoc = NULL;
 	while (1)
@@ -59,12 +62,9 @@ void prompt(char *_prompt, t_list *env_list, int in)
 		if (!cmd)
 			ctr_d();
 		g_vars.heredoc = 0;
-		if (herdoc_input(hrdoc, cmd, list) == FT_SUCCESS && !empty_prompt(cmd))
+		if (herdoc_input(hrdoc, cmd, list, env_list) == FT_SUCCESS && !empty_prompt(cmd))
 		{
-			env_arr = list_to_array(env_list);
-			history(cmd, env_arr);
 			priority(list->head, list->tail, env_list, in);
-			free_2_arr(env_arr);
 			unlink("heredoc");
 		}
 		free(cmd);
