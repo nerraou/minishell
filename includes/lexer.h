@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:48 by nerraou           #+#    #+#             */
-/*   Updated: 2022/07/01 18:40:37 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/03 12:10:06 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int set_word(const char *str, t_list *list);
 int set_newline(const char *str, t_list *list);
 t_token *ft_new_token(char *value, int type);
 void del_token(void *content);
-void lexer(const char *str, t_list *list);
+int lexer(const char *str, t_list *list);
 int set_or(const char *str, t_list *list);
 int set_and(const char *str, t_list *list);
 int set_l_parenth(const char *str, t_list *list);
