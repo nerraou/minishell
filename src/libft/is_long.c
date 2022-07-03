@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 18:24:19 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/27 14:42:31 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/03 17:27:47 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,11 @@ int	is_long(const char *str)
 	i = 0;
 	sign = 1;
 	count = (long)0;
+	if (str[0] == '-')
+		sign = (long)-1;
+	i = (str[0] == '+' || str[0] == '-');
 	if (!str[i])
 		return (0);
-	if (str[0] == '+' || str[0] == '-')
-	{
-		if (str[0] == '-')
-			sign = (long)-1;
-		i++;
-	}
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))

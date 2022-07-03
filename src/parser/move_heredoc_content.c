@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   move_heredoc_content.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 09:31:49 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/26 19:23:58 by obelkhad         ###   ########.fr       */
-/*                                                                            `*/
+/*   Updated: 2022/07/03 17:55:09 by nerraou          ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static void del(void *content)
+static void	del(void *content)
 {
 	(void)content;
 }
 
-void move_heredoc_content(t_list *list, t_list *heredoc_list)
+void	move_heredoc_content(t_list *list, t_list *heredoc_list)
 {
-	t_element *elm;
-	t_element *herdoc_elm;
-	t_token *token;
+	t_element	*elm;
+	t_element	*herdoc_elm;
+	t_token		*token;
 
 	herdoc_elm = heredoc_list->head;
 	elm = list->head;
@@ -30,7 +30,6 @@ void move_heredoc_content(t_list *list, t_list *heredoc_list)
 		token = (t_token *)elm->content;
 		if (token->type == T_DLESS)
 		{
-
 			free(token->value);
 			token->value = (char *)herdoc_elm->content;
 			herdoc_elm = herdoc_elm->next;
