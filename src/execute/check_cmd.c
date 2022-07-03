@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:28:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/03 11:54:22 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/03 20:18:55 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,32 +41,6 @@ char	**get_path_from_env(char *envp[])
 	return (path);
 }
 
-int	no_such_file_or_directory(t_cmd *cmd)
-{
-	if (cmd->cmd_name[0] != 0)
-	{
-		write(2, "MiniShell: ", ft_strlen("MiniShell: "));
-		write(2, cmd->cmd_name, ft_strlen(cmd->cmd_name));
-		write(2, " :No such file or directory\n", ft_strlen(" :No such file or directory\n"));
-		return (0);
-	}
-	else
-		return (1);
-}
-
-int	cmd_not_found(t_cmd *cmd)
-{
-	if (cmd->cmd_name[0] != 0)
-	{
-		write(2, "MiniShell: ", ft_strlen("MiniShell: "));
-		write(2, cmd->cmd_name, ft_strlen(cmd->cmd_name));
-		write(2, " : command not found\n", ft_strlen(" : command not found\n"));
-		return (0);
-	}
-	else
-		return (1);
-}
-
 int	check_slash(t_cmd **cmd)
 {
 	int		i;
@@ -79,7 +53,8 @@ int	check_slash(t_cmd **cmd)
 		return (cmd_not_found(*cmd));
 	if (i < (int)ft_strlen((*cmd)->cmd_name))
 	{
-		holder = ft_substr((*cmd)->cmd_name ,i + 1 , ft_strlen((*cmd)->cmd_name) - i + 1);
+		holder = ft_substr((*cmd)->cmd_name, i + 1, \
+		ft_strlen((*cmd)->cmd_name) - i + 1);
 		free((*cmd)->cmd_name);
 		(*cmd)->cmd_name = ft_strdup(holder);
 		free(holder);
@@ -87,11 +62,26 @@ int	check_slash(t_cmd **cmd)
 	return (1);
 }
 
+void	chech_stat(t_cmd *cmd)
+{
+	struct stat	statbuf;
+
+	stat(ft_strdup(cmd->cmd_name), &statbuf);
+	// if (stat(ft_strdup(cmd->cmd_name), &statbuf))
+	// {
+	// }
+	if ((statbuf.st_mode & S_IFMT) == S_IFDIR)
+		return (is_a_directory(cmd));
+	if (!(statbuf.st_mode & S_IXUSR) || !(statbuf.st_mode & S_IRUSR))
+		return (permission_denied(cmd));
+}
+
 int	check_access(t_cmd *cmd, char **path)
 {
 	int	i;
 
 	i = 0;
+	check_stat(cmd);
 	if (access(cmd->cmd_name, X_OK))
 	{
 		if (path)
@@ -118,7 +108,11 @@ int	check_access(t_cmd *cmd, char **path)
 			return (cmd_not_found(cmd));
 	}
 	else
-		return(check_slash(&cmd));
+	{
+
+		return (1);
+		// return (check_slash(&cmd));
+	}
 }
 
 void	executable_cmd(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd)

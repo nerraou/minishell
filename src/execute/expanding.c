@@ -6,35 +6,11 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 10:40:40 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/02 18:01:00 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/03 17:03:36 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
-
 #include "minishell.h"
-
-void	update_befor(char **value, char **befor, int *i)
-{
-	if(*i > 0)
-		*befor = ft_substr((*value), 0, *i);
-	else
-		*befor = NULL;
-}
-
-void	update_after(char **value, char **after, int j)
-{
-	int	end;
-
-	end = j;
-	while ((*value)[end])
-		end++;
-	if (end - j > 0)
-		*after = ft_substr((*value), j + 1, end - j);
-	else
-		*after = NULL;
-}
 
 void	to_expand(char *holder, char **expander, char **envp)
 {
@@ -43,7 +19,7 @@ void	to_expand(char *holder, char **expander, char **envp)
 
 	env = ft_strjoin(holder, "=");
 	*expander = get_env_value(env, envp);
-	if(!ft_strncmp(*expander, holder, ft_strlen(holder)))
+	if (!ft_strncmp(*expander, holder, ft_strlen(holder)))
 	{
 		free(*expander);
 		if (ft_isalnum(holder[0]) && holder[0] != '0')
@@ -99,21 +75,11 @@ void	dollar(t_token *token, char **envp, int *i, t_token *s_str)
 {
 	if (token->value[*i] == '$' && token->value[*i + 1])
 	{
-		if (token->type == T_D_STRING || token->type == T_WORD || (token->type == T_DLESS && s_str->type != T_S_STRING))
+		if (token->type == T_D_STRING || token->type == T_WORD || \
+		(token->type == T_DLESS && s_str->type != T_S_STRING))
 			expand(&token->value, envp, i);
 	}
 	(*i)++;
-}
-
-void check_tilda(t_element **elm, char **envp)
-{
-	t_token		*token;
-	token = (t_token *)(*elm)->content;
-	if (!ft_strncmp(token->value, "~", ft_strlen(token->value)))
-	{
-		free(token->value);
-		token->value = get_env_value("HOME=" ,envp);
-	}
 }
 
 void	dollar_handling(t_element *f_cmd, t_element *l_cmd, char **envp)

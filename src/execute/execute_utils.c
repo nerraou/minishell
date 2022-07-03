@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 16:32:27 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/03 15:22:07 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/03 16:56:47 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	get_exit_code(int status)
 	if (WIFSIGNALED(status))
 		g_vars.exit_code = WTERMSIG(status) + 128;
 }
-
 
 void	creat_pipe(t_cmd **cmd, t_token *token)
 {

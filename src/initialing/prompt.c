@@ -6,17 +6,17 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 07:47:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/02 21:05:42 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/03 16:50:02 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
 
-char *read_line(char *_prompt)
+char	*read_line(char *_prompt)
 {
-	struct termios tp;
-	char *cmd;
+	struct termios	tp;
+	char			*cmd;
 
 	if (tcgetattr(STDIN_FILENO, &tp))
 		perror("tcgetattr");
@@ -27,11 +27,11 @@ char *read_line(char *_prompt)
 	return (cmd);
 }
 
-int herdoc_input(t_list *heredoc_list, char *cmd, t_list *list, t_list *env)
+int	herdoc_input(t_list *heredoc_list, char *cmd, t_list *list, t_list *env)
 {
-	int result;
-	int heredoc_num;
-	char **env_arr;
+	int		result;
+	int		heredoc_num;
+	char	**env_arr;
 
 	heredoc_num = 0;
 	env_arr = list_to_array(env);
@@ -47,11 +47,11 @@ int herdoc_input(t_list *heredoc_list, char *cmd, t_list *list, t_list *env)
 	return (result);
 }
 
-void prompt(char *_prompt, t_list *env_list, int in)
+void	prompt(char *_prompt, t_list *env_list, int in)
 {
-	t_list *list;
-	char *cmd;
-	t_list *hrdoc;
+	t_list	*list;
+	char	*cmd;
+	t_list	*hrdoc;
 
 	hrdoc = NULL;
 	while (1)
@@ -62,7 +62,8 @@ void prompt(char *_prompt, t_list *env_list, int in)
 		if (!cmd)
 			ctr_d();
 		g_vars.heredoc = 0;
-		if (herdoc_input(hrdoc, cmd, list, env_list) == FT_SUCCESS && !empty_prompt(cmd))
+		if (herdoc_input(hrdoc, cmd, list, env_list) == FT_SUCCESS && \
+		!empty_prompt(cmd))
 		{
 			priority(list->head, list->tail, env_list, in);
 			unlink("heredoc");

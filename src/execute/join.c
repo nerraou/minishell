@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:17:54 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 12:59:01 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/03 16:47:31 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	joining(t_element *elm, t_token *token_next)
 
 void	join_pieces(t_element *f_cmd, t_element *l_cmd)
 {
-	t_token		*token_next;
 	t_token		*token;
 	t_element	*elm;
+	t_element	*elm_next;
 	bool		stop;
 
 	stop = true;
@@ -35,13 +35,16 @@ void	join_pieces(t_element *f_cmd, t_element *l_cmd)
 	while (elm && elm->prev != l_cmd)
 	{
 		token = (t_token *)elm->content;
+		if (elm->next)
+			elm_next = elm->next;
 		while (token->to_join == 1 && stop)
 		{
-			token_next = (t_token *)elm->next->content;
-			if (token_next->to_join == 0)
+			token = (t_token *)elm_next->content;
+			joining(elm, token);
+			token->type = -1;
+			if (token->to_join == 0)
 				stop = false;
-			joining(elm, token_next);
-			token_next->type = -1;
+			elm_next = elm_next->next;
 		}
 		elm = elm->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:28:29 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/30 18:40:58 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/03 18:30:41 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 #include <dirent.h>
 #include <stdbool.h>
 #include <term.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "libft.h"

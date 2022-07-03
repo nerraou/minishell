@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:29:46 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/02 21:55:32 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/03 17:09:21 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,11 @@ int		free_lookup(bool **lookup, int n, int m);
 void	init_cmd(t_cmd *cmd);
 void	free_cmd(t_cmd **cmd);
 int		check_cmd(int mcr);
+int		no_such_file_or_directory(t_cmd *cmd);
+int		cmd_not_found(t_cmd *cmd);
+void	update_befor(char **value, char **befor, int *i);
+void	update_after(char **value, char **after, int j);
+void	check_tilda(t_element **elm, char **envp);
+void	forking(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd);
+void	in_out(t_element *f_cmd, t_element **l_cmd, t_cmd **cmd);
 #endif

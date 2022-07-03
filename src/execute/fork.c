@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:24:33 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/03 15:30:55 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/03 17:13:45 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	update_type(t_element *f_cmd, t_element *l_cmd)
 		token = (t_token *)elm->content;
 		if (elm->next)
 			file = (t_token *)elm->next->content;
-		if (token->type == T_GREAT || token->type == T_LESS || token->type == T_DGREAT)
+		if (token->type == T_GREAT || token->type == T_LESS || \
+		token->type == T_DGREAT)
 			file->type = T_FILE;
 		if (token->type == T_DLESS)
 			file->type = T_LIM;
@@ -65,58 +66,32 @@ void	update_type(t_element *f_cmd, t_element *l_cmd)
 void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 {
 	t_opr_logic	operators;
-
+		t_element *elm;
+	t_token *tok;
+	elm = f_cmd;
+	while (elm && elm->prev != l_cmd)
+	{
+		tok = (t_token*)elm->content;
+		printf("{%s}{%d}{%d}\n",tok->value,tok->type,tok->to_join);
+		elm = elm->next;
+	}
 	operators.f_cmd = f_cmd;
 	operators.l_cmd = l_cmd;
 	check_parentheses(&operators);
 	update_type(operators.f_cmd, operators.l_cmd);
 	executable_cmd(operators.f_cmd, operators.l_cmd, list_to_array(env_), *cmd);
+	printf("{ %d }\n",(*cmd)->executable);
+	printf("{ %s }\n",(*cmd)->cmd);
+	printf("{ %s }\n",(*cmd)->cmd_name);
 	wildcard_expand(f_cmd, l_cmd);
 	prepear_execve_args(operators.f_cmd, operators.l_cmd, *cmd);
 	(*cmd)->built = is_builtin((*cmd)->cmd_name);
-	// printf("\n__cmd = %s\n",(*cmd)->cmd);
-	// printf("__name = %s\n",(*cmd)->cmd_name);
-	// printf("__exe = %d\n",(*cmd)->executable);
-	// printf("__n_pipe = %d\n",(*cmd)->next_is_pipes);
-	// printf("__id = %d\n",(*cmd)->id);
-	// printf("__built = %d\n",(*cmd)->built);
-	// int i = 0;
-	// while ((*cmd)->args[i])
-	// {
-	// 	printf("___rg = %s\n",(*cmd)->args[i]);
-	// 	i++;
-	// }
-	// 	printf("{-------$$$$$$$$$$$$$$$$$$------}\n\n");
 	if ((*cmd)->id == 0 && (*cmd)->next_is_pipes == 0 && (*cmd)->built)
 	{
 		get_io(f_cmd, l_cmd);
 		g_vars.exit_code = exe_builtin((*cmd)->built, *cmd, env_);
-		printf("FROM LOL = %d\n",g_vars.exit_code);
 		free_cmd(cmd);
 	}
 	else
-	{
-		(*cmd)->pid = fork();
-		if ((*cmd)->pid == 0)
-		{
-			in_out(f_cmd, &l_cmd, cmd);
-			if((*cmd)->executable == 0)
-				exit (127);
-			if((*cmd)->executable == 2)
-				exit (0);
-			if((*cmd)->executable == 3)
-				exit (126);
-			if (!(*cmd)->built)
-			{
-				execve((*cmd)->args[0], (*cmd)->args, list_to_array(env_));
-				exit(0);
-			}
-			else
-			{
-				g_vars.exit_code = exe_builtin((*cmd)->built, *cmd, env_);
-				free_cmd(cmd);
-				exit(g_vars.exit_code);
-			}
-		}
-	}
+		forking(f_cmd, l_cmd, env_, cmd);
 }
