@@ -6,11 +6,18 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 17:43:34 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/28 08:50:08 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/02 18:02:00 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+static int	print_quotes_error(void)
+{
+	ft_putendl_fd("minishell: unexpected EOF while "
+		"looking for matching quote", 2);
+	return (FT_FAILURE);
+}
 
 int	parser(const char *str, t_list *list, int *heredoc)
 {
@@ -18,7 +25,8 @@ int	parser(const char *str, t_list *list, int *heredoc)
 	t_token		*token;
 
 	*heredoc = 0;
-	lexer(str, list);
+	if (lexer(str, list) == FT_FAILURE)
+		return (print_quotes_error());
 	if (list->size == 0)
 		return (FT_SUCCESS);
 	elm = list->head;

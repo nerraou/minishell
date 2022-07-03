@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:59:09 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/28 10:04:13 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/02 15:36:51 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static int	word_len(const char *str)
 
 	i = 0;
 	while (str[i] && !ft_isspace(str[i]) && str[i] != '\n'
-		&& str[i] != ')' && str[i] != '(' && str[i] != '&' && str[i] != '|')
+		&& str[i] != ')' && str[i] != '(' && str[i] != '&'
+		&& str[i] != '|' && str[i] != '"' && str[i] != '\'')
 	{
 		i++;
 	}
