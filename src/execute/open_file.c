@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 10:00:30 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 12:56:30 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/03 14:39:54 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	open_file_read(char	*infile)
 		write(2, "minishell: ", ft_strlen("minishell: "));
 		perror (infile);
 		free(infile);
-		exit(1);
+		// exit(1);
 	}
 	free(infile);
 	dup2(fd, STDIN_FILENO);

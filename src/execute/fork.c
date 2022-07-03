@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:24:33 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/03 11:56:34 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/03 15:30:55 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 	// 	printf("{-------$$$$$$$$$$$$$$$$$$------}\n\n");
 	if ((*cmd)->id == 0 && (*cmd)->next_is_pipes == 0 && (*cmd)->built)
 	{
-		// printf("{-------$$$$$$$$$$$$$$$$$$------}\n\n");
 		get_io(f_cmd, l_cmd);
 		g_vars.exit_code = exe_builtin((*cmd)->built, *cmd, env_);
+		printf("FROM LOL = %d\n",g_vars.exit_code);
 		free_cmd(cmd);
 	}
 	else
@@ -107,10 +107,13 @@ void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 			if((*cmd)->executable == 3)
 				exit (126);
 			if (!(*cmd)->built)
+			{
 				execve((*cmd)->args[0], (*cmd)->args, list_to_array(env_));
+				exit(0);
+			}
 			else
 			{
-				(*cmd)->built_exit = exe_builtin((*cmd)->built, *cmd, env_);
+				g_vars.exit_code = exe_builtin((*cmd)->built, *cmd, env_);
 				free_cmd(cmd);
 				exit(g_vars.exit_code);
 			}

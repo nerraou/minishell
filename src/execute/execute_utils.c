@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 16:32:27 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/02 21:55:38 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/03 15:22:07 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init_cmd(t_cmd *cmd)
 	cmd->built_exit = 10;
 	cmd->built = 0;
 	cmd->num_of_args = 0;
-	cmd->pid = 0;
+	cmd->pid = -2;
 	cmd->executable = 0;
 }
 

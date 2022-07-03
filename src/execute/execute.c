@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:25:43 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/03 11:29:47 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/03 15:32:56 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	last_child(t_cmd *cmd)
 {
 	int	status;
 
-	if (cmd->next_is_pipes == 0)
+	
+	if (cmd->next_is_pipes == 0 && cmd->pid != -2)
 	{
 		waitpid(cmd->pid, &status, 0);
 		close(STDIN_FILENO);
@@ -62,15 +63,15 @@ void	execute(t_element *f_cmd, t_element *l_cmd, t_list *env_list, int in)
 		list_del(&env_list, free);
 		exit (1);
 	}
-	t_element *elm;
-	t_token *tok;
-	elm = f_cmd;
-	while (elm && elm->prev != l_cmd)
-	{
-		tok = (t_token*)elm->content;
-		printf("{%s}{%d}{%d}\n",tok->value,tok->type,tok->to_join);
-		elm = elm->next;
-	}
+	// t_element *elm;
+	// t_token *tok;
+	// elm = f_cmd;
+	// while (elm && elm->prev != l_cmd)
+	// {
+	// 	tok = (t_token*)elm->content;
+	// 	printf("{%s}{%d}{%d}\n",tok->value,tok->type,tok->to_join);
+	// 	elm = elm->next;
+	// }
 	init_cmd(cmd);
 	dollar_handling(f_cmd, l_cmd, list_to_array(env_list));
 	join_pieces(f_cmd, l_cmd);
