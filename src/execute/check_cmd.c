@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:28:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/02 20:03:25 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/03 11:54:22 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,26 @@ char	**get_path_from_env(char *envp[])
 	return (path);
 }
 
+int	no_such_file_or_directory(t_cmd *cmd)
+{
+	if (cmd->cmd_name[0] != 0)
+	{
+		write(2, "MiniShell: ", ft_strlen("MiniShell: "));
+		write(2, cmd->cmd_name, ft_strlen(cmd->cmd_name));
+		write(2, " :No such file or directory\n", ft_strlen(" :No such file or directory\n"));
+		return (0);
+	}
+	else
+		return (1);
+}
+
 int	cmd_not_found(t_cmd *cmd)
 {
 	if (cmd->cmd_name[0] != 0)
 	{
 		write(2, "MiniShell: ", ft_strlen("MiniShell: "));
 		write(2, cmd->cmd_name, ft_strlen(cmd->cmd_name));
-		write(2, " :command not found\n", ft_strlen(" :command not found\n"));
+		write(2, " : command not found\n", ft_strlen(" : command not found\n"));
 		return (0);
 	}
 	else
@@ -95,7 +108,11 @@ int	check_access(t_cmd *cmd, char **path)
 			if (path[i])
 				return (free_2_arr(path), 1);
 			else
+			{
+				if (cmd->cmd_name[0] == '/' || cmd->cmd_name[0] == '.')
+					return (no_such_file_or_directory(cmd));
 				return (cmd_not_found(cmd));
+			}
 		}
 		else
 			return (cmd_not_found(cmd));

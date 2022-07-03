@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:24:33 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/02 21:53:47 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/03 11:56:34 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 	// printf("__n_pipe = %d\n",(*cmd)->next_is_pipes);
 	// printf("__id = %d\n",(*cmd)->id);
 	// printf("__built = %d\n",(*cmd)->built);
-	// // int i = 0;
+	// int i = 0;
 	// while ((*cmd)->args[i])
 	// {
 	// 	printf("___rg = %s\n",(*cmd)->args[i]);
