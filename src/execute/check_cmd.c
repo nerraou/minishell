@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:28:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 15:48:36 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/03 11:54:22 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,30 +41,50 @@ char	**get_path_from_env(char *envp[])
 	return (path);
 }
 
-void	check_slash(char **name)
+int	no_such_file_or_directory(t_cmd *cmd)
+{
+	if (cmd->cmd_name[0] != 0)
+	{
+		write(2, "MiniShell: ", ft_strlen("MiniShell: "));
+		write(2, cmd->cmd_name, ft_strlen(cmd->cmd_name));
+		write(2, " :No such file or directory\n", ft_strlen(" :No such file or directory\n"));
+		return (0);
+	}
+	else
+		return (1);
+}
+
+int	cmd_not_found(t_cmd *cmd)
+{
+	if (cmd->cmd_name[0] != 0)
+	{
+		write(2, "MiniShell: ", ft_strlen("MiniShell: "));
+		write(2, cmd->cmd_name, ft_strlen(cmd->cmd_name));
+		write(2, " : command not found\n", ft_strlen(" : command not found\n"));
+		return (0);
+	}
+	else
+		return (1);
+}
+
+int	check_slash(t_cmd **cmd)
 {
 	int		i;
 	char	*holder;
 
-	i = ft_strlen(*name);
-	while ((*name)[i - 1] != '/' && (*name)[i - 1] != '.')
+	i = ft_strlen((*cmd)->cmd_name) - 1;
+	while (i >= 0 && (*cmd)->cmd_name[i] != '/' && (*cmd)->cmd_name[i] != '.')
 		i--;
-	holder = ft_substr(*name, i, ft_strlen(*name) - i + 1);
-	free(*name);
-	*name = holder;
-}
-
-void	cmd_not_found(t_cmd *cmd)
-{
-	if (!is_builtin(cmd->cmd_name))
+	if (i == -1)
+		return (cmd_not_found(*cmd));
+	if (i < (int)ft_strlen((*cmd)->cmd_name))
 	{
-		cmd->executable = 0;
-		write(2, "MiniShell: ", ft_strlen("MiniShell: "));
-		write(2, cmd->cmd_name, ft_strlen(cmd->cmd_name));
-		write(2, " :command not found\n", ft_strlen(" :command not found\n"));
+		holder = ft_substr((*cmd)->cmd_name ,i + 1 , ft_strlen((*cmd)->cmd_name) - i + 1);
+		free((*cmd)->cmd_name);
+		(*cmd)->cmd_name = ft_strdup(holder);
+		free(holder);
 	}
-	else
-		cmd->executable = 1;
+	return (1);
 }
 
 int	check_access(t_cmd *cmd, char **path)
@@ -72,27 +92,33 @@ int	check_access(t_cmd *cmd, char **path)
 	int	i;
 
 	i = 0;
-	while (path[i])
+	if (access(cmd->cmd_name, X_OK))
 	{
-		if (access(cmd->cmd_name, X_OK))
+		if (path)
 		{
-			cmd->cmd = ft_strjoin(path[i], cmd->cmd_name);
-			if (!access(cmd->cmd, X_OK))
-				break ;
+			while (path[i])
+			{
+				if (cmd->cmd)
+					free (cmd->cmd);
+				cmd->cmd = ft_strjoin(path[i], cmd->cmd_name);
+				if (!access(cmd->cmd, X_OK))
+					break ;
+				i++;
+			}
+			if (path[i])
+				return (free_2_arr(path), 1);
+			else
+			{
+				if (cmd->cmd_name[0] == '/' || cmd->cmd_name[0] == '.')
+					return (no_such_file_or_directory(cmd));
+				return (cmd_not_found(cmd));
+			}
 		}
 		else
-		{
-			cmd->cmd = ft_strdup(cmd->cmd_name);
-			check_slash(&cmd->cmd_name);
-			break ;
-		}
-		i++;
+			return (cmd_not_found(cmd));
 	}
-	if (path[i])
-		cmd->executable = 1;
 	else
-		cmd_not_found(cmd);
-	return (cmd->executable);
+		return(check_slash(&cmd));
 }
 
 void	executable_cmd(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd)
@@ -114,10 +140,14 @@ void	executable_cmd(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd)
 	{
 		token->type = 100;
 		cmd->cmd_name = ft_strdup(token->value);
-		path = get_path_from_env(envp);
-		if (!path)
-			exit (1);
-		cmd->executable = check_access(cmd, path);
+		cmd->cmd = ft_strdup(token->value);
+		if (!is_builtin(cmd->cmd_name))
+		{
+			path = get_path_from_env(envp);
+			cmd->executable = check_access(cmd, path);
+		}
+		else
+			cmd->executable = 1;
 	}
 	free_2_arr (envp);
 }

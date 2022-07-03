@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:29:46 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 11:17:42 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/02 21:55:32 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_cmd
 	int		num_of_args;
 	int		pid;
 	int		built;
+	int		built_exit;
 }	t_cmd;
 
 typedef struct s_wild

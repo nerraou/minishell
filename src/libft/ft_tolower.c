@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_start.c                                      :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/11 17:02:16 by nerraou           #+#    #+#             */
-/*   Updated: 2022/07/01 18:36:17 by nerraou          ###   ########.fr       */
+/*   Created: 2022/07/02 15:45:01 by obelkhad          #+#    #+#             */
+/*   Updated: 2022/07/02 15:45:34 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "libft.h"
 
-int	check_start(t_element *elm)
+int	ft_tolower(int c)
 {
-	if (is_separator(elm))
-	{
-		print_syntax_error(elm);
-		return (FT_FAILURE);
-	}
-	return (FT_SUCCESS);
+	if (c >= 'A' && c <= 'Z')
+		return (c + 32);
+	return (c);
 }

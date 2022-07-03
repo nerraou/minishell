@@ -28,6 +28,7 @@ SRC =\
 	src/libft/ft_putstr_fd.c\
 	src/libft/ft_putendl_fd.c\
 	src/libft/ft_split.c\
+	src/libft/ft_tolower.c\
 \
 	src/lexer/ft_new_token.c\
 	src/lexer/del_token.c\
@@ -83,7 +84,6 @@ SRC =\
 	src/builtins/cd.c\
 	src/builtins/ft_exit.c\
 	src/builtins/is_var_name.c\
-\
 \
 	src/env/init_env.c\
 	src/env/new_env.c\

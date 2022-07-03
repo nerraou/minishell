@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:25:43 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 15:05:37 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/03 11:29:47 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	execute(t_element *f_cmd, t_element *l_cmd, t_list *env_list, int in)
 {
 	t_element	*pipes;
 	t_cmd		*cmd;
+	int out = dup(STDOUT_FILENO);
 
 	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!cmd)
@@ -61,24 +62,19 @@ void	execute(t_element *f_cmd, t_element *l_cmd, t_list *env_list, int in)
 		list_del(&env_list, free);
 		exit (1);
 	}
-	// t_element *elm;
-	// t_token *tok;
-	// elm = f_cmd;
-	// elm = elm->next->next->next;
-	// tok = (t_token*)elm->content;
-	// tok->to_join = 1;
-	// elm = f_cmd;
-	// while (elm && elm->prev != l_cmd)
-	// {
-	// 	tok = (t_token*)elm->content;
-	// 	printf("{%s}{%d}{%d}\n",tok->value,tok->type,tok->to_join);
-	// 	elm = elm->next;
-	// }
+	t_element *elm;
+	t_token *tok;
+	elm = f_cmd;
+	while (elm && elm->prev != l_cmd)
+	{
+		tok = (t_token*)elm->content;
+		printf("{%s}{%d}{%d}\n",tok->value,tok->type,tok->to_join);
+		elm = elm->next;
+	}
 	init_cmd(cmd);
 	dollar_handling(f_cmd, l_cmd, list_to_array(env_list));
 	join_pieces(f_cmd, l_cmd);
 	pipes = f_cmd;
-
 	while (pipes && pipes->prev != l_cmd)
 	{
 		pipe_handling(&pipes, l_cmd, &cmd);
@@ -89,4 +85,5 @@ void	execute(t_element *f_cmd, t_element *l_cmd, t_list *env_list, int in)
 	while (waitpid(-1, NULL, 0) > 0)
 		;
 	dup2(in, STDIN_FILENO);
+	dup2(out, STDOUT_FILENO);
 }

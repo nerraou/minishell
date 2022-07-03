@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:48 by nerraou           #+#    #+#             */
-/*   Updated: 2022/07/01 16:00:21 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/01 18:40:37 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_token
 
 #define T_WORD 0
 #define T_D_STRING 1
-#define T_S_SRRING 2
+#define T_S_STRING 2
 #define T_LESS 3
 #define T_GREAT 4
 #define T_DGREAT 5

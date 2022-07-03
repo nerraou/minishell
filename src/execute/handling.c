@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 20:04:37 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 15:37:29 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/02 16:09:44 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void	sig_handel(int sig)
 {
 	if (sig == SIGINT && g_vars.heredoc == T_DLESS)
 		g_vars.exit_code = 1;
-	if (sig == SIGQUIT)
+	if (sig == SIGQUIT && g_vars.heredoc)
 	{
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	if (sig == SIGINT && g_vars.heredoc != T_DLESS)
+	if (sig == SIGINT && g_vars.heredoc != T_DLESS && g_vars.heredoc)
 	{
 		printf("\n");
 		rl_on_new_line();

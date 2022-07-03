@@ -6,32 +6,51 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 17:53:34 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 15:06:32 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/02 18:04:18 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	to_lower(char *cmd)
+{
+	int		i;
+
+	i = 0;
+	while (cmd && cmd[i])
+	{
+		cmd[i] = ft_tolower(cmd[i]);
+		i++;
+	}
+}
+
 int	is_builtin(char	*cmd)
 {
+	char	*lower;
+	int		val;
+
+	val = 0;
 	if (cmd)
 	{
-		if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
-			return (1);
-		if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
-			return (2);
-		if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
-			return (3);
-		if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
-			return (4);
-		if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
-			return (5);
-		if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
-			return (6);
-		if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
-			return (7);
+		lower = ft_strdup(cmd);
+		if (!ft_strncmp(lower, "export", ft_strlen(lower)))
+			val = 4;
+		if (!ft_strncmp(lower, "unset", ft_strlen(lower)))
+			val = 5;
+		if (!ft_strncmp(lower, "cd", ft_strlen(lower)))
+			val = 1;
+		if (!ft_strncmp(lower, "exit", ft_strlen(lower)))
+			val = 7;
+		to_lower(lower);
+		if (!ft_strncmp(lower, "echo", ft_strlen(lower)))
+			val = 2;
+		if (!ft_strncmp(lower, "pwd", ft_strlen(lower)))
+			val = 3;
+		if (!ft_strncmp(lower, "env", ft_strlen(lower)))
+			val = 6;
+		free(lower);
 	}
-	return (0);
+	return (val);
 }
 
 int	exe_builtin(int built, t_cmd *cmd, t_list *env_)
