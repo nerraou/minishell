@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:25:43 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 17:10:45 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:56:25 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	execute(t_element *f_cmd, t_element *l_cmd, t_list **env_list, int in)
 	if (!cmd)
 	{
 		list_del(env_list, list_del_env);
-		// exit (1);
+		exit (1);
 	}
 	prepear_cmd(f_cmd, l_cmd, *env_list, cmd);
 	pipes = f_cmd;

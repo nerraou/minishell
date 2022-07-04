@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 19:18:06 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 16:16:42 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 18:09:41 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	int in;
-	t_list *env_list;
-	char **env_arr;
+	t_list	*env_list;
+	char	**env_arr;
+	int		in;
 
 	in = dup(STDIN_FILENO);
 	(void)argc;

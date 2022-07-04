@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:29:46 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 16:30:09 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 18:09:57 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTE_H
 # define EXECUTE_H
+
 # define READ_END 0
 # define WRITE_END 1
 
@@ -23,7 +24,7 @@ typedef struct s_opr_logic
 	int			operator;
 	t_element	*parent_r;
 	t_element	*parent_l;
-}	t_opr_logic;
+}				t_opr_logic;
 
 typedef struct s_cmd
 {
@@ -38,14 +39,14 @@ typedef struct s_cmd
 	int		pid;
 	int		built;
 	int		built_exit;
-}	t_cmd;
+}				t_cmd;
 
 typedef struct s_wild
 {
 	char	*file;
 	char	*holder;
 	char	*all_matches;
-}	t_wild;
+}				t_wild;
 
 void	execut(t_list *list, char **envp);
 void	dollar_handling(t_element *f_cmd, t_element *l_cmd, char **envp);
@@ -61,7 +62,8 @@ void	free_pipes(int	**pipes, int size);
 int		get_io(t_element *f_cmd, t_element *l_cmd);
 void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env, t_cmd **cmd);
 void	prepear_execve_args(t_element *f_cmd, t_element *l_cmd, t_cmd *cmd);
-void	executable(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd **cmd);
+void	executable(t_element *f_cmd, t_element *l_cmd, char **envp, \
+t_cmd **cmd);
 int		check_parentheses(t_opr_logic *operators);
 void	sig_handel(int sig);
 void	ctr_d(void);

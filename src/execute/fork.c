@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:24:33 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 17:10:19 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:56:43 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	free_cmd(t_cmd **cmd)
 	if ((*cmd)->args)
 		free_2_arr((*cmd)->args);
 	free (*cmd);
+	*cmd = NULL;
 }
 
 int	in_out(t_element *f_cmd, t_element **l_cmd, t_cmd **cmd)
@@ -79,7 +80,6 @@ void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 	{
 		get_io(f_cmd, l_cmd);
 		g_vars.exit_code = exe_builtin((*cmd)->built, *cmd, env_);
-		free_cmd(cmd);
 	}
 	else
 		forking(f_cmd, l_cmd, env_, cmd);

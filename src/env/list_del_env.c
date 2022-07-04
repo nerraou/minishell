@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:27:20 by nerraou           #+#    #+#             */
-/*   Updated: 2022/07/04 14:29:53 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/04 14:43:27 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	list_del_env(void *content)
 {
-	del_env((t_env*)content);
+	del_env((t_env *)content);
 }
