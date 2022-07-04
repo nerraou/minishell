@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:24:33 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 11:30:34 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:10:19 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 	operators.l_cmd = l_cmd;
 	check_parentheses(&operators);
 	update_type(operators.f_cmd, operators.l_cmd);
-	executable(operators.f_cmd, operators.l_cmd, list_to_array(env_), *cmd);
+	executable(operators.f_cmd, operators.l_cmd, list_to_array(env_), cmd);
 	wildcard_expand(f_cmd, l_cmd);
 	prepear_execve_args(operators.f_cmd, operators.l_cmd, *cmd);
 	(*cmd)->built = is_builtin((*cmd)->cmd_name);

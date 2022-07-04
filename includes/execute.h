@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:29:46 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 12:39:35 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 16:30:09 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	execut(t_list *list, char **envp);
 void	dollar_handling(t_element *f_cmd, t_element *l_cmd, char **envp);
 char	*get_env_value(char	*env, char **envp);
 int		check_env(char	*vrb, char **envp);
-void	execute(t_element *f_cmd, t_element *l_cmd, t_list *env_list, int in);
-void	priority(t_element *f_cmd, t_element *l_cmd, t_list *env_list, int in);
+void	execute(t_element *f_cmd, t_element *l_cmd, t_list **env_list, int in);
+void	priority(t_element *f_cmd, t_element *l_cmd, t_list **env_list, int in);
 void	divide_by_last_operator(t_opr_logic *opertor);
 void	join_pieces(t_element *f_cmd, t_element *l_cmd);
 int		**pipes_creation(t_cmd *cmd);
@@ -61,7 +61,7 @@ void	free_pipes(int	**pipes, int size);
 int		get_io(t_element *f_cmd, t_element *l_cmd);
 void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env, t_cmd **cmd);
 void	prepear_execve_args(t_element *f_cmd, t_element *l_cmd, t_cmd *cmd);
-void	executable(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd);
+void	executable(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd **cmd);
 int		check_parentheses(t_opr_logic *operators);
 void	sig_handel(int sig);
 void	ctr_d(void);
@@ -96,7 +96,7 @@ int		permission_denied(t_cmd *cmd);
 int		is_a_directory(t_cmd *cmd);
 int		filename_argument_required(t_cmd *cmd);
 int		is_slash(char *cmd);
-int		chack_access(t_cmd *cmd, char **envp);
+int		chack_access(t_cmd **cmd, char **envp);
 int		check_slash(t_cmd **cmd, char **envp);
 char	**get_path_from_env(char *envp[]);
 #endif

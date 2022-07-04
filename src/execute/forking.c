@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 17:07:54 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 11:32:20 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:08:30 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	forking(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 		if (!(*cmd)->built)
 		{
 			execve((*cmd)->args[0], (*cmd)->args, list_to_array(env_));
-			exit(0);
+			exit(1);
 		}
 		else
 		{
