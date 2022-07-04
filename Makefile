@@ -102,6 +102,7 @@ SRC =\
 \
 	src/execute/priority.c\
 	src/execute/expanding.c\
+	src/execute/expanding_utils.c\
 	src/execute/env_value.c\
 	src/execute/execute.c\
 	src/execute/execute_utils.c\
@@ -111,11 +112,14 @@ SRC =\
 	src/execute/fork.c\
 	src/execute/args.c\
 	src/execute/check_cmd.c\
+	src/execute/check_cmd_utils.c\
 	src/execute/handling.c\
 	src/execute/wildcard.c\
 	src/execute/wildcard_utils.c\
 	src/execute/open_file.c\
 	src/execute/built.c\
+	src/execute/error_msg.c\
+	src/execute/forking.c\
 \
 	src/main.c\
 

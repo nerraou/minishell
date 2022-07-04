@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:26:11 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/02 18:58:10 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/03 16:50:38 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void	update_args(t_element *elm, t_element *l_cmd, t_cmd *cmd)
 		token = (t_token *)elm->content;
 		if (!check_cmd(token->type) && token->type != 100)
 		{
-			if (wcount(token->value, ' ') == 1 || token->type == T_D_STRING || token->type == T_S_STRING)
+			if (wcount(token->value, ' ') == 1 || token->type == T_D_STRING || \
+			token->type == T_S_STRING)
 				cmd->args[i++] = ft_strdup(token->value);
 			else
 				spliting(cmd, token->value, &i);

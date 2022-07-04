@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:28:29 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/30 18:40:58 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 12:37:36 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 #include <dirent.h>
 #include <stdbool.h>
 #include <term.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "libft.h"
@@ -36,13 +38,14 @@
 
 typedef struct s_global_vars
 {
-	int	exit_code;
-	int	heredoc;
+	int		exit_code;
+	int		heredoc;
+	char	*tilda;
 }	t_global_vars;
 
 t_global_vars	g_vars;
 
-void history(char *cmd, char **envp);
-void prompt(char *_prompt, t_list *env_list, int in);
+void	history(char *cmd, char **envp);
+void	prompt(char *_prompt, char **envp, t_list *env_list, int in);
 
 #endif

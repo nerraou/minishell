@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:29:46 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/02 21:55:32 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 12:39:35 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,17 @@ void	join_pieces(t_element *f_cmd, t_element *l_cmd);
 int		**pipes_creation(t_cmd *cmd);
 int		n_of_pipes(t_element *f_cmd, t_element *l_cmd);
 void	free_pipes(int	**pipes, int size);
-void	get_io(t_element *f_cmd, t_element *l_cmd);
+int		get_io(t_element *f_cmd, t_element *l_cmd);
 void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env, t_cmd **cmd);
 void	prepear_execve_args(t_element *f_cmd, t_element *l_cmd, t_cmd *cmd);
-void	executable_cmd(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd);
+void	executable(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd *cmd);
 int		check_parentheses(t_opr_logic *operators);
 void	sig_handel(int sig);
 void	ctr_d(void);
 int		empty_prompt(char *cmd);
 void	wildcard_expand(t_element *f_cmd, t_element *l_cmd);
-void	open_file_write(char *outfile, int mode);
-void	open_file_read(char	*infile);
+int		open_file_write(char *outfile, int mode);
+int		open_file_read(char	*infile);
 void	init_wild(t_wild *match);
 void	update_element(t_element *elm, t_wild *match, int i);
 int		is_wildcard(t_element *elm);
@@ -81,7 +81,22 @@ void	detect_pipe(t_element **pipes, t_element *l_cmd);
 int		is_builtin(char	*cmd);
 int		exe_builtin(int built, t_cmd *cmd, t_list *env_);
 int		free_lookup(bool **lookup, int n, int m);
-void	init_cmd(t_cmd *cmd);
+void	prepear_cmd(t_element *f_cmd, t_element *l_cmd, t_list *env_list, \
+t_cmd *cmd);
 void	free_cmd(t_cmd **cmd);
 int		check_cmd(int mcr);
+int		no_such_file_or_directory(t_cmd *cmd);
+int		cmd_not_found(t_cmd *cmd);
+void	update_befor(char **value, char **befor, int *i);
+void	update_after(char **value, char **after, int j);
+void	check_tilda(t_element **elm);
+void	forking(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd);
+int		in_out(t_element *f_cmd, t_element **l_cmd, t_cmd **cmd);
+int		permission_denied(t_cmd *cmd);
+int		is_a_directory(t_cmd *cmd);
+int		filename_argument_required(t_cmd *cmd);
+int		is_slash(char *cmd);
+int		chack_access(t_cmd *cmd, char **envp);
+int		check_slash(t_cmd **cmd, char **envp);
+char	**get_path_from_env(char *envp[]);
 #endif
