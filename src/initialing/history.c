@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 14:46:37 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 16:44:37 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 19:26:32 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	retrieve_old_cmds(char *file)
 	char	*holder;
 
 	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		return ;
 	old_cmd = get_next_line(fd);
 	while (old_cmd)
 	{

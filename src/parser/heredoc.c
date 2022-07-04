@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 11:22:55 by nerraou           #+#    #+#             */
-/*   Updated: 2022/07/03 17:53:11 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/04 18:24:11 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_list	*heredoc(int heredoc_num, t_list *list)
 			full_content = ft_strdup("");
 			heredoc_num--;
 			last_pos = find_heredoc_delimiter(last_pos);
+			free (line);
 		}
 	}
 	return (dummy_function(full_content, heredoc_list));
