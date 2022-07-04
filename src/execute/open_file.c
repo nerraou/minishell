@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   open_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 10:00:30 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/03 14:39:54 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/04 09:53:55 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	open_file_read(char	*infile)
+int	open_file_read(char	*infile)
 {
 	int	fd;
 
@@ -21,15 +21,14 @@ void	open_file_read(char	*infile)
 	{
 		write(2, "minishell: ", ft_strlen("minishell: "));
 		perror (infile);
-		free(infile);
-		// exit(1);
+		return (1);
 	}
-	free(infile);
 	dup2(fd, STDIN_FILENO);
 	close(fd);
+	return (0);
 }
 
-void	open_file_write(char *outfile, int mode)
+int	open_file_write(char *outfile, int mode)
 {
 	int	fd;
 	int	flags;
@@ -43,10 +42,9 @@ void	open_file_write(char *outfile, int mode)
 	{
 		write(2, "minishell: ", ft_strlen("minishell: "));
 		perror (outfile);
-		free(outfile);
-		exit (1);
+		return (1);
 	}
-	free(outfile);
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
+	return (0);
 }

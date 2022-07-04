@@ -112,6 +112,7 @@ SRC =\
 	src/execute/fork.c\
 	src/execute/args.c\
 	src/execute/check_cmd.c\
+	src/execute/check_cmd_utils.c\
 	src/execute/handling.c\
 	src/execute/wildcard.c\
 	src/execute/wildcard_utils.c\

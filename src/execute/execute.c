@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:25:43 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/03 17:11:04 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 08:11:50 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,7 @@ void	execute(t_element *f_cmd, t_element *l_cmd, t_list *env_list, int in)
 		list_del(&env_list, free);
 		exit (1);
 	}
-	init_cmd(cmd);
-	dollar_handling(f_cmd, l_cmd, list_to_array(env_list));
-	join_pieces(f_cmd, l_cmd);
+	prepear_cmd(f_cmd, l_cmd, env_list, cmd);
 	pipes = f_cmd;
 	while (pipes && pipes->prev != l_cmd)
 	{

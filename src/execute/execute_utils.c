@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 16:32:27 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/03 16:56:47 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 08:12:03 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	free_2_arr(char **env_arr)
 	free (env_arr);
 }
 
-void	init_cmd(t_cmd *cmd)
+void	prepear_cmd(t_element *f_cmd, t_element *l_cmd, t_list *env_list, \
+t_cmd *cmd)
 {
 	cmd->id = 0;
 	cmd->cmd = NULL;
@@ -37,6 +38,8 @@ void	init_cmd(t_cmd *cmd)
 	cmd->num_of_args = 0;
 	cmd->pid = -2;
 	cmd->executable = 0;
+	dollar_handling(f_cmd, l_cmd, list_to_array(env_list));
+	join_pieces(f_cmd, l_cmd);
 }
 
 void	get_exit_code(int status)

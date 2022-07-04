@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:24:33 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/03 17:13:45 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 11:30:34 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	free_cmd(t_cmd **cmd)
 	free (*cmd);
 }
 
-void	in_out(t_element *f_cmd, t_element **l_cmd, t_cmd **cmd)
+int	in_out(t_element *f_cmd, t_element **l_cmd, t_cmd **cmd)
 {
 	pipe_in(*cmd, l_cmd);
-	get_io(f_cmd, *l_cmd);
+	return (get_io(f_cmd, *l_cmd));
 }
 
 void	update_type(t_element *f_cmd, t_element *l_cmd)
@@ -66,23 +66,12 @@ void	update_type(t_element *f_cmd, t_element *l_cmd)
 void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 {
 	t_opr_logic	operators;
-		t_element *elm;
-	t_token *tok;
-	elm = f_cmd;
-	while (elm && elm->prev != l_cmd)
-	{
-		tok = (t_token*)elm->content;
-		printf("{%s}{%d}{%d}\n",tok->value,tok->type,tok->to_join);
-		elm = elm->next;
-	}
+
 	operators.f_cmd = f_cmd;
 	operators.l_cmd = l_cmd;
 	check_parentheses(&operators);
 	update_type(operators.f_cmd, operators.l_cmd);
-	executable_cmd(operators.f_cmd, operators.l_cmd, list_to_array(env_), *cmd);
-	printf("{ %d }\n",(*cmd)->executable);
-	printf("{ %s }\n",(*cmd)->cmd);
-	printf("{ %s }\n",(*cmd)->cmd_name);
+	executable(operators.f_cmd, operators.l_cmd, list_to_array(env_), *cmd);
 	wildcard_expand(f_cmd, l_cmd);
 	prepear_execve_args(operators.f_cmd, operators.l_cmd, *cmd);
 	(*cmd)->built = is_builtin((*cmd)->cmd_name);

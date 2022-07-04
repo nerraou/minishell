@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 18:22:58 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/01 12:55:18 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 09:52:37 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	heredoc_to_file(char *heredoc_content)
 	close(fd);
 }
 
-void	less_great_dgreat(t_element	*elm)
+int	less_great_dgreat(t_element	*elm)
 {
 	t_token		*token;
 	t_token		*_file;
@@ -31,11 +31,12 @@ void	less_great_dgreat(t_element	*elm)
 	token = (t_token *)elm->content;
 	_file = (t_token *)elm->next->content;
 	if (token->type == T_LESS)
-		open_file_read(ft_strdup(_file->value));
+		return (open_file_read(_file->value));
 	else if (token->type == T_GREAT)
-		open_file_write(ft_strdup(_file->value), 0);
+		return (open_file_write(_file->value, 0));
 	else if (token->type == T_DGREAT)
-		open_file_write(ft_strdup(_file->value), 1);
+		return (open_file_write(_file->value, 1));
+	return (0);
 }
 
 void	dless(t_element	*elm)
@@ -46,24 +47,26 @@ void	dless(t_element	*elm)
 	lim = (t_token *)elm->next->content;
 	content_heredoc = (t_token *)elm->content;
 	heredoc_to_file(content_heredoc->value);
-	open_file_read(ft_strdup("heredoc"));
+	open_file_read("heredoc");
 }
 
-void	get_io(t_element *f_cmd, t_element *l_cmd)
+int	get_io(t_element *f_cmd, t_element *l_cmd)
 {
 	t_element	*elm;
 	t_token		*token;
+	int			error_file;
 
+	error_file = 0;
 	elm = f_cmd;
-	while (elm && elm->prev != l_cmd)
+	while (elm && elm->prev != l_cmd && !error_file)
 	{
 		token = (t_token *)elm->content;
-		if (token->type == T_LESS || token->type == T_GREAT || token->type == T_DGREAT)
-			less_great_dgreat(elm);
+		if (token->type == T_LESS || token->type == T_GREAT || \
+		token->type == T_DGREAT)
+			error_file = less_great_dgreat(elm);
 		else if (token->type == T_DLESS)
 			dless(elm);
-		token = (t_token *)elm->content;
-		if (token->type != T_LESS || token->type != T_GREAT || token->type != T_DGREAT)
-			elm = elm->next;
+		elm = elm->next;
 	}
+	return (error_file);
 }

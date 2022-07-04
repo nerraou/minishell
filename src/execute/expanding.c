@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 10:40:40 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/03 17:03:36 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 12:39:18 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,21 @@ void	to_expand(char *holder, char **expander, char **envp)
 	free(env);
 }
 
-void	expand(char **value, char **envp, int *i)
+void	free_used_str(char **after, char **holder, char **befor, char **expandr)
+{
+	free(*expandr);
+	free(*holder);
+	free(*befor);
+	free(*after);
+}
+
+void	expand(char **value, char **envp, int *i, int j)
 {
 	char	*after;
 	char	*holder;
 	char	*befor;
 	char	*expander;
-	int		j;
 
-	j = *i + 1;
 	update_befor(value, &befor, i);
 	while ((*value)[j] && ft_isalnum((*value)[j + 1]))
 		j++;
@@ -65,19 +71,16 @@ void	expand(char **value, char **envp, int *i)
 	holder = ft_strjoin(befor, expander);
 	*value = ft_strjoin(holder, after);
 	*i = ft_strlen(expander) + ft_strlen(befor) - 1;
-	free(expander);
-	free(holder);
-	free(befor);
-	free(after);
+	free_used_str(&after, &holder, &befor, &expander);
 }
 
-void	dollar(t_token *token, char **envp, int *i, t_token *s_str)
+void	dollar(t_token *token, char **envp, int *i)
 {
 	if (token->value[*i] == '$' && token->value[*i + 1])
 	{
 		if (token->type == T_D_STRING || token->type == T_WORD || \
-		(token->type == T_DLESS && s_str->type != T_S_STRING))
-			expand(&token->value, envp, i);
+		token->type == T_DLESS)
+			expand(&token->value, envp, i, *i + 1);
 	}
 	(*i)++;
 }
@@ -86,7 +89,6 @@ void	dollar_handling(t_element *f_cmd, t_element *l_cmd, char **envp)
 {
 	t_element	*elm;
 	t_token		*token;
-	t_token		*s_str;
 	int			i;
 
 	elm = f_cmd;
@@ -94,11 +96,9 @@ void	dollar_handling(t_element *f_cmd, t_element *l_cmd, char **envp)
 	{
 		i = 0;
 		token = (t_token *)elm->content;
-		check_tilda(&elm, envp);
-		if (elm->next)
-			s_str = (t_token *)elm->next->content;
+		check_tilda(&elm);
 		while (token->value[i])
-			dollar(token, envp, &i, s_str);
+			dollar(token, envp, &i);
 		elm = elm->next;
 	}
 	free_2_arr(envp);

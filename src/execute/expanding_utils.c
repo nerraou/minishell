@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 17:01:36 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/03 17:03:53 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 12:39:23 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	update_after(char **value, char **after, int j)
 		*after = NULL;
 }
 
-void	check_tilda(t_element **elm, char **envp)
+void	check_tilda(t_element **elm)
 {
 	t_token		*token;
 
@@ -41,6 +41,6 @@ void	check_tilda(t_element **elm, char **envp)
 	if (!ft_strcmp(token->value, "~"))
 	{
 		free(token->value);
-		token->value = get_env_value("HOME=", envp);
+		token->value = ft_strdup(g_vars.tilda);
 	}
 }

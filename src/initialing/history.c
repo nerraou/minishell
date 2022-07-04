@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 14:46:37 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 11:12:07 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 11:35:36 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ void	history(char *cmd, char **envp)
 	file = ft_strjoin(get_env_value("HOME=", envp), "/.mini_sh_history");
 	fd = open(file, O_APPEND | O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR);
 	if (fd < 0)
-	{
-		perror("open");
 		return ;
-	}
 	if (cmd)
 	{
 		write(fd, cmd, ft_strlen(cmd));
