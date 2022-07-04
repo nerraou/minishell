@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:28:29 by nerraou           #+#    #+#             */
-/*   Updated: 2022/07/04 12:37:36 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 15:59:57 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ typedef struct s_global_vars
 t_global_vars	g_vars;
 
 void	history(char *cmd, char **envp);
-void	prompt(char *_prompt, char **envp, t_list *env_list, int in);
+void	prompt(char *_prompt, char **envp, t_list **env_list, int in);
 
 #endif

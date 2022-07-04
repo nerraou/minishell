@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:25:43 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 14:31:10 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/04 17:10:45 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	move_forward(t_cmd *cmd, t_element **pipes, t_element **f_cmd)
 	*f_cmd = *pipes;
 }
 
-void	execute(t_element *f_cmd, t_element *l_cmd, t_list *env_list, int in)
+void	execute(t_element *f_cmd, t_element *l_cmd, t_list **env_list, int in)
 {
 	t_element	*pipes;
 	t_cmd		*cmd;
@@ -60,17 +60,18 @@ void	execute(t_element *f_cmd, t_element *l_cmd, t_list *env_list, int in)
 	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!cmd)
 	{
-		list_del(&env_list, list_del_env);
-		exit (1);
+		list_del(env_list, list_del_env);
+		// exit (1);
 	}
-	prepear_cmd(f_cmd, l_cmd, env_list, cmd);
+	prepear_cmd(f_cmd, l_cmd, *env_list, cmd);
 	pipes = f_cmd;
 	while (pipes && pipes->prev != l_cmd)
 	{
 		pipe_handling(&pipes, l_cmd, &cmd);
-		fork_proc(f_cmd, pipes, env_list, &cmd);
+		fork_proc(f_cmd, pipes, *env_list, &cmd);
 		last_child(cmd);
 		move_forward(cmd, &pipes, &f_cmd);
+		free_cmd(&cmd);
 	}
 	while (waitpid(-1, NULL, 0) > 0)
 		;

@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 07:47:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 12:38:02 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:12:52 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,26 @@ int	herdoc_input(t_list *heredoc_list, char *cmd, t_list *list, t_list *env)
 	return (result);
 }
 
-void	prompt(char *_prompt, char **envp, t_list *env_list, int in)
+void	prompt(char *_prompt, char **envp, t_list **env_list, int in)
 {
+	(void)_prompt;
 	t_list	*list;
 	char	*cmd;
 	t_list	*hrdoc;
 
 	hrdoc = NULL;
 	g_vars.tilda = get_env_value("HOME=", envp);
-	while (1)
+	// while (1)
 	{
 		list = list_new();
 		g_vars.heredoc = 1;
-		cmd = read_line(_prompt);
+		cmd = ft_strdup("echo dffff");
+		// cmd = read_line(_prompt);
 		if (!cmd)
 			ctr_d();
 		g_vars.heredoc = 0;
-		if (herdoc_input(hrdoc, cmd, list, env_list) == FT_SUCCESS && \
-		!empty_prompt(cmd))
+		herdoc_input(hrdoc, cmd, list, *env_list);
+		if (herdoc_input(hrdoc, cmd, list, *env_list) == FT_SUCCESS && !empty_prompt(cmd))
 		{
 			priority(list->head, list->tail, env_list, in);
 			unlink("heredoc");

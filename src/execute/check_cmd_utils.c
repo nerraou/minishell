@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:07:47 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 11:32:13 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:07:17 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	is_slash(char *cmd)
 	return (-1);
 }
 
-int	chack_access(t_cmd *cmd, char **envp)
+int	chack_access(t_cmd **cmd, char **envp)
 {
-	char	**path;
+	char	**path = NULL;
 	int		i;
 
 	i = -1;
@@ -35,19 +35,19 @@ int	chack_access(t_cmd *cmd, char **envp)
 	{
 		while (path[++i])
 		{
-			if (cmd->cmd)
-				free (cmd->cmd);
-			cmd->cmd = ft_strjoin(path[i], cmd->cmd_name);
-			if (!access(cmd->cmd, X_OK))
+			if ((*cmd)->cmd)
+				free ((*cmd)->cmd);
+			(*cmd)->cmd = ft_strjoin(path[i], (*cmd)->cmd_name);
+			if (!access((*cmd)->cmd, X_OK))
 				break ;
 		}
 		if (path[i])
 			return (free_2_arr(path), 1);
 		else
-			return (free_2_arr(path), cmd_not_found(cmd));
+			return (free_2_arr(path), cmd_not_found(*cmd));
 	}
 	else
-		return (cmd_not_found(cmd));
+		return (cmd_not_found(*cmd));
 }
 
 int	check_slash(t_cmd **cmd, char **envp)
@@ -59,7 +59,7 @@ int	check_slash(t_cmd **cmd, char **envp)
 	while (i >= 0 && (*cmd)->cmd_name[i] != '/')
 		i--;
 	if (i == -1)
-		return (chack_access(*cmd, envp));
+		return (chack_access(cmd, envp));
 	holder = ft_substr((*cmd)->cmd_name, i + 1, \
 	ft_strlen((*cmd)->cmd_name) - i + 1);
 	free((*cmd)->cmd_name);

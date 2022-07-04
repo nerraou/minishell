@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 16:32:27 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 08:12:03 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 16:20:24 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	creat_pipe(t_cmd **cmd, t_token *token)
 	{
 		(*cmd)->next_is_pipes = 1;
 		if (pipe((*cmd)->pipes) == -1)
-			perror("minish: pipe");
+			perror("minishell: pipe");
 	}
 }
 
