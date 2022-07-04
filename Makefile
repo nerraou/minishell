@@ -88,6 +88,7 @@ SRC =\
 	src/env/init_env.c\
 	src/env/new_env.c\
 	src/env/del_env.c\
+	src/env/list_del_env.c\
 	src/env/ft_getenv.c\
 	src/env/ft_setenv.c\
 	src/env/ft_unsetenv.c\

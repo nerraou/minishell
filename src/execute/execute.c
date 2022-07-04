@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:25:43 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 08:11:50 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 14:31:10 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	execute(t_element *f_cmd, t_element *l_cmd, t_list *env_list, int in)
 	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!cmd)
 	{
-		list_del(&env_list, free);
+		list_del(&env_list, list_del_env);
 		exit (1);
 	}
 	prepear_cmd(f_cmd, l_cmd, env_list, cmd);

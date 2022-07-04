@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 19:18:06 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 14:15:13 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/04 14:28:19 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int main(int argc, char **argv, char **envp)
 	env_arr = list_to_array(env_list);
 	history(NULL, env_arr);
 	prompt("MiniShell_$ ", env_arr, env_list, in);
-	list_del(env_list, del_env);
+	list_del(&env_list, list_del_env);
 	free_2_arr(env_arr);
 	rl_clear_history();
 	return (0);
