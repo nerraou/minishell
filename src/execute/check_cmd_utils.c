@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:07:47 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 17:07:17 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 18:08:42 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_slash(char *cmd)
 
 int	chack_access(t_cmd **cmd, char **envp)
 {
-	char	**path = NULL;
+	char	**path;
 	int		i;
 
 	i = -1;

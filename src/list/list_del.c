@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:36:45 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/27 14:22:24 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/04 17:11:01 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ void	list_del(t_list **lst, void (*del)(void *))
 	next = NULL;
 	head = (*lst)->head;
 	if (head == NULL)
+	{
+		free(*lst);
+		*lst = NULL;
 		return ;
+	}
 	while (head != NULL)
 	{
 		next = head->next;
