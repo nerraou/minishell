@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   del_element.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:00:34 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/30 15:27:07 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/03 17:39:02 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,5 @@ void	del_element_token(t_element *elm)
 		elm->next->prev = elm->prev;
 	if (elm->prev)
 		elm->prev->next = elm->next;
-
 	token = (t_token *)elm->content;
 }

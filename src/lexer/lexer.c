@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:49:39 by nerraou           #+#    #+#             */
-/*   Updated: 2022/07/03 12:10:16 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/03 17:26:30 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	check_quotes(const char *str)
 	return (FT_SUCCESS);
 }
 
-static int increment_i(const char *str, int len, int i)
+static int	increment_i(const char *str, int len, int i)
 {
 	if (str[i] && len == -1)
 		i++;
@@ -101,7 +101,7 @@ int	lexer(const char *str, t_list *list)
 		}
 		if (len == -1)
 			len = set_word(str + i, list);
-		i = increment_i(str, len ,i);
+		i = increment_i(str, len, i);
 	}
 	return (FT_SUCCESS);
 }

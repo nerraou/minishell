@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 11:22:55 by nerraou           #+#    #+#             */
-/*   Updated: 2022/07/01 11:28:08 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/03 17:53:11 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ static void	join_content(char **line, char **full_content)
 	*line = NULL;
 }
 
+static t_list	*dummy_function(char *str, t_list *heredoc_list)
+{
+	free(str);
+	return (heredoc_list);
+}
+
 t_list	*heredoc(int heredoc_num, t_list *list)
 {
 	t_list		*heredoc_list;
@@ -66,6 +72,5 @@ t_list	*heredoc(int heredoc_num, t_list *list)
 			last_pos = find_heredoc_delimiter(last_pos);
 		}
 	}
-	free(full_content);
-	return (heredoc_list);
+	return (dummy_function(full_content, heredoc_list));
 }

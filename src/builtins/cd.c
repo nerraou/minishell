@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:49:23 by nerraou           #+#    #+#             */
-/*   Updated: 2022/07/01 19:02:42 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/03 18:36:39 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-// handle the env
 
 void	change_pwd(char *new_pwd, t_list *env)
 {
@@ -20,12 +19,17 @@ void	change_pwd(char *new_pwd, t_list *env)
 	char		*old_pwd;
 
 	elm = ft_getenv(env, "PWD");
-	old_path = (t_env *)elm->content;
-	old_pwd = old_path->value;
+	if (elm)
+	{
+		old_path = (t_env *)elm->content;
+		old_pwd = old_path->value;
+		old_pwd = ft_strjoin("OLDPWD=", old_pwd);
+		ft_setenv(env, new_env(old_pwd));
+		free(old_pwd);
+	}
 	new_pwd = ft_strjoin("PWD=", new_pwd);
-	old_pwd = ft_strjoin("OLDPWD=", old_pwd);
 	ft_setenv(env, new_env(new_pwd));
-	ft_setenv(env, new_env(old_pwd));
+	free(new_pwd);
 }
 
 static int	ft_cd(t_list *env)
@@ -48,6 +52,14 @@ static int	ft_cd(t_list *env)
 	return (FT_SUCCESS);
 }
 
+static void	print_cd_error(char *msg)
+{
+	ft_putstr_fd("minishell: cd: ", 2);
+	ft_putstr_fd(msg, 2);
+	ft_putchar_fd(' ', 2);
+	ft_putendl_fd(strerror(errno), 2);
+}
+
 int	cd(int ac, char *av[], t_list *env)
 {
 	int			check;
@@ -59,7 +71,7 @@ int	cd(int ac, char *av[], t_list *env)
 		check = chdir(av[1]);
 		if (check == -1)
 		{
-			printf("minishell: cd: %s: %s\n",av[1], strerror(errno));
+			print_cd_error(av[1]);
 			return (FT_FAILURE);
 		}
 		change_pwd(getcwd(NULL, 0), env);

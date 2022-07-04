@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 16:38:07 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/21 13:56:20 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/04 14:30:09 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ int ft_setenv(t_list *env_list, t_env *env);
 int ft_unsetenv(t_list *env_list, const char *key);
 void sort_array(char **arr, int size);
 char **list_to_array(t_list *env_list);
+void	list_del_env(void *content);
 
 #endif

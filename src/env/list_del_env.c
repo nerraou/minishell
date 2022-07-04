@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   del_token.c                                        :+:      :+:    :+:   */
+/*   list_del_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/29 09:18:34 by nerraou           #+#    #+#             */
-/*   Updated: 2022/07/03 17:24:20 by nerraou          ###   ########.fr       */
+/*   Created: 2022/07/04 14:27:20 by nerraou           #+#    #+#             */
+/*   Updated: 2022/07/04 14:29:53 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "env.h"
 
-void	del_token(void *content)
+void	list_del_env(void *content)
 {
-	t_token	*token;
-
-	token = (t_token *)content;
-	free(token->value);
-	free(token);
+	del_env((t_env*)content);
 }
