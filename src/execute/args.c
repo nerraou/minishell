@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:26:11 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/03 16:50:38 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 19:19:30 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,7 @@ int	arg_count(t_element	*elm, t_element *l_cmd)
 		if (token->type == 100)
 			wc++;
 		if (wc && !check_cmd(token->type))
-		{
-			if (token->type == T_D_STRING || token->type == T_S_STRING)
-				wc += 1;
-			else
-				wc += wcount(token->value, ' ');
-		}
+			wc++;
 		elm = elm->next;
 	}
 	return (wc);
@@ -72,13 +67,7 @@ void	update_args(t_element *elm, t_element *l_cmd, t_cmd *cmd)
 	{
 		token = (t_token *)elm->content;
 		if (!check_cmd(token->type) && token->type != 100)
-		{
-			if (wcount(token->value, ' ') == 1 || token->type == T_D_STRING || \
-			token->type == T_S_STRING)
-				cmd->args[i++] = ft_strdup(token->value);
-			else
-				spliting(cmd, token->value, &i);
-		}
+			cmd->args[i++] = ft_strdup(token->value);
 		elm = elm->next;
 	}
 }
