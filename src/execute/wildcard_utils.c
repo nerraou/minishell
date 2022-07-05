@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 10:05:07 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 18:04:37 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/05 10:40:34 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,16 @@ void	update_element(t_element *elm, t_wild *match, int i)
 
 int	is_wildcard(t_element *elm)
 {
-	int		i;
-	int		exist;
 	t_token	*token;
+	int		i;
 
 	i = 0;
-	exist = -1;
 	token = (t_token *)elm->content;
-	while (token->value[i])
-	{
-		if (token->value[i] == '*')
-		{
-			exist = i;
-			break ;
-		}
+	while (token->value[i] && token->value[i] != '*')
 		i++;
-	}
-	return (exist);
+	if (token->value[i])
+		return (i);
+	return (-1);
 }
 
 int	free_lookup(bool **lookup, int n, int m)

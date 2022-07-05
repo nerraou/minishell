@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 16:32:27 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 16:20:24 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/05 12:06:12 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,18 @@ void	free_2_arr(char **env_arr)
 }
 
 void	prepear_cmd(t_element *f_cmd, t_element *l_cmd, t_list *env_list, \
-t_cmd *cmd)
+t_cmd **cmd)
 {
-	cmd->id = 0;
-	cmd->cmd = NULL;
-	cmd->cmd_name = NULL;
-	cmd->args = NULL;
-	cmd->next_is_pipes = 0;
-	cmd->built_exit = 10;
-	cmd->built = 0;
-	cmd->num_of_args = 0;
-	cmd->pid = -2;
-	cmd->executable = 0;
+	(*cmd)->id = 0;
+	(*cmd)->cmd = NULL;
+	(*cmd)->cmd_name = NULL;
+	(*cmd)->args = NULL;
+	(*cmd)->next_is_pipes = 0;
+	(*cmd)->built_exit = 10;
+	(*cmd)->built = 0;
+	(*cmd)->num_of_args = 0;
+	(*cmd)->pid = -2;
+	(*cmd)->executable = 0;
 	dollar_handling(f_cmd, l_cmd, list_to_array(env_list));
 	join_pieces(f_cmd, l_cmd);
 }

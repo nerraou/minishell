@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:26:11 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 19:19:30 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/05 13:41:10 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,12 @@ int	arg_count(t_element	*elm, t_element *l_cmd)
 		if (token->type == 100)
 			wc++;
 		if (wc && !check_cmd(token->type))
-			wc++;
+		{
+			if (token->type == T_WILDCARD || token->type == T_SPLIT)
+				wc += wcount(token->value, ' ');
+			else
+				wc++;
+		}
 		elm = elm->next;
 	}
 	return (wc);
@@ -67,7 +72,12 @@ void	update_args(t_element *elm, t_element *l_cmd, t_cmd *cmd)
 	{
 		token = (t_token *)elm->content;
 		if (!check_cmd(token->type) && token->type != 100)
-			cmd->args[i++] = ft_strdup(token->value);
+		{
+			if (token->type == T_WILDCARD || token->type == T_SPLIT)
+				spliting(cmd, token->value, &i);
+			else
+				cmd->args[i++] = ft_strdup(token->value);
+		}
 		elm = elm->next;
 	}
 }

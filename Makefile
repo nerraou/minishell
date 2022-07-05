@@ -1,6 +1,8 @@
 NAME = minishell
 CFLAGS = -Wall -Wextra -Werror -g
 HEADERS = ./includes/minishell.h
+# READLINE = -L /goinfre/$(USER)/homebrew/Cellar/readline/8.1.2/lib -lreadline
+# READLINE_INCLUDE = -I /goinfre/$(USER)/homebrew/Cellar/readline/8.1.2/include
 READLINE = -L /goinfre/$(USER)/.brew/opt/readline/lib -lreadline
 READLINE_INCLUDE = -I /goinfre/$(USER)/.brew/opt/readline/include
 SRC =\
