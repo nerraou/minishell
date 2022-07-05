@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 11:22:55 by nerraou           #+#    #+#             */
-/*   Updated: 2022/07/04 18:24:11 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/05 15:42:25 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,15 @@ static t_list	*dummy_function(char *str, t_list *heredoc_list)
 	return (heredoc_list);
 }
 
+static t_element	*dummy_function2(t_element *last_pos, char *line)
+{
+	t_element	*l_pos;
+
+	l_pos = find_heredoc_delimiter(last_pos);
+	free (line);
+	return (l_pos);
+}
+
 t_list	*heredoc(int heredoc_num, t_list *list)
 {
 	t_list		*heredoc_list;
@@ -69,8 +78,7 @@ t_list	*heredoc(int heredoc_num, t_list *list)
 			add_back(heredoc_list, full_content);
 			full_content = ft_strdup("");
 			heredoc_num--;
-			last_pos = find_heredoc_delimiter(last_pos);
-			free (line);
+			last_pos = dummy_function2(last_pos, line);
 		}
 	}
 	return (dummy_function(full_content, heredoc_list));

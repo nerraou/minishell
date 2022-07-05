@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:29:46 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/05 11:57:33 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:35:22 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		check_parentheses(t_opr_logic *operators);
 void	sig_handel(int sig);
 void	ctr_d(void);
 int		empty_prompt(char *cmd);
-void	wildcard_expand(t_element *f_cmd, t_element *l_cmd, t_token *token);
+void	wildcard_expand(t_element *l_cmd, t_token	*token, t_element *elm);
 int		open_file_write(char *outfile, int mode);
 int		open_file_read(char	*infile);
 void	init_wild(t_wild *match);

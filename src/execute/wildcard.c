@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 08:54:05 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/05 10:40:53 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:36:32 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,10 @@ void	join_files(t_wild *match, char *dire_name, t_element *elm, int *i)
 	bool		wild;
 
 	token = (t_token *)elm->content;
+	token->type = T_WILDCARD;
 	wild = wildcard_match(dire_name, token->value, ft_strlen(dire_name), \
 	ft_strlen(token->value));
-	if ((wild && dire_name[0] != '.') || (wild && token->value[0] =='.'))
+	if ((wild && dire_name[0] != '.') || (wild && token->value[0] == '.'))
 	{
 		*i = 1;
 		if (match->all_matches)
@@ -91,22 +92,19 @@ void	update_free(t_element *elm, t_wild *match, int i)
 	free(match->all_matches);
 }
 
-void	wildcard_expand(t_element *f_cmd, t_element *l_cmd, t_token	*token)
+void	wildcard_expand(t_element *l_cmd, t_token *token, t_element *elm)
 {
-	t_element		*elm;
 	struct dirent	*dire;
 	t_wild			match;
 	int				i;
 	DIR				*dir;
 
 	i = 0;
-	elm = f_cmd;
 	while (elm && elm->prev != l_cmd)
 	{
-		token = (t_token*)elm->content;
+		token = (t_token *)elm->content;
 		if (is_wildcard(elm) > -1 && token->type == T_WORD && dir)
 		{
-			token->type = T_WILDCARD;
 			dir = opendir(".");
 			dire = readdir(dir);
 			init_wild(&match);

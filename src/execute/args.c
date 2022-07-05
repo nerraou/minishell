@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:26:11 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/05 13:41:10 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:15:24 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	arg_count(t_element	*elm, t_element *l_cmd)
 			wc++;
 		if (wc && !check_cmd(token->type))
 		{
-			if (token->type == T_WILDCARD || token->type == T_SPLIT)
+			if (token->type == T_WILDCARD)
 				wc += wcount(token->value, ' ');
 			else
 				wc++;
@@ -73,7 +73,7 @@ void	update_args(t_element *elm, t_element *l_cmd, t_cmd *cmd)
 		token = (t_token *)elm->content;
 		if (!check_cmd(token->type) && token->type != 100)
 		{
-			if (token->type == T_WILDCARD || token->type == T_SPLIT)
+			if (token->type == T_WILDCARD)
 				spliting(cmd, token->value, &i);
 			else
 				cmd->args[i++] = ft_strdup(token->value);

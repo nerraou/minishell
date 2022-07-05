@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:28:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/05 14:17:30 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:26:35 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	executable(t_element *f_cmd, t_element *l_cmd, char **envp, t_cmd **cmd)
 	while (elm && elm->prev != l_cmd)
 	{
 		token = (t_token *)elm->content;
-		if ((check_cmd(token->type) && token->type == T_SPLIT && elm->next))
+		if (check_cmd(token->type))
 			elm = elm->next;
 		else
 			break ;
