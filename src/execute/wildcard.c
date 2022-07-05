@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 08:54:05 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 18:04:00 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/05 10:40:53 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,13 @@ bool	wildcard_match(char *file, char *pattern, int n, int m)
 void	join_files(t_wild *match, char *dire_name, t_element *elm, int *i)
 {
 	t_token		*token;
+	char		*holder;
+	bool		wild;
 
 	token = (t_token *)elm->content;
-	if (wildcard_match(dire_name, token->value, ft_strlen(dire_name), \
-	ft_strlen(token->value)))
+	wild = wildcard_match(dire_name, token->value, ft_strlen(dire_name), \
+	ft_strlen(token->value));
+	if ((wild && dire_name[0] != '.') || (wild && token->value[0] =='.'))
 	{
 		*i = 1;
 		if (match->all_matches)
@@ -71,10 +74,14 @@ void	join_files(t_wild *match, char *dire_name, t_element *elm, int *i)
 			match->holder = ft_strdup(match->all_matches);
 			free(match->all_matches);
 		}
-		match->file = ft_strjoin(ft_strdup(dire_name), " ");
+		holder = ft_strdup(dire_name);
+		match->file = ft_strjoin(holder, " ");
+		free (holder);
 		match->all_matches = ft_strjoin(match->holder, match->file);
-		free(match->holder);
-		free(match->file);
+		if (match->holder)
+			free(match->holder);
+		if (match->file)
+			free(match->file);
 	}
 }
 
@@ -82,10 +89,9 @@ void	update_free(t_element *elm, t_wild *match, int i)
 {
 	update_element(elm, match, i);
 	free(match->all_matches);
-	match->all_matches = NULL;
 }
 
-void	wildcard_expand(t_element *f_cmd, t_element *l_cmd)
+void	wildcard_expand(t_element *f_cmd, t_element *l_cmd, t_token	*token)
 {
 	t_element		*elm;
 	struct dirent	*dire;
@@ -95,13 +101,15 @@ void	wildcard_expand(t_element *f_cmd, t_element *l_cmd)
 
 	i = 0;
 	elm = f_cmd;
-	init_wild(&match);
 	while (elm && elm->prev != l_cmd)
 	{
-		if (is_wildcard(elm) > -1 && dir)
+		token = (t_token*)elm->content;
+		if (is_wildcard(elm) > -1 && token->type == T_WORD && dir)
 		{
+			token->type = T_WILDCARD;
 			dir = opendir(".");
 			dire = readdir(dir);
+			init_wild(&match);
 			while (dire)
 			{
 				join_files(&match, dire->d_name, elm, &i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:48 by nerraou           #+#    #+#             */
-/*   Updated: 2022/07/04 15:10:39 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/05 10:22:54 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct s_token
 # define T_R_PARENTH 13 
 # define T_FILE 14	   
 # define T_LIM 15	   
+# define T_WILDCARD 16	   
+# define T_SPLIT 17	   
 
 int		set_d_string(const char *str, t_list *list);
 int		set_s_string(const char *str, t_list *list);

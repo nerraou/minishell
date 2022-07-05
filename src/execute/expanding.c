@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 10:40:40 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 19:49:52 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/05 14:16:24 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parser.h"
 
 void	to_expand(char *holder, char **expander, char **envp)
 {
@@ -74,10 +75,11 @@ void	expand(char **value, char **envp, int *i, int j)
 	free_used_str(&after, &holder, &befor, &expander);
 }
 
-void	dollar(t_token *token, t_token *token_next, char **envp, int *i)
+void	dollar(t_token *token, t_token *token_next, char **envp, int *i, bool *is_dollar)
 {
 	if (token->value[*i] == '$' && token->value[*i + 1])
 	{
+		*is_dollar = true;
 		if (token->type == T_D_STRING || token->type == T_WORD || \
 		(token->type == T_DLESS && token_next->type == T_WORD))
 			expand(&token->value, envp, i, *i + 1);
@@ -91,6 +93,7 @@ void	dollar_handling(t_element *f_cmd, t_element *l_cmd, char **envp)
 	t_token		*token;
 	t_token		*token_next;
 	int			i;
+	bool		is_dollar;
 
 	elm = f_cmd;
 	while (elm && elm->prev != l_cmd)
@@ -101,7 +104,16 @@ void	dollar_handling(t_element *f_cmd, t_element *l_cmd, char **envp)
 			token_next = (t_token *)elm->next->content;
 		check_tilda(&elm);
 		while (token->value[i])
-			dollar(token, token_next, envp, &i);
+		{
+			is_dollar = false;
+			dollar(token, token_next, envp, &i, &is_dollar);
+			if (is_dollar && wcount(token->value, ' ') > 1)
+			{
+				token->type = T_SPLIT;
+				printf(">> = %s\n",token->value);
+				printf(">> = %d\n",token->type);
+			}
+		}
 		elm = elm->next;
 	}
 	free_2_arr(envp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:24:33 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 17:56:43 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/05 14:22:29 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,24 @@ void	update_type(t_element *f_cmd, t_element *l_cmd)
 void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 {
 	t_opr_logic	operators;
+	t_token		*token = NULL;
+	t_element	*elm;
 
 	operators.f_cmd = f_cmd;
 	operators.l_cmd = l_cmd;
 	check_parentheses(&operators);
 	update_type(operators.f_cmd, operators.l_cmd);
+	elm = f_cmd;
+	while (elm && elm->prev != l_cmd)
+	{
+		token = (t_token*)elm->content;
+		printf("[ %s ][%d][%d]\n",token->value,token->type,token->to_join);
+		elm = elm->next;
+	}
+	printf("[-------------]\n\n");
 	executable(operators.f_cmd, operators.l_cmd, list_to_array(env_), cmd);
-	wildcard_expand(f_cmd, l_cmd);
+
+	wildcard_expand(f_cmd, l_cmd, token);
 	prepear_execve_args(operators.f_cmd, operators.l_cmd, *cmd);
 	(*cmd)->built = is_builtin((*cmd)->cmd_name);
 	if ((*cmd)->id == 0 && (*cmd)->next_is_pipes == 0 && (*cmd)->built)
